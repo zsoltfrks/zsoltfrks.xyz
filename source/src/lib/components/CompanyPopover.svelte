@@ -1,0 +1,67 @@
+<script>
+  let { job, openPopover, onopen, onclose } = $props()
+
+  function logoSrc(website) {
+    try {
+      const host = new URL(website).hostname.replace(/^www\./, '')
+      return `https://logo.clearbit.com/${host}`
+    } catch { return null }
+  }
+</script>
+
+<div class="mb-4 flex items-baseline justify-between gap-4 text-sm text-white/40">
+  {#if job.about}
+    <div class="relative">
+      <button
+        class="cursor-pointer underline decoration-white/15 decoration-dotted underline-offset-2 transition-colors hover:text-white/70"
+        onmouseenter={() => onopen(job.company)}
+        onmouseleave={onclose}
+      >
+        {job.company}
+      </button>
+
+      <!-- popover -->
+      <div
+        role="tooltip"
+        class="absolute bottom-full left-0 z-30 mb-2 w-72 overflow-hidden rounded-lg border border-white/10 shadow-2xl transition-all duration-200 {openPopover === job.company ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-1 opacity-0'}"
+        style="background: rgba(10, 10, 10, 0.97); backdrop-filter: blur(12px);"
+        onmouseenter={() => onopen(job.company)}
+        onmouseleave={onclose}
+      >
+        <!-- chrome header -->
+        <div class="flex items-center gap-3 border-b border-white/[0.06] bg-white/[0.03] px-4 py-3">
+          {#if job.website}
+            <img
+              src={logoSrc(job.website)}
+              alt={job.company}
+              class="h-7 w-7 shrink-0 rounded object-contain"
+              onerror={(e) => e.currentTarget.style.display = 'none'}
+            />
+          {/if}
+          <div class="min-w-0">
+            <p class="truncate text-sm font-bold text-white/85">{job.company}</p>
+            <p class="truncate font-mono text-xs text-white/30">{job.role}</p>
+          </div>
+        </div>
+
+        <!-- body -->
+        <div class="p-4">
+          <p class="mb-3 text-xs leading-relaxed text-white/50">{job.about}</p>
+          {#if job.website}
+            <a
+              href={job.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-mono text-xs text-white/30 transition-colors hover:text-white/80"
+            >Visit Website ↗</a>
+          {:else}
+            <span class="font-mono text-xs text-red-400/70">[ closed source ]</span>
+          {/if}
+        </div>
+      </div>
+    </div>
+  {:else}
+    <span>{job.company}</span>
+  {/if}
+  {#if job.location}<span class="shrink-0 font-mono text-xs text-white/25">{job.location}</span>{/if}
+</div>

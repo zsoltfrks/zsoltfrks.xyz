@@ -1,0 +1,172 @@
+<script>
+  let { standalone = false } = $props()
+
+  let imageError = $state(false)
+  let dogImageError = $state([false, false, false])
+  let lightboxIdx = $state(null)
+
+  const lunaPhotos = ['/images/luna-1.jpg', '/images/luna-2.jpg', '/images/luna-3.jpg']
+
+  const sectionClass = $derived(standalone ? 'pb-20 pt-28' : 'py-24')
+</script>
+
+<svelte:window onkeydown={(e) => lightboxIdx !== null && e.key === 'Escape' && (lightboxIdx = null)} />
+
+<section id="about" class={sectionClass}>
+  <div class="mx-auto max-w-5xl px-6">
+
+    <div class="mb-10">
+      <h1 class="text-4xl font-bold tracking-tight text-white/85 md:text-5xl">About Me</h1>
+    </div>
+
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr] lg:gap-14">
+      <div class="flex flex-col gap-4">
+        <div class="relative overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] shadow-sm">
+          {#if !imageError}
+            <img
+              src="/images/profile.jpg"
+              alt="Zsolt Farkas"
+              class="h-full w-full object-cover"
+              onerror={() => imageError = true}
+            />
+            <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%)"></div>
+          {:else}
+            <div class="flex aspect-[4/5] items-center justify-center">
+              <span class="font-mono text-4xl font-bold text-white/10">ZF</span>
+            </div>
+          {/if}
+        </div>
+      </div>
+
+      <div class="space-y-5 text-sm leading-relaxed text-white/55 md:pr-6">
+        <p>
+          Hey! I&apos;m Zsolt Farkas, a <span class="text-white/85">Computer Science BSc</span> student from Szeged, Hungary. I enjoy
+          working on cool and useful software while solving practical problems with clean, maintainable code.
+        </p>
+        <p>
+          Main strengths: <span class="text-white/85">Lua</span>, <span class="text-white/85">Python</span> and <span class="text-white/85">Java</span>.
+        </p>
+        <p>
+          My work focuses on <span class="text-white/85">backend development</span> with a love for <span class="text-white/85">frontend</span>.
+          I enjoy taking ideas from rough concepts to polished products.
+        </p>
+        <p>
+          Outside of software, I spend time studying,
+          and going on walks with my dog, Luna.
+        </p>
+        <p>
+          Also, I am a <a href="https://steamcommunity.com/id/raszta/" target="_blank" rel="noopener noreferrer" class="text-white/85 underline underline-offset-2 transition-colors hover:text-white">gamer</a> by heart from a young age.
+        </p>
+        <p>
+          Feel free to reach out if you&apos;d like to chat or collaborate
+          <a href="mailto:hello@zsoltfrks.xyz" class="ml-1 text-white/80 underline underline-offset-2 transition-colors hover:text-white">
+            let's talk!
+          </a>
+        </p>
+
+        <div class="flex flex-nowrap items-center gap-x-0 overflow-x-auto pt-4 font-mono text-[13px] text-white/45">
+          <a href="https://github.com/zsoltfrks" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 transition-colors hover:text-white">
+            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.107-.776.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.604-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <span class="mx-3 text-white/15">|</span>
+          <a href="https://linkedin.com/in/zsoltfrks" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 transition-colors hover:text-white">
+            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+          <span class="mx-3 text-white/15">|</span>
+          <a href="https://instagram.com/zsoltfrks" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 transition-colors hover:text-white">
+            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Instagram
+          </a>
+          <span class="mx-3 text-white/15">|</span>
+          <a href="mailto:hello@zsoltfrks.xyz" class="flex items-center gap-1.5 transition-colors hover:text-white">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            hello@zsoltfrks.xyz
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16">
+      <h2 class="mb-6 flex items-center gap-2 text-2xl font-bold">
+        <span class="text-white/40">My partner in crime, </span><span class="text-white/85">Luna</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="text-white/85"><path fill="currentColor" d="M21.24 5.69c-.25-1.01-.56-1.82-.9-2.41C19.72 2.22 19 2 18.51 2c-.96 0-2.83 2.06-3.79 3.53c-1.83-.47-3.58-.47-5.41 0C8.35 4.06 6.48 2 5.52 2c-.49 0-1.21.22-1.83 1.28c-.35.59-.65 1.4-.9 2.41c-.25.98-.43 2.1-.56 3.32c-.19 1.85-.2 4.07-.2 4.5c0 5.4 3.64 8.5 10 8.5s10-3.1 10-8.5c0-.43 0-2.65-.2-4.5c-.13-1.22-.32-2.34-.56-3.32ZM4.97 9.77c.2-3.03.95-4.55.95-4.55l1.61 2.15a7.5 7.5 0 0 0-2.57 2.4ZM7 11c0-.55.45-1 1-1s1 .45 1 1s-.45 1-1 1s-1-.45-1-1m7 7c-.36 0-.7-.1-1-.28V18c0 .55-.45 1-1 1s-1-.45-1-1v-.28c-.3.18-.64.28-1 .28c-.53 0-1.04-.21-1.41-.59l.71-.71c.38.38 1.04.38 1.41 0a1 1 0 0 0 .29-.71c0-.1-.03-.19-.06-.28c-.85-.46-1.44-1.42-1.44-2.39c0-.74 1.12-1.33 2.5-1.33s2.5.6 2.5 1.33c0 .97-.59 1.93-1.44 2.39c-.03.09-.06.18-.06.28c0 .27.1.52.29.71c.38.38 1.04.38 1.41 0l.71.71c-.38.38-.88.59-1.41.59m2-6c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1m.47-4.62l1.61-2.15s.76 1.52.95 4.55a7.5 7.5 0 0 0-2.57-2.4Z"/></svg>
+      </h2>
+
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {#each lunaPhotos as photo, idx}
+          <button
+            class="group relative overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] text-left"
+            onclick={() => lightboxIdx = idx}
+          >
+            {#if !dogImageError[idx]}
+              <img
+                src={photo}
+                alt={`Luna photo ${idx + 1}`}
+                class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                onerror={() => dogImageError[idx] = true}
+              />
+              <!-- vignette effektus -->
+              <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.60) 100%)"></div>
+
+              <!-- hover overlay -->
+              <div class="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/30">
+                <span class="rounded border border-white/20 bg-black/60 px-2.5 py-1 font-mono text-[11px] text-white/80 backdrop-blur-sm opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  expand ↗
+                </span>
+              </div>
+            {:else}
+              <div class="flex aspect-[4/3] items-center justify-center text-sm text-white/35">
+                Luna · Photo {idx + 1}
+              </div>
+            {/if}
+          </button>
+        {/each}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- lightbox -->
+{#if lightboxIdx !== null}
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md"
+    role="button"
+    tabindex="-1"
+    onclick={() => lightboxIdx = null}
+    onkeydown={(e) => e.key === 'Escape' && (lightboxIdx = null)}
+  >
+    <div
+      class="relative flex max-h-[92vh] max-w-[92vw] flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0a0a0a] shadow-2xl"
+      role="presentation"
+      onclick={(e) => e.stopPropagation()}
+    >
+      <!-- chrome header -->
+      <div class="flex items-center justify-between border-b border-white/[0.06] bg-black/40 px-4 py-2.5">
+        <span class="font-mono text-xs text-white/40">Luna · {lightboxIdx + 1} / {lunaPhotos.length}</span>
+        <button
+          class="font-mono text-xs text-white/30 transition-colors hover:text-white"
+          onclick={() => lightboxIdx = null}
+        >[ x ]</button>
+      </div>
+
+      <!-- image -->
+      <img
+        src={lunaPhotos[lightboxIdx]}
+        alt={`Luna photo ${lightboxIdx + 1}`}
+        class="block max-h-[80vh] max-w-[92vw] object-contain"
+      />
+
+      <!-- prev / next -->
+      <button
+        class="absolute left-3 top-1/2 -translate-y-1/2 rounded border border-white/10 bg-black/60 px-2.5 py-1.5 font-mono text-xs text-white/40 backdrop-blur-sm transition-colors hover:text-white"
+        onclick={(e) => { e.stopPropagation(); lightboxIdx = (lightboxIdx - 1 + lunaPhotos.length) % lunaPhotos.length }}
+      >←</button>
+      <button
+        class="absolute right-3 top-1/2 -translate-y-1/2 rounded border border-white/10 bg-black/60 px-2.5 py-1.5 font-mono text-xs text-white/40 backdrop-blur-sm transition-colors hover:text-white"
+        onclick={(e) => { e.stopPropagation(); lightboxIdx = (lightboxIdx + 1) % lunaPhotos.length }}
+      >→</button>
+    </div>
+  </div>
+{/if}
