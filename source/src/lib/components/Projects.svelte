@@ -8,10 +8,12 @@
   let loading = $state(true)
   let error = $state(false)
 
+  const gh = (path) => fetch(`/api/github?path=${encodeURIComponent(path)}`)
+
   onMount(async () => {
     try {
-      const reposRes = await fetch(
-        `https://api.github.com/users/${GITHUB_USER}/repos?sort=pushed&per_page=10&type=public`
+      const reposRes = await gh(
+        `/users/${GITHUB_USER}/repos?sort=pushed&per_page=10&type=public`
       )
       if (!reposRes.ok) throw new Error()
       const repos = await reposRes.json()
@@ -19,15 +21,15 @@
       const results = await Promise.all(
         repos.slice(0, 5).map(async (repo) => {
           try {
-            const commitsRes = await fetch(
-              `https://api.github.com/repos/${GITHUB_USER}/${repo.name}/commits?per_page=1`
+            const commitsRes = await gh(
+              `/repos/${GITHUB_USER}/${repo.name}/commits?per_page=1`
             )
             if (!commitsRes.ok) return null
             const [latest] = await commitsRes.json()
             if (!latest) return null
 
-            const statsRes = await fetch(
-              `https://api.github.com/repos/${GITHUB_USER}/${repo.name}/commits/${latest.sha}`
+            const statsRes = await gh(
+              `/repos/${GITHUB_USER}/${repo.name}/commits/${latest.sha}`
             )
             const statsData = statsRes.ok ? await statsRes.json() : {}
 
