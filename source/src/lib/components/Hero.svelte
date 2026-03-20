@@ -94,10 +94,9 @@
 
       <!-- bio -->
       <p class="mb-6 text-sm leading-relaxed text-white/60">
-        <!-- replace with your bio -->
-        I love building things that live on the internet. Currently focused on
-        web technologies, systems design, and developer tooling. I care deeply
-        about clean code and great user experiences.
+        I love coding and building things that impact others. Currently focused on
+        backend technologies, systems design and addon development. I care deeply
+        about clean & safe code.
       </p>
 
       <!-- tagline -->
