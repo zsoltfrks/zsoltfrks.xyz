@@ -1,2 +1,7 @@
 # zsoltfrks.xyz
-Personal portfolio, showcase website.
+
+![Website showcase](assets/showcase.png)
+
+## Inspiration
+
+Shoutout to [JasonLovesDoggo/nyx](https://github.com/JasonLovesDoggo/nyx) for the inspiration.
