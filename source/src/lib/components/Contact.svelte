@@ -125,14 +125,17 @@
 
     <!-- right: commit hash + view source -->
     <div class="flex items-center gap-4">
-      <span class="flex items-center gap-1.5 text-white/35">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <circle cx="12" cy="12" r="4"/>
-          <line x1="2" y1="12" x2="8" y2="12"/>
-          <line x1="16" y1="12" x2="22" y2="12"/>
+      <a
+        href="https://github.com/zsoltfrks/zsoltfrks.xyz/commit/{commit}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-1.5 text-white/60 transition-colors hover:text-white"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0m3-9v6m0 6v6"/>
         </svg>
         {commit ?? '—'}
-      </span>
+      </a>
       <span class="text-white/20">·</span>
       <a
         href="https://github.com/zsoltfrks/zsoltfrks.xyz"
