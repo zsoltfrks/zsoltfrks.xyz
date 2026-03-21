@@ -1,6 +1,6 @@
 # zsoltfrks.xyz
 
-![Website showcase](assets/showcase.png)
+![Website showcase](assets/screenshot.png)
 
 ## Inspiration
 
