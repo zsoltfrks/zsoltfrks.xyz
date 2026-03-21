@@ -2,8 +2,17 @@
   import { onMount } from 'svelte'
   import 'leaflet/dist/leaflet.css'
 
-  const COMMIT = 'b7f105c'
   const year = new Date().getFullYear()
+  let commit = $state(null)
+
+  onMount(async () => {
+    try {
+      const res = await fetch('/api/github?path=' + encodeURIComponent('/repos/zsoltfrks/zsoltfrks.xyz/commits?per_page=1'))
+      if (!res.ok) throw new Error()
+      const [latest] = await res.json()
+      commit = latest?.sha?.slice(0, 7) ?? null
+    } catch { commit = null }
+  })
 
   const links = [
     { label: 'email',     href: 'mailto:hello@zsoltfrks.xyz',           display: 'hello@zsoltfrks.xyz' },
@@ -122,7 +131,7 @@
           <line x1="2" y1="12" x2="8" y2="12"/>
           <line x1="16" y1="12" x2="22" y2="12"/>
         </svg>
-        {COMMIT}
+        {commit ?? '—'}
       </span>
       <span class="text-white/20">·</span>
       <a
