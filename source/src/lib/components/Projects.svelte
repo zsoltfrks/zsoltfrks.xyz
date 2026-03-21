@@ -12,43 +12,25 @@
 
   onMount(async () => {
     try {
-      const reposRes = await gh(`/users/${GITHUB_USER}/repos?sort=pushed&per_page=10&type=public`)
-      if (!reposRes.ok) throw new Error()
-      const repos = await reposRes.json()
-
-      const perRepo = await Promise.all(
-        repos.slice(0, 5).map(async (repo) => {
-          try {
-            const res = await gh(`/repos/${GITHUB_USER}/${repo.name}/commits?per_page=5`)
-            if (!res.ok) return []
-            const commits = await res.json()
-            return commits.map(c => ({
-              sha: c.sha,
-              repo: repo.name,
-              message: c.commit.message.split('\n')[0],
-              date: c.commit.author.date,
-            }))
-          } catch { return [] }
-        })
-      )
-
-      const sorted = perRepo
-        .flat()
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .slice(0, 7)
+      const searchRes = await gh(`/search/commits?q=author:${GITHUB_USER}+is:public&sort=author-date&order=desc&per_page=7`)
+      if (!searchRes.ok) throw new Error()
+      const { items } = await searchRes.json()
 
       recentCommits = await Promise.all(
-        sorted.map(async (commit) => {
+        items.map(async (item) => {
+          const repo = item.repository.name
           try {
-            const statsRes = await gh(`/repos/${GITHUB_USER}/${commit.repo}/commits/${commit.sha}`)
+            const statsRes = await gh(`/repos/${GITHUB_USER}/${repo}/commits/${item.sha}`)
             const statsData = statsRes.ok ? await statsRes.json() : {}
             return {
-              ...commit,
+              sha: item.sha,
+              repo,
+              message: item.commit.message.split('\n')[0],
               additions: statsData.stats?.additions ?? null,
               deletions: statsData.stats?.deletions ?? null,
             }
           } catch {
-            return { ...commit, additions: null, deletions: null }
+            return { sha: item.sha, repo, message: item.commit.message.split('\n')[0], additions: null, deletions: null }
           }
         })
       )
