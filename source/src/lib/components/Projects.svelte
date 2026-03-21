@@ -12,35 +12,24 @@
 
   onMount(async () => {
     try {
-      const reposRes = await gh(
-        `/users/${GITHUB_USER}/repos?sort=pushed&per_page=10&type=public`
-      )
-      if (!reposRes.ok) throw new Error()
-      const repos = await reposRes.json()
+      const eventsRes = await gh(`/users/${GITHUB_USER}/events?per_page=50`)
+      if (!eventsRes.ok) throw new Error()
+      const events = await eventsRes.json()
 
-      const perRepo = await Promise.all(
-        repos.slice(0, 5).map(async (repo) => {
-          try {
-            const res = await gh(`/repos/${GITHUB_USER}/${repo.name}/commits?per_page=5`)
-            if (!res.ok) return []
-            const commits = await res.json()
-            return commits.map(c => ({
-              sha: c.sha,
-              repo: repo.name,
-              message: c.commit.message.split('\n')[0],
-              date: c.commit.author.date,
-            }))
-          } catch { return [] }
-        })
-      )
-
-      const sorted = perRepo
-        .flat()
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
+      const flat = events
+        .filter(e => e.type === 'PushEvent')
+        .flatMap(e =>
+          e.payload.commits.map(c => ({
+            sha: c.sha,
+            repo: e.repo.name.replace(`${GITHUB_USER}/`, ''),
+            message: c.message.split('\n')[0],
+            date: e.created_at,
+          }))
+        )
         .slice(0, 7)
 
       recentCommits = await Promise.all(
-        sorted.map(async (commit) => {
+        flat.map(async (commit) => {
           try {
             const statsRes = await gh(`/repos/${GITHUB_USER}/${commit.repo}/commits/${commit.sha}`)
             const statsData = statsRes.ok ? await statsRes.json() : {}
