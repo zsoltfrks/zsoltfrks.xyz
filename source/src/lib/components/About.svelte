@@ -2,7 +2,9 @@
   let { standalone = false } = $props()
 
   let imageError = $state(false)
+  let imageLoaded = $state(false)
   let dogImageError = $state([false, false, false])
+  let dogImageLoaded = $state([false, false, false])
   let lightboxIdx = $state(null)
 
   const lunaPhotos = ['/images/luna-1.jpg', '/images/luna-2.jpg', '/images/luna-3.jpg']
@@ -23,10 +25,12 @@
       <div class="flex flex-col gap-4">
         <div class="relative overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] shadow-sm">
           {#if !imageError}
+            <div class="skeleton absolute inset-0 transition-opacity duration-500 {imageLoaded ? 'opacity-0' : 'opacity-100'}"></div>
             <img
               src="/images/profile.jpg"
               alt="Zsolt Farkas"
-              class="h-full w-full object-cover"
+              class="aspect-[4/5] h-full w-full object-cover transition-opacity duration-500 {imageLoaded ? 'opacity-100' : 'opacity-0'}"
+              onload={() => imageLoaded = true}
               onerror={() => imageError = true}
             />
             <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%)"></div>
@@ -101,10 +105,12 @@
             onclick={() => lightboxIdx = idx}
           >
             {#if !dogImageError[idx]}
+              <div class="skeleton absolute inset-0 transition-opacity duration-500 {dogImageLoaded[idx] ? 'opacity-0' : 'opacity-100'}"></div>
               <img
                 src={photo}
                 alt={`Luna photo ${idx + 1}`}
-                class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                class="aspect-[4/3] w-full object-cover transition-all duration-500 group-hover:scale-[1.03] {dogImageLoaded[idx] ? 'opacity-100' : 'opacity-0'}"
+                onload={() => dogImageLoaded[idx] = true}
                 onerror={() => dogImageError[idx] = true}
               />
               <!-- vignette effektus -->
@@ -170,3 +176,20 @@
     </div>
   </div>
 {/if}
+
+<style>
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+  }
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0.03) 0%,
+      rgba(255,255,255,0.07) 50%,
+      rgba(255,255,255,0.03) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+</style>
