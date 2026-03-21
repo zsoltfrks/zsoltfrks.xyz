@@ -180,11 +180,7 @@
     100%  { opacity: 1; }
   }
   .name-flicker {
-    animation: flicker 8s ease-in-out infinite;
     filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)) drop-shadow(0 0 14px rgba(255,255,255,0.07));
-  }
-  .name-flicker:has(.o-letter:hover) {
-    animation-play-state: paused;
   }
 
   /* ── Dimmed "o" ───────────────────────────────── */
@@ -192,10 +188,12 @@
     color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
     transition: color 0.15s ease;
+    animation: flicker 8s ease-in-out infinite;
   }
   .o-letter:hover {
     color: rgb(255, 255, 255);
     transition: color 0.15s ease;
+    animation-play-state: paused;
   }
 
   .grim-wrapper {
