@@ -18,35 +18,42 @@
       if (!reposRes.ok) throw new Error()
       const repos = await reposRes.json()
 
-      const results = await Promise.all(
+      const perRepo = await Promise.all(
         repos.slice(0, 5).map(async (repo) => {
           try {
-            const commitsRes = await gh(
-              `/repos/${GITHUB_USER}/${repo.name}/commits?per_page=1`
-            )
-            if (!commitsRes.ok) return null
-            const [latest] = await commitsRes.json()
-            if (!latest) return null
-
-            const statsRes = await gh(
-              `/repos/${GITHUB_USER}/${repo.name}/commits/${latest.sha}`
-            )
-            const statsData = statsRes.ok ? await statsRes.json() : {}
-
-            return {
-              sha: latest.sha,
+            const res = await gh(`/repos/${GITHUB_USER}/${repo.name}/commits?per_page=5`)
+            if (!res.ok) return []
+            const commits = await res.json()
+            return commits.map(c => ({
+              sha: c.sha,
               repo: repo.name,
-              message: latest.commit.message.split('\n')[0],
+              message: c.commit.message.split('\n')[0],
+              date: c.commit.author.date,
+            }))
+          } catch { return [] }
+        })
+      )
+
+      const sorted = perRepo
+        .flat()
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 7)
+
+      recentCommits = await Promise.all(
+        sorted.map(async (commit) => {
+          try {
+            const statsRes = await gh(`/repos/${GITHUB_USER}/${commit.repo}/commits/${commit.sha}`)
+            const statsData = statsRes.ok ? await statsRes.json() : {}
+            return {
+              ...commit,
               additions: statsData.stats?.additions ?? null,
               deletions: statsData.stats?.deletions ?? null,
             }
           } catch {
-            return null
+            return { ...commit, additions: null, deletions: null }
           }
         })
       )
-
-      recentCommits = results.filter(Boolean)
     } catch {
       error = true
     } finally {
@@ -135,7 +142,7 @@
       <!-- commit rows -->
       <ul class="pt-2.5">
         {#if loading}
-          {#each { length: 5 } as _}
+          {#each { length: 7 } as _}
             <li class="flex items-center justify-between gap-4 px-4 py-3">
               <div class="h-2.5 w-2/3 animate-pulse rounded bg-white/[0.05]"></div>
               <div class="h-2.5 w-14 animate-pulse rounded bg-white/[0.05]"></div>
