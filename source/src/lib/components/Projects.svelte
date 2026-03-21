@@ -17,7 +17,7 @@
       const events = await eventsRes.json()
 
       const flat = events
-        .filter(e => e.type === 'PushEvent' && e.public)
+        .filter(e => e.type === 'PushEvent')
         .flatMap(e =>
           e.payload.commits.map(c => ({
             sha: c.sha,
