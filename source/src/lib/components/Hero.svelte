@@ -73,7 +73,7 @@
     <div class="mx-auto max-w-xl px-6">
 
       <!-- greeting + name -->
-      <h1 class="mb-3 text-3xl font-medium leading-snug text-white/80 sm:text-4xl">
+      <h1 class="mb-3 text-2xl font-medium leading-snug text-white/65 sm:text-4xl">
         Hey! I'm&nbsp;<span class="name-flicker inline-flex font-bold text-white">
           Zs<span
             class="o-letter"
@@ -181,7 +181,10 @@
   }
   .name-flicker {
     animation: flicker 8s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.45)) drop-shadow(0 0 28px rgba(255,255,255,0.15));
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)) drop-shadow(0 0 14px rgba(255,255,255,0.07));
+  }
+  .name-flicker:has(.o-letter:hover) {
+    animation-play-state: paused;
   }
 
   /* ── Dimmed "o" ───────────────────────────────── */
