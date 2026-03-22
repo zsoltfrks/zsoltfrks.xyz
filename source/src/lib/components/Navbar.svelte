@@ -15,14 +15,14 @@
 </script>
 
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06] bg-[#0a0a0a]/80 backdrop-blur-sm">
-  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 md:grid md:grid-cols-[1fr_auto_1fr]">
 
     <!-- logo -->
     <a href="/" class="text-sm text-white/50 transition-colors hover:text-white">
       ~/zsoltfrks.xyz
     </a>
 
-    <!-- desktop links -->
+    <!-- desktop links (centered in middle column) -->
     <ul class="hidden md:flex items-center gap-8">
       {#each links as link}
         <li>
@@ -36,8 +36,8 @@
       {/each}
     </ul>
 
-    <!-- social icons -->
-    <div class="hidden md:flex items-center gap-5">
+    <!-- right column: social icons (desktop) + burger -->
+    <div class="flex items-center justify-end gap-5">
       <a
         href="https://github.com/zsoltfrks"
         target="_blank"
@@ -60,18 +60,18 @@
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
       </a>
-    </div>
 
-    <!-- mobile burger -->
-    <button
-      class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
-      onclick={() => menuOpen = !menuOpen}
-      aria-label="Toggle menu"
-    >
-      <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? 'rotate-45 translate-y-[7px]' : ''}"></span>
-      <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? 'opacity-0' : ''}"></span>
-      <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}"></span>
-    </button>
+      <!-- mobile burger -->
+      <button
+        class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
+        onclick={() => menuOpen = !menuOpen}
+        aria-label="Toggle menu"
+      >
+        <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? 'rotate-45 translate-y-[7px]' : ''}"></span>
+        <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? 'opacity-0' : ''}"></span>
+        <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}"></span>
+      </button>
+    </div>
   </nav>
 
   <!-- mobile menu -->
