@@ -1,6 +1,6 @@
 # zsoltfrks.xyz
+<img width="1917" height="942" alt="image" src="https://github.com/user-attachments/assets/cbc7a0de-da37-458a-ac04-1dd2b197c9b5" />
 
-![Website showcase](assets/showcase.png)
 
 ## Inspiration
 
