@@ -106,10 +106,10 @@
             <p class="mb-4 flex-1 text-xs leading-relaxed text-white/55">{project.description}</p>
 
             <div class="flex items-center gap-2">
-              <svg class="shrink-0 text-white/50" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.5 8L10.46 10L9.75 12.76L7 12L4.25 12.76L3.54 10L1.5 8L3.54 6L4.25 3.24L7 4L9.75 3.24L10.46 6ZM7 6A2 2 0 1 0 7 10A2 2 0 1 0 7 6ZM20.5 15L18.77 16.6L18.25 18.9L16 18.2L13.75 18.9L13.23 16.6L11.5 15L13.23 13.4L13.75 11.1L16 11.8L18.25 11.1L18.77 13.4ZM16 13.2A1.8 1.8 0 1 0 16 16.8A1.8 1.8 0 1 0 16 13.2Z"/></svg>
+              <svg class="shrink-0 text-white/80" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.5 8L10.46 10L9.75 12.76L7 12L4.25 12.76L3.54 10L1.5 8L3.54 6L4.25 3.24L7 4L9.75 3.24L10.46 6ZM7 6A2 2 0 1 0 7 10A2 2 0 1 0 7 6ZM20.5 15L18.77 16.6L18.25 18.9L16 18.2L13.75 18.9L13.23 16.6L11.5 15L13.23 13.4L13.75 11.1L16 11.8L18.25 11.1L18.77 13.4ZM16 13.2A1.8 1.8 0 1 0 16 16.8A1.8 1.8 0 1 0 16 13.2Z"/></svg>
               <div class="flex flex-wrap gap-1.5">
                 {#each project.tags as tag}
-                  <span class="rounded border border-white/8 bg-black/10 px-2 py-0.5 font-mono text-[10px] text-white/70">
+                  <span class="rounded border border-white/8 bg-black/10 px-2 py-0.5 font-mono text-[10px] text-white/75">
                     {tag}
                   </span>
                 {/each}
@@ -158,7 +158,7 @@
                 rel="noopener noreferrer"
                 class="min-w-0 truncate font-mono text-xs text-white/55 transition-colors hover:text-white/70"
               >
-                <span class="text-white/55">{commit.repo}</span>
+                <span class="text-white/75">{commit.repo}</span>
                 <span class="text-white/20" aria-hidden="true">: </span>
                 {commit.message}
               </a>
