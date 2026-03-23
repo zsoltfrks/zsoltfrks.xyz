@@ -17,7 +17,7 @@
   }
 </script>
 
-<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06] bg-[#0a0a0a]/80 backdrop-blur-sm">
+<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/6 bg-[#0a0a0a]/80 backdrop-blur-sm">
   <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 md:grid md:grid-cols-[1fr_auto_1fr]">
 
     <!-- logo -->
@@ -37,7 +37,7 @@
           </a>
         </li>
       {/each}
-      <li aria-hidden="true" class="h-3 w-px bg-white/[0.15]"></li>
+      <li aria-hidden="true" class="h-3 w-px bg-white/15"></li>
       {#each sectionLinks as link}
         <li>
           <a
@@ -81,16 +81,16 @@
         onclick={() => menuOpen = !menuOpen}
         aria-label="Toggle menu"
       >
-        <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? 'rotate-45 translate-y-[7px]' : ''}"></span>
+        <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? 'rotate-45 translate-y-1.75' : ''}"></span>
         <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? 'opacity-0' : ''}"></span>
-        <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}"></span>
+        <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? '-rotate-45 -translate-y-1.75' : ''}"></span>
       </button>
     </div>
   </nav>
 
   <!-- mobile menu -->
   {#if menuOpen}
-    <div class="md:hidden border-t border-white/[0.06] bg-[#0a0a0a]">
+    <div class="md:hidden border-t border-white/6 bg-[#0a0a0a]">
       <ul class="flex flex-col px-6 py-5 gap-5">
         {#each pageLinks as link}
           <li>
@@ -103,7 +103,7 @@
             </a>
           </li>
         {/each}
-        <li aria-hidden="true" class="border-t border-white/[0.08]"></li>
+        <li aria-hidden="true" class="border-t border-white/8"></li>
         {#each sectionLinks as link}
           <li>
             <a

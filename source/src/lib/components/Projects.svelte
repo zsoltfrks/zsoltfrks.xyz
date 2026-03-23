@@ -78,10 +78,10 @@
     <!-- cards grid -->
     <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {#each projects as project}
-        <article class="group flex min-h-64 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/[0.04] backdrop-blur-md transition-colors hover:border-white/15">
+        <article class="group flex min-h-64 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/4 backdrop-blur-md transition-colors hover:border-white/15">
 
           <!-- window chrome -->
-          <div class="flex items-center justify-between border-b border-white/[0.06] bg-black/30 px-4 py-3">
+          <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
             <p class="font-mono text-xs text-white/50">
               {project.github ? '[ open source ]' : '[ closed source ]'}
             </p>
@@ -109,7 +109,7 @@
               <svg class="shrink-0 text-white/50" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.5 8L10.46 10L9.75 12.76L7 12L4.25 12.76L3.54 10L1.5 8L3.54 6L4.25 3.24L7 4L9.75 3.24L10.46 6ZM7 6A2 2 0 1 0 7 10A2 2 0 1 0 7 6ZM20.5 15L18.77 16.6L18.25 18.9L16 18.2L13.75 18.9L13.23 16.6L11.5 15L13.23 13.4L13.75 11.1L16 11.8L18.25 11.1L18.77 13.4ZM16 13.2A1.8 1.8 0 1 0 16 16.8A1.8 1.8 0 1 0 16 13.2Z"/></svg>
               <div class="flex flex-wrap gap-1.5">
                 {#each project.tags as tag}
-                  <span class="rounded border border-white/8 bg-white/[0.03] px-2 py-0.5 font-mono text-[10px] text-white/50">
+                  <span class="rounded border border-white/8 bg-black/10 px-2 py-0.5 font-mono text-[10px] text-white/70">
                     {tag}
                   </span>
                 {/each}
@@ -122,10 +122,10 @@
     </div>
 
     <!-- recent commits panel -->
-    <div class="overflow-hidden rounded-lg border border-white/8 bg-white/[0.04] backdrop-blur-md">
+    <div class="overflow-hidden rounded-lg border border-white/8 bg-white/4 backdrop-blur-md">
 
       <!-- panel header -->
-      <div class="flex items-center justify-between border-b border-white/[0.06] bg-black/30 px-4 py-3">
+      <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
         <span class="font-mono text-xs text-white/50">Recent Commits</span>
         <span class="flex items-center gap-1.5 font-mono text-xs text-emerald-500">
           <span class="relative inline-flex h-1.5 w-1.5" aria-hidden="true">
@@ -141,8 +141,8 @@
         {#if loading}
           {#each { length: 7 } as _}
             <li class="flex items-center justify-between gap-4 px-4 py-3">
-              <div class="h-2.5 w-2/3 animate-pulse rounded bg-white/[0.05]"></div>
-              <div class="h-2.5 w-14 animate-pulse rounded bg-white/[0.05]"></div>
+              <div class="h-2.5 w-2/3 animate-pulse rounded bg-white/5"></div>
+              <div class="h-2.5 w-14 animate-pulse rounded bg-white/5"></div>
             </li>
           {/each}
         {:else if error || recentCommits.length === 0}
@@ -151,7 +151,7 @@
           </li>
         {:else}
           {#each recentCommits as commit}
-            <li class="flex items-center justify-between gap-4 px-4 py-1.5 transition-colors hover:bg-white/[0.02]">
+            <li class="flex items-center justify-between gap-4 px-4 py-1.5 transition-colors hover:bg-white/2">
               <a
                 href="https://github.com/{GITHUB_USER}/{commit.repo}/commit/{commit.sha}"
                 target="_blank"

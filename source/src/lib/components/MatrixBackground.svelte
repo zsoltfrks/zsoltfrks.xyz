@@ -4,6 +4,10 @@
   let { animating } = $props()
 
   let canvas
+  let ctx
+  let rafId
+  let lastTime = 0
+  let ro
 
   const CHARS = '0123456789!@#$%^&*()[]{}|<>?/\\~`ABCDEFabcdef'
   const FONT_SIZE = 13
@@ -24,40 +28,39 @@
     }))
   }
 
-  function resize() {
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-    initParticles(canvas.width, canvas.height)
+  function resize(w, h) {
+    canvas.width = w
+    canvas.height = h
+    ctx.font = `${FONT_SIZE}px 'JetBrains Mono', monospace`
+    ctx.fillStyle = '#ffffff'
+    initParticles(w, h)
   }
 
-  let rafId
-  let lastTime = 0
-  let ctx
-
   function loop(timestamp) {
-    // claude: normalize to 60 fps equivalent; cap at 3× to absorb tab-backgrounding stalls
+    // Stop the loop when animation is disabled — $effect will restart it
+    if (!animating) {
+      rafId = null
+      return
+    }
+
     const delta = lastTime ? Math.min((timestamp - lastTime) / 16.667, 3) : 1
     lastTime = timestamp
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.font = `${FONT_SIZE}px 'JetBrains Mono', monospace`
 
     for (const p of particles) {
       ctx.globalAlpha = p.opacity
-      ctx.fillStyle = '#ffffff'
       ctx.fillText(p.char, p.x, p.y)
 
-      if (animating) {
-        p.y += p.speed * delta
-        p.timer += delta
-        if (p.timer >= p.interval) {
-          p.char = CHARS[Math.floor(Math.random() * CHARS.length)]
-          p.timer = 0
-        }
-        if (p.y > canvas.height + FONT_SIZE) {
-          p.y = -FONT_SIZE
-          p.x = Math.random() * canvas.width
-        }
+      p.y += p.speed * delta
+      p.timer += delta
+      if (p.timer >= p.interval) {
+        p.char = CHARS[Math.floor(Math.random() * CHARS.length)]
+        p.timer = 0
+      }
+      if (p.y > canvas.height + FONT_SIZE) {
+        p.y = -FONT_SIZE
+        p.x = Math.random() * canvas.width
       }
     }
 
@@ -65,30 +68,44 @@
     rafId = requestAnimationFrame(loop)
   }
 
-  onMount(() => {
-    ctx = canvas.getContext('2d')
-    resize()
-    window.addEventListener('resize', resize)
-
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-
-    if (!mq.matches) {
+  // Restart the loop when animating flips back on after being stopped
+  $effect(() => {
+    if (animating && !rafId && ctx) {
+      lastTime = 0
       rafId = requestAnimationFrame(loop)
     }
+  })
+
+  onMount(() => {
+    ctx = canvas.getContext('2d')
+    ctx.font = `${FONT_SIZE}px 'JetBrains Mono', monospace`
+    ctx.fillStyle = '#ffffff'
+
+    ro = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect
+      resize(width, height)
+    })
+    ro.observe(document.documentElement)
+
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
 
     function onMotionChange(e) {
       if (e.matches) {
         cancelAnimationFrame(rafId)
-      } else {
+        rafId = null
+      } else if (animating && !rafId) {
         lastTime = 0
         rafId = requestAnimationFrame(loop)
       }
     }
-
     mq.addEventListener('change', onMotionChange)
 
+    if (!mq.matches && animating) {
+      rafId = requestAnimationFrame(loop)
+    }
+
     return () => {
-      window.removeEventListener('resize', resize)
+      ro.disconnect()
       mq.removeEventListener('change', onMotionChange)
       cancelAnimationFrame(rafId)
     }

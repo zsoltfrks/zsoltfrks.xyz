@@ -14,12 +14,14 @@
   let locationIdx = 0
   let locationDisplay = $state(LOCATIONS[0])
   let locationTimerId
+  let glitchIntervalId
 
   function glitchTo(target) {
+    clearInterval(glitchIntervalId)
     const FRAMES = 10
     const MS = 40
     let frame = 0
-    const id = setInterval(() => {
+    glitchIntervalId = setInterval(() => {
       frame++
       if (frame < FRAMES) {
         const progress = frame / FRAMES
@@ -34,7 +36,8 @@
           )
           .join('')
       } else {
-        clearInterval(id)
+        clearInterval(glitchIntervalId)
+        glitchIntervalId = null
         locationDisplay = target
       }
     }, MS)
@@ -68,7 +71,10 @@
       scheduleNextGlitch(3500)
     }
 
-    return () => clearTimeout(locationTimerId)
+    return () => {
+      clearTimeout(locationTimerId)
+      clearInterval(glitchIntervalId)
+    }
   })
 </script>
 
@@ -113,7 +119,7 @@
       <p class="mb-10 font-mono text-sm text-white/50">{locationDisplay}</p>
 
       <!-- links row -->
-      <div class="flex flex-wrap items-center gap-x-0 gap-y-3 text-[13px] text-white/50">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-x-0 text-[13px] text-white/50">
         <a
           href="https://github.com/zsoltfrks"
           target="_blank"
@@ -124,7 +130,7 @@
           GitHub
         </a>
 
-        <span class="mx-3 text-white/15" aria-hidden="true">|</span>
+        <span class="mx-3 hidden text-white/15 sm:block" aria-hidden="true">|</span>
 
         <a
           href="https://linkedin.com/in/zsoltfrks"
@@ -136,7 +142,7 @@
           LinkedIn
         </a>
 
-        <span class="mx-3 text-white/15" aria-hidden="true">|</span>
+        <span class="mx-3 hidden text-white/15 sm:block" aria-hidden="true">|</span>
 
         <button
           onclick={() => animating = !animating}
@@ -145,7 +151,7 @@
           Animation: {animating ? 'on' : 'off'}
         </button>
 
-        <span class="mx-3 text-white/15" aria-hidden="true">|</span>
+        <span class="mx-3 hidden text-white/15 sm:block" aria-hidden="true">|</span>
 
         <a href="/about" class="transition-colors hover:text-white">
           Learn more about me →

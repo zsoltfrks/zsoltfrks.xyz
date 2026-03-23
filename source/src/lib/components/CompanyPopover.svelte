@@ -21,7 +21,7 @@
         onmouseleave={onclose}
       >
         <!-- chrome header -->
-        <div class="flex items-center gap-3 border-b border-white/[0.06] bg-black/30 px-4 py-3">
+        <div class="flex items-center gap-3 border-b border-white/6 bg-black/30 px-4 py-3">
           <div class="min-w-0">
             <p class="truncate text-sm font-bold text-white/85">{job.company}</p>
             <p class="truncate font-mono text-xs text-white/50">{job.role}</p>

@@ -2,11 +2,6 @@
   import { onMount } from 'svelte'
   import Navbar from './lib/components/Navbar.svelte'
   import Hero from './lib/components/Hero.svelte'
-  import About from './lib/components/About.svelte'
-  import Projects from './lib/components/Projects.svelte'
-  import Experience from './lib/components/Experience.svelte'
-  import Contact from './lib/components/Contact.svelte'
-  import MatrixBackground from './lib/components/MatrixBackground.svelte'
 
   let animating = $state(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   let currentPath = $state('/')
@@ -24,17 +19,27 @@
   })
 </script>
 
-<MatrixBackground {animating} />
+{#await import('./lib/components/MatrixBackground.svelte') then { default: MatrixBackground }}
+  <MatrixBackground {animating} />
+{/await}
 
 <Navbar {currentPath} />
 
 <main>
   {#if isAboutPage}
-    <About standalone />
+    {#await import('./lib/components/About.svelte') then { default: About }}
+      <About standalone />
+    {/await}
   {:else}
     <Hero bind:animating />
-    <Projects />
-    <Experience />
-    <Contact />
+    {#await import('./lib/components/Projects.svelte') then { default: Projects }}
+      <Projects />
+    {/await}
+    {#await import('./lib/components/Experience.svelte') then { default: Experience }}
+      <Experience />
+    {/await}
+    {#await import('./lib/components/Contact.svelte') then { default: Contact }}
+      <Contact />
+    {/await}
   {/if}
 </main>

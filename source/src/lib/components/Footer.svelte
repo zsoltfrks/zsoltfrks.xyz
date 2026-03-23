@@ -1,0 +1,78 @@
+<script>
+  import { onMount } from 'svelte'
+
+  const year = new Date().getFullYear()
+  let commit = $state(null)
+  let views = $state(null)
+
+  onMount(async () => {
+    const cached = localStorage.getItem('last-commit')
+    if (cached) commit = cached
+
+    try {
+      const res = await fetch('/api/github?path=' + encodeURIComponent('/repos/zsoltfrks/zsoltfrks.xyz/commits?per_page=1'))
+      if (!res.ok) throw new Error()
+      const [latest] = await res.json()
+      const hash = latest?.sha?.slice(0, 7) ?? null
+      if (hash) {
+        commit = hash
+        localStorage.setItem('last-commit', hash)
+      }
+    } catch { if (!commit) commit = null }
+  })
+
+  onMount(async () => {
+    try {
+      const res = await fetch('https://abacus.jasoncameron.dev/hit/zsoltfrks.xyz/views')
+      if (res.ok) views = (await res.json()).value
+    } catch {}
+  })
+</script>
+
+<footer class="mx-auto mb-6 w-full max-w-5xl rounded-lg border border-white/10 bg-[#0a0a0a] px-6 py-4 font-mono text-xs text-white/50">
+  <div class="flex items-center justify-between gap-4">
+
+    <!-- left: copyright + status (status hidden on mobile) -->
+    <div class="flex items-center gap-3">
+      <span>© {year} Zsolt Farkas</span>
+      <span class="hidden text-white/20 sm:block" aria-hidden="true">·</span>
+      <div class="hidden items-center gap-2 sm:flex">
+        <span class="relative inline-flex h-1.5 w-1.5" aria-hidden="true">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/40"></span>
+          <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500/70"></span>
+        </span>
+        <span>all systems operational</span>
+      </div>
+    </div>
+
+    <!-- right -->
+    <div class="flex items-center gap-3">
+      <!-- mobile: status dot + views -->
+      <span class="relative inline-flex h-1.5 w-1.5 sm:hidden" aria-hidden="true">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/40"></span>
+        <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500/70"></span>
+      </span>
+
+      <!-- desktop: commit hash -->
+      <a
+        href="https://github.com/zsoltfrks/zsoltfrks.xyz/commit/{commit}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden items-center gap-1.5 text-white/60 transition-colors hover:text-white sm:flex"
+      >
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0m3-9v6m0 6v6"/>
+        </svg>
+        {commit ?? '—'}
+      </a>
+      <span class="hidden text-white/20 sm:block" aria-hidden="true">·</span>
+
+      <!-- views (always shown) -->
+      <span>
+        <span class="text-white/60">{views ?? '—'}</span>
+        <span class="text-white/50"> views</span>
+      </span>
+    </div>
+
+  </div>
+</footer>

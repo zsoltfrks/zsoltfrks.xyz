@@ -40,7 +40,7 @@
                 <span class="absolute left-0 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/20 bg-[#0a0a0a]" aria-hidden="true"></span>
 
                 <!-- role + period -->
-                <div class="mb-1 flex items-baseline justify-between gap-4">
+                <div class="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
                   <h3 class="font-bold text-white/90">{job.role}</h3>
                   <time class="shrink-0 font-mono text-xs text-white/50">{job.period}</time>
                 </div>
@@ -94,7 +94,7 @@
                 <span class="absolute left-0 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/20 bg-[#0a0a0a]" aria-hidden="true"></span>
 
                 <!-- role + period -->
-                <div class="mb-1 flex items-baseline justify-between gap-4">
+                <div class="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
                   <h3 class="font-bold text-white/90">{job.role}</h3>
                   <time class="shrink-0 font-mono text-xs text-white/50">{job.period}</time>
                 </div>

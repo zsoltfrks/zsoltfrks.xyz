@@ -1,4 +1,6 @@
 <script>
+  import Footer from './Footer.svelte'
+
   let { standalone = false } = $props()
 
   let imageError = $state(false)
@@ -6,36 +8,57 @@
   let dogImageError = $state([false, false, false])
   let dogImageLoaded = $state([false, false, false])
   let lightboxIdx = $state(null)
+  let techStackOpen = $state(false)
 
-  const lunaPhotos = ['/images/luna-1.jpg', '/images/luna-2.jpg', '/images/luna-3.jpg']
+  const lunaPhotos = ['/images/luna-1.webp', '/images/luna-2.webp', '/images/luna-3.webp']
+
+  const techStack = [
+    { category: 'Languages',      items: ['Lua', 'Python', 'Java', 'C++', 'JavaScript', 'TypeScript'] },
+    { category: 'Frameworks',     items: ['React', 'Next.js', 'Svelte', 'Spring Boot', 'Node.js'] },
+    { category: 'Frontend',       items: ['HTML', 'CSS', 'Tailwind CSS'] },
+    { category: 'Cloud & DevOps', items: ['AWS', 'Docker'] },
+    { category: 'Databases',      items: ['MySQL', 'PostgreSQL', 'MariaDB', 'MongoDB'] },
+    { category: 'Tools & Misc',   items: ['Git', 'Linux', 'IntelliJ IDEA', 'PyCharm', 'Adobe Photoshop'] },
+  ]
 
   const sectionClass = $derived(standalone ? 'pb-20 pt-28' : 'py-24')
 </script>
 
-<svelte:window onkeydown={(e) => lightboxIdx !== null && e.key === 'Escape' && (lightboxIdx = null)} />
+<svelte:window onkeydown={(e) => {
+  if (e.key === 'Escape') {
+    if (lightboxIdx !== null) lightboxIdx = null
+    if (techStackOpen) techStackOpen = false
+  }
+}} />
 
 <section id="about" class={sectionClass}>
   <div class="mx-auto max-w-5xl px-6">
 
-    <div class="mb-10">
-      <h1 class="text-4xl font-bold tracking-tight text-white/85 md:text-5xl">About Me</h1>
-    </div>
+    <nav aria-label="breadcrumb" class="mb-10 font-mono text-sm">
+      <ol class="flex items-center gap-2">
+        <li>
+          <a href="/" class="text-white/40 transition-colors hover:text-white/70">Home</a>
+        </li>
+        <li class="text-white/50" aria-hidden="true">/</li>
+        <li class="text-white/60" aria-current="page">About</li>
+      </ol>
+    </nav>
 
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr] lg:gap-14">
       <div class="flex flex-col gap-4">
-        <div class="relative overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] shadow-sm">
+        <div class="relative overflow-hidden rounded-lg border border-white/10 bg-white/4 shadow-sm">
           {#if !imageError}
             <div class="skeleton absolute inset-0 transition-opacity duration-500 {imageLoaded ? 'opacity-0' : 'opacity-100'}"></div>
             <img
-              src="/images/profile.jpg"
+              src="/images/profile.webp"
               alt="Zsolt Farkas"
-              class="aspect-[4/5] h-full w-full object-cover transition-opacity duration-500 {imageLoaded ? 'opacity-100' : 'opacity-0'}"
+              class="aspect-4/5 h-full w-full object-cover transition-opacity duration-500 {imageLoaded ? 'opacity-100' : 'opacity-0'}"
               onload={() => imageLoaded = true}
               onerror={() => imageError = true}
             />
             <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%)"></div>
           {:else}
-            <div class="flex aspect-[4/5] items-center justify-center">
+            <div class="flex aspect-4/5 items-center justify-center">
               <span class="font-mono text-4xl font-bold text-white/10">ZF</span>
             </div>
           {/if}
@@ -49,6 +72,10 @@
         </p>
         <p>
           Main strengths: <span class="text-white/85">Lua</span>, <span class="text-white/85">Python</span> and <span class="text-white/85">Java</span>.
+          <button
+            class="inline-flex items-center gap-1 font-mono text-xs text-white/50 align-middle transition-colors hover:text-white/70 ml-2"
+            onclick={() => techStackOpen = true}
+          ><span aria-hidden="true">↳</span> see full tech stack</button>
         </p>
         <p>
           My work focuses on <span class="text-white/85">backend development</span> with a love for <span class="text-white/85">frontend</span>.
@@ -62,30 +89,31 @@
           Also, I am a <a href="https://steamcommunity.com/id/raszta/" target="_blank" rel="noopener noreferrer" class="text-white/85 underline underline-offset-2 transition-colors hover:text-white">gamer</a> by heart from a young age.
         </p>
         <p>
-          Feel free to reach out if you&apos;d like to chat or collaborate
+          Got an idea or just want to connect?
           <a href="mailto:hello@zsoltfrks.xyz" class="ml-1 text-white/80 underline underline-offset-2 transition-colors hover:text-white">
-            let's talk!
+            Drop me a line.
           </a>
         </p>
 
-        <div class="flex flex-nowrap items-center gap-x-0 overflow-x-auto pt-4 font-mono text-[13px] text-white/50">
-          <a href="https://github.com/zsoltfrks" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 transition-colors hover:text-white">
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.107-.776.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.604-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <!-- social links -->
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 pt-4 font-mono text-sm text-white/50">
+          <a href="https://github.com/zsoltfrks" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 transition-colors hover:text-white">
+            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.107-.776.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.604-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
             GitHub
           </a>
-          <span class="mx-3 text-white/15" aria-hidden="true">|</span>
-          <a href="https://linkedin.com/in/zsoltfrks" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 transition-colors hover:text-white">
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <span class="hidden text-white/20 sm:block" aria-hidden="true">|</span>
+          <a href="https://linkedin.com/in/zsoltfrks" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 transition-colors hover:text-white">
+            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             LinkedIn
           </a>
-          <span class="mx-3 text-white/15" aria-hidden="true">|</span>
-          <a href="https://instagram.com/zsoltfrks" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 transition-colors hover:text-white">
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="hidden text-white/20 sm:block" aria-hidden="true">|</span>
+          <a href="https://instagram.com/zsoltfrks" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 transition-colors hover:text-white">
+            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             Instagram
           </a>
-          <span class="mx-3 text-white/15" aria-hidden="true">|</span>
-          <a href="mailto:hello@zsoltfrks.xyz" class="flex items-center gap-1.5 transition-colors hover:text-white">
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <span class="hidden text-white/20 sm:block" aria-hidden="true">|</span>
+          <a href="mailto:hello@zsoltfrks.xyz" class="flex items-center gap-2 transition-colors hover:text-white">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             hello@zsoltfrks.xyz
           </a>
         </div>
@@ -101,7 +129,7 @@
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         {#each lunaPhotos as photo, idx}
           <button
-            class="group relative overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] text-left"
+            class="group relative overflow-hidden rounded-lg border border-white/10 bg-white/4 text-left"
             onclick={() => lightboxIdx = idx}
           >
             {#if !dogImageError[idx]}
@@ -109,7 +137,8 @@
               <img
                 src={photo}
                 alt={`Luna photo ${idx + 1}`}
-                class="aspect-[4/3] w-full object-cover transition-all duration-500 group-hover:scale-[1.03] {dogImageLoaded[idx] ? 'opacity-100' : 'opacity-0'}"
+                loading="lazy"
+                class="aspect-4/3 w-full object-cover transition-all duration-500 group-hover:scale-[1.03] {dogImageLoaded[idx] ? 'opacity-100' : 'opacity-0'}"
                 onload={() => dogImageLoaded[idx] = true}
                 onerror={() => dogImageError[idx] = true}
               />
@@ -123,7 +152,7 @@
                 </span>
               </div>
             {:else}
-              <div class="flex aspect-[4/3] items-center justify-center text-sm text-white/50">
+              <div class="flex aspect-4/3 items-center justify-center text-sm text-white/50">
                 Luna · Photo {idx + 1}
               </div>
             {/if}
@@ -149,7 +178,7 @@
       onclick={(e) => e.stopPropagation()}
     >
       <!-- chrome header -->
-      <div class="flex items-center justify-between border-b border-white/[0.06] bg-black/40 px-4 py-2.5">
+      <div class="flex items-center justify-between border-b border-white/6 bg-black/40 px-4 py-2.5">
         <span class="font-mono text-xs text-white/50">Luna · {lightboxIdx + 1} / {lunaPhotos.length}</span>
         <button
           class="font-mono text-xs text-white/50 transition-colors hover:text-white"
@@ -176,6 +205,50 @@
     </div>
   </div>
 {/if}
+
+<!-- tech stack modal -->
+{#if techStackOpen}
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md"
+    role="button"
+    tabindex="-1"
+    onclick={() => techStackOpen = false}
+    onkeydown={(e) => e.key === 'Escape' && (techStackOpen = false)}
+  >
+    <div
+      class="relative flex max-h-[92vh] w-full max-w-md flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0a0a0a] shadow-2xl mx-4"
+      role="presentation"
+      onclick={(e) => e.stopPropagation()}
+    >
+      <!-- chrome header -->
+      <div class="flex items-center justify-between border-b border-white/6 bg-black/40 px-4 py-2.5">
+        <span class="font-mono text-xs text-white/50">TECH STACK</span>
+        <button
+          class="font-mono text-xs text-white/50 transition-colors hover:text-white"
+          onclick={() => techStackOpen = false}
+        >[ x ]</button>
+      </div>
+
+      <!-- content -->
+      <div class="overflow-y-auto p-6 space-y-6">
+        {#each techStack as group}
+          <div>
+            <p class="mb-3 font-mono text-[10px] uppercase tracking-widest text-white/50">{group.category}</p>
+            <div class="flex flex-wrap gap-2">
+              {#each group.items as item}
+                <span class="rounded border border-white/10 bg-white/4 px-3 py-1.5 font-mono text-xs text-white/70">
+                  {item}
+                </span>
+              {/each}
+            </div>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </div>
+{/if}
+
+<Footer />
 
 <style>
   @keyframes shimmer {

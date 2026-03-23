@@ -1,33 +1,6 @@
 <script>
   import { onMount } from 'svelte'
-  import 'leaflet/dist/leaflet.css'
-
-  const year = new Date().getFullYear()
-  let commit = $state(null)
-  let views = $state(null)
-
-  onMount(async () => {
-    const cached = localStorage.getItem('last-commit')
-    if (cached) commit = cached
-
-    try {
-      const res = await fetch('/api/github?path=' + encodeURIComponent('/repos/zsoltfrks/zsoltfrks.xyz/commits?per_page=1'))
-      if (!res.ok) throw new Error()
-      const [latest] = await res.json()
-      const hash = latest?.sha?.slice(0, 7) ?? null
-      if (hash) {
-        commit = hash
-        localStorage.setItem('last-commit', hash)
-      }
-    } catch { if (!commit) commit = null }
-  })
-
-  onMount(async () => {
-    try {
-      const res = await fetch('https://abacus.jasoncameron.dev/hit/zsoltfrks.xyz/views')
-      if (res.ok) views = (await res.json()).value
-    } catch {}
-  })
+  import Footer from './Footer.svelte'
 
   const links = [
     { label: 'email',     href: 'mailto:hello@zsoltfrks.xyz',           display: 'hello@zsoltfrks.xyz' },
@@ -36,8 +9,8 @@
     { label: 'instagram', href: 'https://instagram.com/zsoltfrks',       display: 'instagram.com/zsoltfrks' },
   ]
 
-  let mapEl = $state(null)
   let localTime = $state('')
+  let mapEl = $state(null)
 
   onMount(() => {
     const tick = () => {
@@ -55,18 +28,28 @@
   })
 
   onMount(async () => {
-    const L = (await import('leaflet')).default
-    const map = L.map(mapEl, {
-      center: [46.253, 20.1414],
-      zoom: 13,
-      zoomControl: false,
-      attributionControl: false,
-      scrollWheelZoom: true,
+    const [{ default: L }] = await Promise.all([
+      import('leaflet'),
+      import('leaflet/dist/leaflet.css'),
+    ])
+
+    // Fix Leaflet default icon paths broken by Vite bundling
+    delete L.Icon.Default.prototype._getIconUrl
+    L.Icon.Default.mergeOptions({
+      iconUrl: new URL('leaflet/dist/images/marker-icon.png', import.meta.url).href,
+      iconRetinaUrl: new URL('leaflet/dist/images/marker-icon-2x.png', import.meta.url).href,
+      shadowUrl: new URL('leaflet/dist/images/marker-shadow.png', import.meta.url).href,
     })
+
+    const map = L.map(mapEl, { zoomControl: false, attributionControl: false })
+      .setView([46.253, 20.1414], 13)
+
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       subdomains: 'abcd',
       maxZoom: 19,
     }).addTo(map)
+
+    return () => map.remove()
   })
 </script>
 
@@ -103,60 +86,24 @@
         </ul>
       </div>
 
-      <!-- Right: map -->
+      <!-- Right: location card -->
       <div class="flex flex-col">
+        <div class="flex flex-1 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/4 backdrop-blur-md">
 
-        <!-- Map card -->
-        <div class="flex flex-1 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/[0.04] backdrop-blur-md">
-          <div class="flex items-center justify-between border-b border-white/[0.06] bg-black/30 px-4 py-3">
+          <!-- chrome header -->
+          <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
             <span class="font-mono text-xs text-white/50">Szeged, Hungary</span>
             <span class="font-mono text-[10px] text-white/50">{localTime}</span>
           </div>
-          <div bind:this={mapEl} class="min-h-44 flex-1 w-full"></div>
-        </div>
 
+          <!-- map -->
+          <div bind:this={mapEl} class="min-h-44 flex-1 w-full"></div>
+
+        </div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- footer -->
-<footer class="mx-auto mb-6 w-full max-w-5xl rounded-lg border border-white/10 bg-[#0a0a0a] px-6 py-4 font-mono text-xs text-white/50">
-  <div class="flex items-center justify-between gap-4">
-
-    <!-- left: copyright + status -->
-    <div class="flex items-center gap-3">
-      <span>© {year} Zsolt Farkas</span>
-      <span class="text-white/20" aria-hidden="true">·</span>
-      <div class="flex items-center gap-2">
-        <span class="relative inline-flex h-1.5 w-1.5" aria-hidden="true">
-          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/40"></span>
-          <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500/70"></span>
-        </span>
-        <span>all systems operational</span>
-      </div>
-    </div>
-
-    <!-- right: commit hash + view count -->
-    <div class="flex items-center gap-4">
-      <a
-        href="https://github.com/zsoltfrks/zsoltfrks.xyz/commit/{commit}"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center gap-1.5 text-white/60 transition-colors hover:text-white"
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0m3-9v6m0 6v6"/>
-        </svg>
-        {commit ?? '—'}
-      </a>
-      <span class="text-white/20" aria-hidden="true">·</span>
-      <span>
-        <span class="text-white/60">{views ?? '—'}</span>
-        <span class="text-white/50"> views</span>
-      </span>
-    </div>
-
-  </div>
-</footer>
+<Footer />
