@@ -67,7 +67,7 @@
 
       <div class="space-y-5 text-sm leading-relaxed text-white/55 md:pr-6">
         <p>
-          Hey! I&apos;m Zsolt Farkas, a <span class="text-white/85">Computer Science BSc</span> student from Szeged, Hungary. I enjoy
+          Hey! I&apos;m Zsolt Farkas, a 24 year old <span class="text-white/85">Computer Science BSc</span> student from Szeged, Hungary. I enjoy
           working on cool and useful software while solving practical problems with clean, maintainable code.
         </p>
         <p>
@@ -78,22 +78,17 @@
           ><span aria-hidden="true">↳</span> see full tech stack</button>
         </p>
         <p>
-          My work focuses on <span class="text-white/85">backend development</span> with a love for <span class="text-white/85">frontend</span>.
-          I enjoy taking ideas from rough concepts to polished products.
+          My work focuses on <span class="text-white/85">backend development</span> with an undeniable love for <span class="text-white/85">frontend</span>.
+          I enjoy taking ideas from rough concepts to polished products and everything in between.
         </p>
         <p>
           Outside of software, I spend time studying,
           and going on walks with my dog, Luna.
         </p>
         <p>
-          Also, I am a <a href="https://steamcommunity.com/id/raszta/" target="_blank" rel="noopener noreferrer" class="text-white/85 underline underline-offset-2 transition-colors hover:text-white">gamer</a> by heart from a young age.
+          Also, I am a <span class="text-white/85 transition-colors hover:text-white">gamer</span> by heart from a young age and I have a soft spot for World of Warcraft.
         </p>
-        <p>
-          Got an idea or just want to connect?
-          <a href="mailto:hello@zsoltfrks.xyz" class="ml-1 text-white/80 underline underline-offset-2 transition-colors hover:text-white">
-            Drop me a line.
-          </a>
-        </p>
+        
 
         <!-- social links -->
         <div class="flex flex-wrap items-center gap-x-3 gap-y-2 pt-4 font-mono text-sm text-white/50">

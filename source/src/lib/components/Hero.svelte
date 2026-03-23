@@ -80,10 +80,9 @@
 
 <section
   id="hero"
-  class="min-h-screen flex items-center"
+  class="min-h-screen flex items-center justify-center"
 >
-  <div class="w-full">
-    <div class="mx-auto max-w-xl px-6">
+  <div class="max-w-xl w-full px-6 text-left">
 
       <!-- greeting + name -->
       <h1 class="mb-3 text-2xl font-medium leading-snug text-white/65 sm:text-4xl">
@@ -119,7 +118,7 @@
       <p class="mb-10 font-mono text-sm text-white/50">{locationDisplay}</p>
 
       <!-- links row -->
-      <div class="flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-x-0 text-[13px] text-white/50">
+      <div class="flex flex-wrap items-center justify-start gap-x-4 gap-y-3 sm:gap-x-0 text-[13px] text-white/50">
         <a
           href="https://github.com/zsoltfrks"
           target="_blank"
@@ -158,7 +157,6 @@
         </a>
       </div>
 
-    </div>
   </div>
 </section>
 

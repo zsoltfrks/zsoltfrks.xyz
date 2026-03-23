@@ -1,6 +1,7 @@
 <script>
   let { currentPath = '/' } = $props()
   let menuOpen = $state(false)
+  let cvOpen = $state(false)
 
   const pageLinks = [
     { label: 'about', href: '/about' },
@@ -12,13 +13,20 @@
     { label: 'contact', href: '/#contact' },
   ]
 
+  const cvLinks = [
+    { label: 'Hungarian', href: '/cv-hu.pdf' },
+    { label: 'English',   href: '/cv-en.pdf' },
+  ]
+
   function closeMenu() {
     menuOpen = false
   }
 </script>
 
+<svelte:window onclick={(e) => { if (cvOpen && !e.target.closest('[data-cv]')) cvOpen = false }} />
+
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/6 bg-[#0a0a0a]/80 backdrop-blur-sm">
-  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 md:grid md:grid-cols-[1fr_auto_1fr]">
+  <nav class="relative mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
 
     <!-- logo -->
     <a href="/" class="text-sm text-white/50 transition-colors hover:text-white">
@@ -26,7 +34,7 @@
     </a>
 
     <!-- desktop links (centered in middle column) -->
-    <ul class="hidden md:flex items-center gap-8">
+    <ul class="absolute left-1/2 hidden -translate-x-1/2 md:flex items-center gap-8">
       {#each pageLinks as link}
         <li>
           <a
@@ -48,6 +56,27 @@
           </a>
         </li>
       {/each}
+      <li aria-hidden="true" class="h-3 w-px bg-white/15"></li>
+      <li class="relative" data-cv>
+        <button
+          onclick={() => cvOpen = !cvOpen}
+          class="text-sm transition-colors hover:text-white {cvOpen ? 'text-white' : 'text-white/50'}"
+        >
+          resume
+        </button>
+        {#if cvOpen}
+          <ul class="absolute top-full left-1/2 mt-3 -translate-x-1/2 overflow-hidden rounded-lg border border-white/10 bg-[#0a0a0a] shadow-xl">
+            {#each cvLinks as cv}
+              <li>
+                <span class="flex items-center justify-between gap-6 px-4 py-2.5 font-mono text-xs text-white/25 whitespace-nowrap cursor-default">
+                  {cv.label}
+                  <span class="text-white/20">soon</span>
+                </span>
+              </li>
+            {/each}
+          </ul>
+        {/if}
+      </li>
     </ul>
 
     <!-- right column: social icons (desktop) + burger -->
@@ -115,6 +144,16 @@
             </a>
           </li>
         {/each}
+        <li aria-hidden="true" class="border-t border-white/8"></li>
+        <li class="flex flex-col gap-3">
+          <span class="text-sm text-white/30">cv</span>
+          {#each cvLinks as cv}
+            <span class="flex items-center justify-between font-mono text-xs text-white/25 cursor-default">
+              {cv.label}
+              <span class="text-white/20">soon</span>
+            </span>
+          {/each}
+        </li>
       </ul>
     </div>
   {/if}
