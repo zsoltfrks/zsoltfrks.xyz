@@ -4,6 +4,7 @@
 
   const year = new Date().getFullYear()
   let commit = $state(null)
+  let views = $state(null)
 
   onMount(async () => {
     const cached = localStorage.getItem('last-commit')
@@ -19,6 +20,13 @@
         localStorage.setItem('last-commit', hash)
       }
     } catch { if (!commit) commit = null }
+  })
+
+  onMount(async () => {
+    try {
+      const res = await fetch('https://abacus.jasoncameron.dev/hit/zsoltfrks.xyz/views')
+      if (res.ok) views = (await res.json()).value
+    } catch {}
   })
 
   const links = [
@@ -144,14 +152,10 @@
         {commit ?? '—'}
       </a>
       <span class="text-white/20">·</span>
-      <a
-        href="https://github.com/zsoltfrks/zsoltfrks.xyz"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="transition-colors hover:text-white"
-      >
-        view src on github
-      </a>
+      <span>
+        <span class="text-white/60">{views ?? '—'}</span>
+        <span class="text-white/30"> views</span>
+      </span>
     </div>
 
   </div>
