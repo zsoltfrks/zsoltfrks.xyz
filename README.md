@@ -6,4 +6,6 @@
 
 Shoutout to [JasonLovesDoggo/nyx](https://github.com/JasonLovesDoggo/nyx) for the inspiration.
 
-Thank you for visiting, please leave a star if you liked it! :)
+<br>
+
+Thank you for visiting, please leave a 🌟 if you liked it, it would mean a lot! :)
