@@ -52,14 +52,21 @@
   let grimVisible = $state(false)
 
   onMount(() => {
-    ROLE.split('').forEach((char, i) => {
-      setTimeout(() => {
-        typed += char
-        if (i === ROLE.length - 1) typingDone = true
-      }, 400 + i * 65)
-    })
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    scheduleNextGlitch(3500)
+    if (prefersReduced) {
+      typed = ROLE
+      typingDone = true
+    } else {
+      ROLE.split('').forEach((char, i) => {
+        setTimeout(() => {
+          typed += char
+          if (i === ROLE.length - 1) typingDone = true
+        }, 400 + i * 65)
+      })
+
+      scheduleNextGlitch(3500)
+    }
 
     return () => clearTimeout(locationTimerId)
   })
@@ -217,5 +224,10 @@
   }
   .farkas.grim-open {
     transform: translateX(7ch);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor-blink { animation: none; }
+    .o-letter { animation: none; }
   }
 </style>

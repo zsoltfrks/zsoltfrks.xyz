@@ -8,15 +8,29 @@
   let loading = $state(true)
   let error = $state(false)
 
+  const CACHE_KEY = 'gh-recent-commits'
+  const CACHE_TTL = 5 * 60 * 1000 // 5 minutes
+
   const gh = (path) => fetch(`/api/github?path=${encodeURIComponent(path)}`)
 
   onMount(async () => {
+    // Show cached data instantly on repeat visits
+    try {
+      const raw = localStorage.getItem(CACHE_KEY)
+      if (raw) {
+        const { ts, data } = JSON.parse(raw)
+        recentCommits = data
+        loading = false
+        if (Date.now() - ts < CACHE_TTL) return // still fresh — skip network
+      }
+    } catch { /* ignore corrupt cache */ }
+
     try {
       const searchRes = await gh(`/search/commits?q=author:${GITHUB_USER}+is:public&sort=author-date&order=desc&per_page=7`)
       if (!searchRes.ok) throw new Error()
       const { items } = await searchRes.json()
 
-      recentCommits = await Promise.all(
+      const fresh = await Promise.all(
         items.map(async (item) => {
           const repo = item.repository.name
           try {
@@ -34,8 +48,11 @@
           }
         })
       )
+
+      recentCommits = fresh
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: fresh }))
     } catch {
-      error = true
+      if (recentCommits.length === 0) error = true
     } finally {
       loading = false
     }

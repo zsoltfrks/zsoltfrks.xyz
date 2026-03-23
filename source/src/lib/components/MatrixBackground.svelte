@@ -69,9 +69,27 @@
     ctx = canvas.getContext('2d')
     resize()
     window.addEventListener('resize', resize)
-    rafId = requestAnimationFrame(loop)
+
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+    if (!mq.matches) {
+      rafId = requestAnimationFrame(loop)
+    }
+
+    function onMotionChange(e) {
+      if (e.matches) {
+        cancelAnimationFrame(rafId)
+      } else {
+        lastTime = 0
+        rafId = requestAnimationFrame(loop)
+      }
+    }
+
+    mq.addEventListener('change', onMotionChange)
+
     return () => {
       window.removeEventListener('resize', resize)
+      mq.removeEventListener('change', onMotionChange)
       cancelAnimationFrame(rafId)
     }
   })
@@ -82,3 +100,9 @@
   class="pointer-events-none fixed inset-0 -z-10 transition-opacity duration-700 {animating ? 'opacity-100' : 'opacity-0'}"
   aria-hidden="true"
 ></canvas>
+
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    canvas { display: none; }
+  }
+</style>

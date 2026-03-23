@@ -1,12 +1,5 @@
 <script>
   let { job, openPopover, onopen, onclose } = $props()
-
-  function logoSrc(website) {
-    try {
-      const host = new URL(website).hostname.replace(/^www\./, '')
-      return `https://logo.clearbit.com/${host}`
-    } catch { return null }
-  }
 </script>
 
 <div class="mb-4 flex items-baseline justify-between gap-4 text-sm text-white/40">
@@ -29,14 +22,6 @@
       >
         <!-- chrome header -->
         <div class="flex items-center gap-3 border-b border-white/[0.06] bg-black/30 px-4 py-3">
-          {#if job.website}
-            <img
-              src={logoSrc(job.website)}
-              alt={job.company}
-              class="h-7 w-7 shrink-0 rounded object-contain"
-              onerror={(e) => e.currentTarget.style.display = 'none'}
-            />
-          {/if}
           <div class="min-w-0">
             <p class="truncate text-sm font-bold text-white/85">{job.company}</p>
             <p class="truncate font-mono text-xs text-white/30">{job.role}</p>

@@ -2,8 +2,11 @@
   let { currentPath = '/' } = $props()
   let menuOpen = $state(false)
 
-  const links = [
+  const pageLinks = [
     { label: 'about', href: '/about' },
+  ]
+
+  const sectionLinks = [
     { label: 'experience', href: '/#experience' },
     { label: 'projects', href: '/#projects' },
     { label: 'contact', href: '/#contact' },
@@ -24,7 +27,18 @@
 
     <!-- desktop links (centered in middle column) -->
     <ul class="hidden md:flex items-center gap-8">
-      {#each links as link}
+      {#each pageLinks as link}
+        <li>
+          <a
+            href={link.href}
+            class="text-sm transition-colors hover:text-white {currentPath === link.href ? 'text-white' : 'text-white/40'}"
+          >
+            {link.label}
+          </a>
+        </li>
+      {/each}
+      <li aria-hidden="true" class="h-3 w-px bg-white/[0.15]"></li>
+      {#each sectionLinks as link}
         <li>
           <a
             href={link.href}
@@ -78,7 +92,19 @@
   {#if menuOpen}
     <div class="md:hidden border-t border-white/[0.06] bg-[#0a0a0a]">
       <ul class="flex flex-col px-6 py-5 gap-5">
-        {#each links as link}
+        {#each pageLinks as link}
+          <li>
+            <a
+              href={link.href}
+              onclick={closeMenu}
+              class="block text-sm text-white/50 hover:text-white transition-colors"
+            >
+              {link.label}
+            </a>
+          </li>
+        {/each}
+        <li aria-hidden="true" class="border-t border-white/[0.08]"></li>
+        {#each sectionLinks as link}
           <li>
             <a
               href={link.href}

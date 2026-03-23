@@ -6,12 +6,19 @@
   let commit = $state(null)
 
   onMount(async () => {
+    const cached = localStorage.getItem('last-commit')
+    if (cached) commit = cached
+
     try {
       const res = await fetch('/api/github?path=' + encodeURIComponent('/repos/zsoltfrks/zsoltfrks.xyz/commits?per_page=1'))
       if (!res.ok) throw new Error()
       const [latest] = await res.json()
-      commit = latest?.sha?.slice(0, 7) ?? null
-    } catch { commit = null }
+      const hash = latest?.sha?.slice(0, 7) ?? null
+      if (hash) {
+        commit = hash
+        localStorage.setItem('last-commit', hash)
+      }
+    } catch { if (!commit) commit = null }
   })
 
   const links = [

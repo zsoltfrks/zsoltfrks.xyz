@@ -8,7 +8,7 @@
   import Contact from './lib/components/Contact.svelte'
   import MatrixBackground from './lib/components/MatrixBackground.svelte'
 
-  let animating = $state(true)
+  let animating = $state(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   let currentPath = $state('/')
   const isAboutPage = $derived(currentPath === '/about')
 
