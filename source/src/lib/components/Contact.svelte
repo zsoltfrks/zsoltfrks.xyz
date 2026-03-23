@@ -91,11 +91,11 @@
                 href={link.href}
                 target={link.label !== 'email' ? '_blank' : undefined}
                 rel="noopener noreferrer"
-                class="group flex items-baseline gap-3 text-white/35 transition-colors hover:text-white"
+                class="group flex items-baseline gap-3 text-white/50 transition-colors hover:text-white"
               >
-                <span class="shrink-0 text-white/20 transition-colors group-hover:text-white/50">→</span>
-                <span class="w-20 shrink-0 text-white/30">{link.label}</span>
-                <span class="text-white/20">·</span>
+                <span class="shrink-0 text-white/20 transition-colors group-hover:text-white/50" aria-hidden="true">→</span>
+                <span class="w-20 shrink-0 text-white/50">{link.label}</span>
+                <span class="text-white/20" aria-hidden="true">·</span>
                 <span class="transition-colors">{link.display}</span>
               </a>
             </li>
@@ -109,8 +109,8 @@
         <!-- Map card -->
         <div class="flex flex-1 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/[0.04] backdrop-blur-md">
           <div class="flex items-center justify-between border-b border-white/[0.06] bg-black/30 px-4 py-3">
-            <span class="font-mono text-xs text-white/35">Szeged, Hungary</span>
-            <span class="font-mono text-[10px] text-white/20">{localTime}</span>
+            <span class="font-mono text-xs text-white/50">Szeged, Hungary</span>
+            <span class="font-mono text-[10px] text-white/50">{localTime}</span>
           </div>
           <div bind:this={mapEl} class="min-h-44 flex-1 w-full"></div>
         </div>
@@ -128,9 +128,9 @@
     <!-- left: copyright + status -->
     <div class="flex items-center gap-3">
       <span>© {year} Zsolt Farkas</span>
-      <span class="text-white/20">·</span>
+      <span class="text-white/20" aria-hidden="true">·</span>
       <div class="flex items-center gap-2">
-        <span class="relative inline-flex h-1.5 w-1.5">
+        <span class="relative inline-flex h-1.5 w-1.5" aria-hidden="true">
           <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/40"></span>
           <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500/70"></span>
         </span>
@@ -138,7 +138,7 @@
       </div>
     </div>
 
-    <!-- right: commit hash + view source -->
+    <!-- right: commit hash + view count -->
     <div class="flex items-center gap-4">
       <a
         href="https://github.com/zsoltfrks/zsoltfrks.xyz/commit/{commit}"
@@ -146,15 +146,15 @@
         rel="noopener noreferrer"
         class="flex items-center gap-1.5 text-white/60 transition-colors hover:text-white"
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0m3-9v6m0 6v6"/>
         </svg>
         {commit ?? '—'}
       </a>
-      <span class="text-white/20">·</span>
+      <span class="text-white/20" aria-hidden="true">·</span>
       <span>
         <span class="text-white/60">{views ?? '—'}</span>
-        <span class="text-white/30"> views</span>
+        <span class="text-white/50"> views</span>
       </span>
     </div>
 

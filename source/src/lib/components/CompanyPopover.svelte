@@ -2,7 +2,7 @@
   let { job, openPopover, onopen, onclose } = $props()
 </script>
 
-<div class="mb-4 flex items-baseline justify-between gap-4 text-sm text-white/40">
+<div class="mb-4 flex items-baseline justify-between gap-4 text-sm text-white/50">
   {#if job.about}
     <div class="relative">
       <button
@@ -24,7 +24,7 @@
         <div class="flex items-center gap-3 border-b border-white/[0.06] bg-black/30 px-4 py-3">
           <div class="min-w-0">
             <p class="truncate text-sm font-bold text-white/85">{job.company}</p>
-            <p class="truncate font-mono text-xs text-white/30">{job.role}</p>
+            <p class="truncate font-mono text-xs text-white/50">{job.role}</p>
           </div>
         </div>
 
@@ -36,7 +36,7 @@
               href={job.website}
               target="_blank"
               rel="noopener noreferrer"
-              class="font-mono text-xs text-white/30 transition-colors hover:text-white/80"
+              class="font-mono text-xs text-white/50 transition-colors hover:text-white/80"
             >Visit Website ↗</a>
           {:else}
             <span class="font-mono text-xs text-red-400/70">[ closed source ]</span>
@@ -47,5 +47,5 @@
   {:else}
     <span>{job.company}</span>
   {/if}
-  {#if job.location}<span class="shrink-0 font-mono text-xs text-white/25">{job.location}</span>{/if}
+  {#if job.location}<span class="shrink-0 font-mono text-xs text-white/50">{job.location}</span>{/if}
 </div>
