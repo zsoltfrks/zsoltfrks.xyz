@@ -7,4 +7,7 @@ export default defineConfig({
     tailwindcss(),
     svelte(),
   ],
+  build: {
+    modulePreload: { polyfill: false },
+  },
 })
