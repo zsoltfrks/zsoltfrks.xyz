@@ -106,7 +106,7 @@
 
       <!-- bio -->
       <p class="mb-6 text-sm leading-relaxed text-white/60">
-        I love coding and building things that impact others. Currently focused on
+        Computer Science BSc student. Currently focused on
         backend technologies, systems design and addon development. I care deeply
         about clean & safe code.
       </p>

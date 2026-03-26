@@ -24,7 +24,7 @@ export const experience = [
     location: 'Remote',
     website: '',
     about: 'A custom multiplayer game server built on the Multi Theft Auto platform. The project is on-hold as of 2025.',
-    type: 'freelance',
+    type: 'projects',
     bullets: [
       'Founded and led development of a multiplayer game server with a small, dedicated team.',
       'Architected core gameplay systems and backend infrastructure for a custom environment.',

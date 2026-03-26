@@ -8,8 +8,8 @@
   ]
 
   const sectionLinks = [
-    { label: 'experience', href: '/#experience' },
     { label: 'projects', href: '/#projects' },
+    { label: 'experience', href: '/#experience' },
     { label: 'contact', href: '/#contact' },
   ]
 

@@ -18,7 +18,7 @@
     { category: 'Frontend',       items: ['HTML', 'CSS', 'Tailwind CSS'] },
     { category: 'Cloud & DevOps', items: ['AWS', 'Docker'] },
     { category: 'Databases',      items: ['MySQL', 'PostgreSQL', 'MariaDB', 'MongoDB'] },
-    { category: 'Tools & Misc',   items: ['Git', 'Linux', 'IntelliJ IDEA', 'PyCharm', 'Adobe Photoshop'] },
+    { category: 'Tools & Misc',   items: ['Git', 'Jira', 'Visual Studio Code', 'IntelliJ IDEA', 'PyCharm', 'Adobe Photoshop'] },
   ]
 
   const sectionClass = $derived(standalone ? 'pb-20 pt-28' : 'py-24')
@@ -75,7 +75,7 @@
           <button
             class="inline-flex items-center gap-1 font-mono text-xs text-white/50 align-middle transition-colors hover:text-white/70 ml-2"
             onclick={() => techStackOpen = true}
-          ><span aria-hidden="true">↳</span> see full tech stack</button>
+          ><span aria-hidden="true">→</span> see full tech stack</button>
         </p>
         <p>
           My work focuses on <span class="text-white/85">backend development</span> with an undeniable love for <span class="text-white/85">frontend</span>.
@@ -228,7 +228,7 @@
       <div class="overflow-y-auto p-6 space-y-6">
         {#each techStack as group}
           <div>
-            <p class="mb-3 font-mono text-[10px] uppercase tracking-widest text-white/50">{group.category}</p>
+            <p class="mb-3 font-mono text-[12px] uppercase tracking-widest text-white/50">{group.category}</p>
             <div class="flex flex-wrap gap-2">
               {#each group.items as item}
                 <span class="rounded border border-white/10 bg-white/4 px-3 py-1.5 font-mono text-xs text-white/70">

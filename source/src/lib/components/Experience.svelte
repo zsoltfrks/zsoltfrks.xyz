@@ -3,7 +3,7 @@
   import CompanyPopover from './CompanyPopover.svelte'
 
   const fullTime  = experience.filter(j => j.type === 'full-time')
-  const freelance = experience.filter(j => j.type === 'freelance')
+  const freelance = experience.filter(j => j.type === 'projects')
 
   let openPopover = $state(null)
   let closeTimer = null
@@ -37,7 +37,7 @@
             {#each fullTime as job}
               <li class="ml-8">
                 <!-- timeline dot -->
-                <span class="absolute left-0 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/20 bg-[#0a0a0a]" aria-hidden="true"></span>
+                <span class="absolute left-0 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/30 bg-[#0a0a0a]" aria-hidden="true"></span>
 
                 <!-- role + period -->
                 <div class="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
@@ -52,7 +52,7 @@
                 <ul class="mb-4 space-y-1.5">
                   {#each job.bullets as bullet}
                     <li class="flex items-start gap-2 text-xs leading-relaxed text-white/50">
-                      <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/30" aria-hidden="true"></span>
+                      <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/50"></span>
                       {bullet}
                     </li>
                   {/each}
@@ -86,12 +86,12 @@
       <!-- freelance -->
       {#if freelance.length}
         <div>
-          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/50">Freelance</p>
+          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/50">Projects</p>
 
           <ol class="timeline relative ml-1 space-y-10">
             {#each freelance as job}
               <li class="ml-8">
-                <span class="absolute left-0 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/20 bg-[#0a0a0a]" aria-hidden="true"></span>
+                <span class="absolute left-0 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/30 bg-[#0a0a0a]" aria-hidden="true"></span>
 
                 <!-- role + period -->
                 <div class="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
@@ -105,7 +105,7 @@
                 <ul class="mb-4 space-y-1.5">
                   {#each job.bullets as bullet}
                     <li class="flex items-start gap-2 text-xs leading-relaxed text-white/50">
-                      <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/30" aria-hidden="true"></span>
+                      <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/50"></span>
                       {bullet}
                     </li>
                   {/each}
@@ -146,6 +146,6 @@
     top: 0.6875rem; /* mt-1.5 (0.375rem) + half of h-2.5 (0.3125rem) */
     bottom: 0;
     width: 1px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.3);
   }
 </style>
