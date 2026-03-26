@@ -46,7 +46,7 @@
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       subdomains: 'abcd',
-      maxZoom: 19,
+      maxZoom: 12,
     }).addTo(map)
 
     return () => map.remove()
@@ -60,10 +60,10 @@
 
       <!-- Left: contact content -->
       <div>
-        <h2 class="mb-8 text-4xl font-bold tracking-tight text-white/85">Reach out.</h2>
+        <h2 class="mb-8 text-4xl font-bold tracking-tight text-white/85">Reach out</h2>
 
         <p class="mb-10 text-sm leading-relaxed text-white/55">
-          Open to freelance work, collaborations, and ideas.
+          Open to freelance or full-time work, collaborations, and ideas.
           Drop me a line and I will reply to you asap. <span class="text-white/85">:)</span>
         </p>
 
@@ -93,7 +93,7 @@
           <!-- chrome header -->
           <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
             <span class="font-mono text-xs text-white/50">Szeged, Hungary</span>
-            <span class="font-mono text-[10px] text-white/50">{localTime}</span>
+            <span class="font-mono text-xs text-white/50">{localTime}</span>
           </div>
 
           <!-- map -->

@@ -85,7 +85,7 @@
   <div class="max-w-xl w-full px-6 text-left">
 
       <!-- greeting + name -->
-      <h1 class="mb-3 text-2xl font-medium leading-snug text-white/65 sm:text-4xl">
+      <h1 class="mb-3 text-2xl leading-snug text-white/55 sm:text-4xl">
         Hey! I'm&nbsp;<span class="name-flicker inline-flex font-bold text-white">
           Zs<span
             class="o-letter"
@@ -100,7 +100,7 @@
       </h1>
 
       <!-- role with typing animation -->
-      <p class="mb-6 text-base text-white/55">
+      <p class="mb-6 text-base text-white/65">
         {typed}<span class={typingDone ? 'cursor-done' : 'cursor-blink'}>_</span>
       </p>
 
@@ -112,12 +112,13 @@
       </p>
 
       <!-- tagline -->
-      <p class="mb-4 text-sm text-white/50 italic">Always learning, always tinkering.</p>
+      <p class="mb-6 text-sm text-white/55 italic">Always learning, always tinkering.</p>
 
       <!-- location glitch -->
-      <p class="mb-10 font-mono text-sm text-white/50">{locationDisplay}</p>
+      <p class="mb-6 font-mono text-sm text-white/55">{locationDisplay}</p>
 
-      <!-- links row -->
+      <!-- TODO: Rework this so its not just a huge wall of text smh -->
+      <!-- links row 
       <div class="flex flex-wrap items-center justify-start gap-x-4 gap-y-3 sm:gap-x-0 text-[13px] text-white/50">
         <a
           href="https://github.com/zsoltfrks"
@@ -155,7 +156,7 @@
         <a href="/about" class="transition-colors hover:text-white">
           Learn more about me →
         </a>
-      </div>
+      </div>-->
 
   </div>
 </section>
