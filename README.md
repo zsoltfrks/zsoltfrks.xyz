@@ -1,5 +1,5 @@
 # zsoltfrks.xyz
-<img width="1916" height="944" alt="image" src="https://github.com/user-attachments/assets/7cd8d56a-84dd-4b87-8c00-e4d655ce2aae" />
+<img width="1917" height="943" alt="image" src="https://github.com/user-attachments/assets/211595a6-1848-4a73-b012-495965475a62" />
 
 
 ## Inspiration
