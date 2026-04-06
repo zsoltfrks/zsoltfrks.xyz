@@ -173,19 +173,6 @@
           {/each}
         {/if}
       </ul>
-
-      <!-- panel footer -->
-      <div class="flex justify-start px-4 py-2.5">
-        <a
-          href="https://github.com/{GITHUB_USER}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-mono text-xs text-white/50 transition-colors hover:text-white"
-        >
-          View on GitHub ↗
-        </a>
-      </div>
-
     </div>
 
   </div>

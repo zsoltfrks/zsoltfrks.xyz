@@ -2,7 +2,7 @@
   let { job, openPopover, onopen, onclose } = $props()
 </script>
 
-<div class="mb-4 flex items-baseline justify-between gap-4 text-sm text-white/50">
+<div class="mb-4 flex flex-col gap-0.5 text-sm text-white/50 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
   {#if job.about}
     <div class="relative">
       <button

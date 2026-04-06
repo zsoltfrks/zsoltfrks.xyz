@@ -60,9 +60,9 @@
 
       <!-- Left: contact content -->
       <div>
-        <h2 class="mb-8 text-4xl font-bold tracking-tight text-white/85">Reach out</h2>
+        <h2 class="mb-8 text-4xl font-bold tracking-tight text-white/85">Contact</h2>
 
-        <p class="mb-10 text-sm leading-relaxed text-white/55">
+        <p class="mb-10 text-sm leading-relaxed text-white/65">
           Open to freelance or full-time work, collaborations, and ideas.
           Drop me a line and I will reply to you asap. <span class="text-white/85">:)</span>
         </p>
@@ -76,9 +76,9 @@
                 rel="noopener noreferrer"
                 class="group flex items-baseline gap-3 text-white/50 transition-colors hover:text-white"
               >
-                <span class="shrink-0 text-white/20 transition-colors group-hover:text-white/50" aria-hidden="true">→</span>
+                <span class="shrink-0 text-white/20 transition-colors group-hover:text-white/53" aria-hidden="true">→</span>
                 <span class="w-20 shrink-0 text-white/50">{link.label}</span>
-                <span class="text-white/20" aria-hidden="true">·</span>
+                <span class="text-white/40" aria-hidden="true">·</span>
                 <span class="transition-colors">{link.display}</span>
               </a>
             </li>
@@ -92,8 +92,8 @@
 
           <!-- chrome header -->
           <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
-            <span class="font-mono text-xs text-white/50">Szeged, Hungary</span>
-            <span class="font-mono text-xs text-white/50">{localTime}</span>
+            <span class="font-mono text-xs text-white/65">Szeged, Hungary</span>
+            <span class="font-mono text-xs text-white/65">{localTime}</span>
           </div>
 
           <!-- map -->

@@ -197,7 +197,7 @@
 
   /* ── Dimmed "o" ───────────────────────────────── */
   .o-letter {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgb(165, 161, 161);
     cursor: pointer;
     transition: color 0.15s ease;
     animation: flicker 8s ease-in-out infinite;
@@ -234,5 +234,13 @@
   @media (prefers-reduced-motion: reduce) {
     .cursor-blink { animation: none; }
     .o-letter { animation: none; }
+  }
+
+  @media (hover: none) {
+    .o-letter {
+      color: rgb(255, 255, 255);
+      animation: none;
+      cursor: default;
+    }
   }
 </style>

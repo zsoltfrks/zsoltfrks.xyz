@@ -31,7 +31,7 @@
       <!-- full-time -->
       {#if fullTime.length}
         <div>
-          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/50">Full-Time</p>
+          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/65">Full-Time</p>
 
           <ol class="timeline relative ml-1 space-y-10">
             {#each fullTime as job}
@@ -42,7 +42,7 @@
                 <!-- role + period -->
                 <div class="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
                   <h3 class="font-bold text-white/90">{job.role}</h3>
-                  <time class="shrink-0 font-mono text-xs text-white/50">{job.period}</time>
+                  <time class="shrink-0 font-mono text-xs text-white/60">{job.period}</time>
                 </div>
 
                 <!-- company + location + popover -->
@@ -51,8 +51,8 @@
                 <!-- bullets -->
                 <ul class="mb-4 space-y-1.5">
                   {#each job.bullets as bullet}
-                    <li class="flex items-start gap-2 text-xs leading-relaxed text-white/50">
-                      <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/50"></span>
+                    <li class="flex items-start gap-2 text-xs leading-relaxed text-white/65">
+                      <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/65"></span>
                       {bullet}
                     </li>
                   {/each}
@@ -61,9 +61,9 @@
                 <!-- tech tags -->
                 {#if job.tech?.length}
                   <div class="mb-2 flex flex-wrap items-center gap-1.5">
-                    <span class="font-mono text-xs text-white/50">TECH:</span>
+                    <span class="font-mono text-xs text-white/65">TECH:</span>
                     {#each job.tech as tag}
-                      <span class="rounded border border-white/10 px-2 py-0.5 font-mono text-xs text-white/50">{tag}</span>
+                      <span class="rounded border border-white/10 px-2 py-0.5 font-mono text-xs text-white/65">{tag}</span>
                     {/each}
                   </div>
                 {/if}
@@ -71,9 +71,9 @@
                 <!-- skills tags -->
                 {#if job.skills?.length}
                   <div class="flex flex-wrap items-center gap-1.5">
-                    <span class="font-mono text-xs text-white/50">SKILLS:</span>
+                    <span class="font-mono text-xs text-white/65">SKILLS:</span>
                     {#each job.skills as skill}
-                      <span class="rounded border border-white/[0.07] px-2 py-0.5 font-mono text-xs text-white/50">{skill}</span>
+                      <span class="rounded border border-white/[0.07] px-2 py-0.5 font-mono text-xs text-white/65">{skill}</span>
                     {/each}
                   </div>
                 {/if}
@@ -86,7 +86,7 @@
       <!-- freelance -->
       {#if freelance.length}
         <div>
-          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/50">Projects</p>
+          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/65">Projects</p>
 
           <ol class="timeline relative ml-1 space-y-10">
             {#each freelance as job}
@@ -96,7 +96,7 @@
                 <!-- role + period -->
                 <div class="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
                   <h3 class="font-bold text-white/90">{job.role}</h3>
-                  <time class="shrink-0 font-mono text-xs text-white/50">{job.period}</time>
+                  <time class="shrink-0 font-mono text-xs text-white/60">{job.period}</time>
                 </div>
 
                 <!-- company + location + popover -->
@@ -104,8 +104,8 @@
 
                 <ul class="mb-4 space-y-1.5">
                   {#each job.bullets as bullet}
-                    <li class="flex items-start gap-2 text-xs leading-relaxed text-white/50">
-                      <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/50"></span>
+                    <li class="flex items-start gap-2 text-xs leading-relaxed text-white/65">
+                      <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/65"></span>
                       {bullet}
                     </li>
                   {/each}
@@ -113,18 +113,18 @@
 
                 {#if job.tech?.length}
                   <div class="mb-2 flex flex-wrap items-center gap-1.5">
-                    <span class="font-mono text-xs text-white/50">TECH:</span>
+                    <span class="font-mono text-xs text-white/65">TECH:</span>
                     {#each job.tech as tag}
-                      <span class="rounded border border-white/10 px-2 py-0.5 font-mono text-xs text-white/50">{tag}</span>
+                      <span class="rounded border border-white/10 px-2 py-0.5 font-mono text-xs text-white/65">{tag}</span>
                     {/each}
                   </div>
                 {/if}
 
                 {#if job.skills?.length}
                   <div class="flex flex-wrap items-center gap-1.5">
-                    <span class="font-mono text-xs text-white/50">SKILLS:</span>
+                    <span class="font-mono text-xs text-white/65">SKILLS:</span>
                     {#each job.skills as skill}
-                      <span class="rounded border border-white/[0.07] px-2 py-0.5 font-mono text-xs text-white/50">{skill}</span>
+                      <span class="rounded border border-white/[0.07] px-2 py-0.5 font-mono text-xs text-white/65">{skill}</span>
                     {/each}
                   </div>
                 {/if}
