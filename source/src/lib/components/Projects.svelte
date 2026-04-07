@@ -95,7 +95,7 @@
           <!-- card body -->
           <div class="flex flex-1 flex-col p-4">
             <div class="mb-3 flex items-start justify-between gap-2">
-              <h3 class="font-bold text-white/85">{project.title}</h3>
+              <h3 class="font-bold text-white/90">{project.title}</h3>
               {#if project.live}
                 <a href={project.live} target="_blank" rel="noopener noreferrer" aria-label="Visit live site" class="shrink-0 text-white/50 transition-colors hover:text-white">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -103,13 +103,13 @@
               {/if}
             </div>
 
-            <p class="mb-4 flex-1 text-xs leading-relaxed text-white/55">{project.description}</p>
+            <p class="mb-4 flex-1 text-xs leading-relaxed text-white/65">{project.description}</p>
 
             <div class="flex items-center gap-2">
               <svg class="shrink-0 text-white/80" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.5 8L10.46 10L9.75 12.76L7 12L4.25 12.76L3.54 10L1.5 8L3.54 6L4.25 3.24L7 4L9.75 3.24L10.46 6ZM7 6A2 2 0 1 0 7 10A2 2 0 1 0 7 6ZM20.5 15L18.77 16.6L18.25 18.9L16 18.2L13.75 18.9L13.23 16.6L11.5 15L13.23 13.4L13.75 11.1L16 11.8L18.25 11.1L18.77 13.4ZM16 13.2A1.8 1.8 0 1 0 16 16.8A1.8 1.8 0 1 0 16 13.2Z"/></svg>
               <div class="flex flex-wrap gap-1.5">
                 {#each project.tags as tag}
-                  <span class="rounded border border-white/8 bg-black/10 px-2 py-0.5 font-mono text-[10px] text-white/75">
+                  <span class="rounded border border-white/10 bg-black/10 px-2 py-0.5 font-mono text-[10px] text-white/75">
                     {tag}
                   </span>
                 {/each}
@@ -164,9 +164,9 @@
               </a>
               {#if commit.additions !== null}
                 <span class="shrink-0 font-mono text-xs">
-                  <span class="text-[#66BB6A]">+{commit.additions}</span>
+                  <span class="text-green-400/70">+{commit.additions}</span>
                   <span class="text-white/15" aria-hidden="true"> / </span>
-                  <span class="text-[#EF5350]">-{commit.deletions}</span>
+                  <span class="text-red-400/70">-{commit.deletions}</span>
                 </span>
               {/if}
             </li>

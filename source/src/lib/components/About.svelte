@@ -65,20 +65,20 @@
         </div>
       </div>
 
-      <div class="space-y-5 text-sm leading-relaxed text-white/55 md:pr-6">
+      <div class="space-y-5 text-sm leading-relaxed text-white/65 md:pr-6">
         <p>
-          Hey! I&apos;m Zsolt Farkas, a 24 year old <span class="text-white/85">Computer Science BSc</span> student from Szeged, Hungary. I enjoy
+          Hey! I&apos;m Zsolt Farkas, a 24 year old <span class="text-white/90">Computer Science BSc</span> student from Szeged, Hungary. I enjoy
           working on cool and useful software while solving practical problems with clean, maintainable code.
         </p>
         <p>
-          Main strengths: <span class="text-white/85">Lua</span>, <span class="text-white/85">Python</span> and <span class="text-white/85">Java</span>.
+          Main strengths: <span class="text-white/90">Lua</span>, <span class="text-white/90">Python</span> and <span class="text-white/90">Java</span>.
           <button
             class="inline-flex items-center gap-1 font-mono text-xs text-white/50 align-middle transition-colors hover:text-white/70 ml-2"
             onclick={() => techStackOpen = true}
           ><span aria-hidden="true">→</span> see full tech stack</button>
         </p>
         <p>
-          My work focuses on <span class="text-white/85">backend development</span> with an undeniable love for <span class="text-white/85">frontend</span>.
+          My work focuses on <span class="text-white/90">backend development</span> with an undeniable love for <span class="text-white/90">frontend</span>.
           I enjoy taking ideas from rough concepts to polished products and everything in between.
         </p>
         <p>
@@ -86,12 +86,12 @@
           and going on walks with my dog, Luna.
         </p>
         <p>
-          Also, I am a <span class="text-white/85 transition-colors hover:text-white">gamer</span> by heart from a young age and I have a soft spot for World of Warcraft.
+          Also, I am a <span class="text-white/90 transition-colors hover:text-white">gamer</span> by heart from a young age and I have a soft spot for World of Warcraft.
         </p>
         
 
         <!-- social links -->
-        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 pt-4 font-mono text-sm text-white/50">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 pt-4 font-mono text-sm text-white/60">
           <a href="https://github.com/zsoltfrks" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 transition-colors hover:text-white">
             <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.107-.776.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.604-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
             GitHub
@@ -117,8 +117,8 @@
 
     <div class="mt-16">
       <h2 class="mb-6 flex items-center gap-2 text-2xl font-bold">
-        <span class="text-white/50">My partner in crime, </span><span class="text-white/85">Luna</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="text-white/85" aria-hidden="true"><path fill="currentColor" d="M21.24 5.69c-.25-1.01-.56-1.82-.9-2.41C19.72 2.22 19 2 18.51 2c-.96 0-2.83 2.06-3.79 3.53c-1.83-.47-3.58-.47-5.41 0C8.35 4.06 6.48 2 5.52 2c-.49 0-1.21.22-1.83 1.28c-.35.59-.65 1.4-.9 2.41c-.25.98-.43 2.1-.56 3.32c-.19 1.85-.2 4.07-.2 4.5c0 5.4 3.64 8.5 10 8.5s10-3.1 10-8.5c0-.43 0-2.65-.2-4.5c-.13-1.22-.32-2.34-.56-3.32ZM4.97 9.77c.2-3.03.95-4.55.95-4.55l1.61 2.15a7.5 7.5 0 0 0-2.57 2.4ZM7 11c0-.55.45-1 1-1s1 .45 1 1s-.45 1-1 1s-1-.45-1-1m7 7c-.36 0-.7-.1-1-.28V18c0 .55-.45 1-1 1s-1-.45-1-1v-.28c-.3.18-.64.28-1 .28c-.53 0-1.04-.21-1.41-.59l.71-.71c.38.38 1.04.38 1.41 0a1 1 0 0 0 .29-.71c0-.1-.03-.19-.06-.28c-.85-.46-1.44-1.42-1.44-2.39c0-.74 1.12-1.33 2.5-1.33s2.5.6 2.5 1.33c0 .97-.59 1.93-1.44 2.39c-.03.09-.06.18-.06.28c0 .27.1.52.29.71c.38.38 1.04.38 1.41 0l.71.71c-.38.38-.88.59-1.41.59m2-6c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1m.47-4.62l1.61-2.15s.76 1.52.95 4.55a7.5 7.5 0 0 0-2.57-2.4Z"/></svg>
+        <span class="text-white/50">My partner in crime, </span><span class="text-white/90">Luna</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="text-white/90" aria-hidden="true"><path fill="currentColor" d="M21.24 5.69c-.25-1.01-.56-1.82-.9-2.41C19.72 2.22 19 2 18.51 2c-.96 0-2.83 2.06-3.79 3.53c-1.83-.47-3.58-.47-5.41 0C8.35 4.06 6.48 2 5.52 2c-.49 0-1.21.22-1.83 1.28c-.35.59-.65 1.4-.9 2.41c-.25.98-.43 2.1-.56 3.32c-.19 1.85-.2 4.07-.2 4.5c0 5.4 3.64 8.5 10 8.5s10-3.1 10-8.5c0-.43 0-2.65-.2-4.5c-.13-1.22-.32-2.34-.56-3.32ZM4.97 9.77c.2-3.03.95-4.55.95-4.55l1.61 2.15a7.5 7.5 0 0 0-2.57 2.4ZM7 11c0-.55.45-1 1-1s1 .45 1 1s-.45 1-1 1s-1-.45-1-1m7 7c-.36 0-.7-.1-1-.28V18c0 .55-.45 1-1 1s-1-.45-1-1v-.28c-.3.18-.64.28-1 .28c-.53 0-1.04-.21-1.41-.59l.71-.71c.38.38 1.04.38 1.41 0a1 1 0 0 0 .29-.71c0-.1-.03-.19-.06-.28c-.85-.46-1.44-1.42-1.44-2.39c0-.74 1.12-1.33 2.5-1.33s2.5.6 2.5 1.33c0 .97-.59 1.93-1.44 2.39c-.03.09-.06.18-.06.28c0 .27.1.52.29.71c.38.38 1.04.38 1.41 0l.71.71c-.38.38-.88.59-1.41.59m2-6c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1m.47-4.62l1.61-2.15s.76 1.52.95 4.55a7.5 7.5 0 0 0-2.57-2.4Z"/></svg>
       </h2>
 
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -231,7 +231,7 @@
             <p class="mb-3 font-mono text-[12px] uppercase tracking-widest text-white/50">{group.category}</p>
             <div class="flex flex-wrap gap-2">
               {#each group.items as item}
-                <span class="rounded border border-white/10 bg-white/4 px-3 py-1.5 font-mono text-xs text-white/70">
+                <span class="rounded border border-white/10 bg-white/4 px-3 py-1.5 font-mono text-xs text-white/65">
                   {item}
                 </span>
               {/each}

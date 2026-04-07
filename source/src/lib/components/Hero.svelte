@@ -105,17 +105,17 @@
       </p>
 
       <!-- bio -->
-      <p class="mb-6 text-sm leading-relaxed text-white/60">
+      <p class="mb-6 text-sm leading-relaxed text-white/65">
         Computer Science BSc student. Currently focused on
         backend technologies, systems design and addon development. I care deeply
         about clean & safe code.
       </p>
 
       <!-- tagline -->
-      <p class="mb-6 text-sm text-white/55 italic">Always learning, always tinkering.</p>
+      <p class="mb-6 text-sm text-white/65 italic">Always learning, always tinkering.</p>
 
       <!-- location glitch -->
-      <p class="mb-6 font-mono text-sm text-white/55">{locationDisplay}</p>
+      <p class="mb-6 font-mono text-sm text-white/65">{locationDisplay}</p>
 
       <!-- TODO: Rework this so its not just a huge wall of text smh -->
       <!-- links row 
