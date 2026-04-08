@@ -49,7 +49,7 @@
                 <CompanyPopover {job} {openPopover} onopen={openPop} onclose={closePop} />
 
                 <!-- bullets -->
-                <ul class="mb-4 space-y-1.5">
+                <ul class="mt-3 mb-5 space-y-2.5">
                   {#each job.bullets as bullet}
                     <li class="flex items-start gap-2 text-xs leading-relaxed text-white/65">
                       <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/65"></span>
@@ -63,7 +63,7 @@
                   <div class="mb-2 flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/65">TECH:</span>
                     {#each job.tech as tag}
-                      <span class="rounded border border-white/10 px-2 py-0.5 font-mono text-xs text-white/65">{tag}</span>
+                      <span class="rounded border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-xs text-white/65">{tag}</span>
                     {/each}
                   </div>
                 {/if}
@@ -73,7 +73,7 @@
                   <div class="flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/65">SKILLS:</span>
                     {#each job.skills as skill}
-                      <span class="rounded border border-white/[0.07] px-2 py-0.5 font-mono text-xs text-white/65">{skill}</span>
+                      <span class="rounded border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-xs text-white/65">{skill}</span>
                     {/each}
                   </div>
                 {/if}
@@ -102,7 +102,7 @@
                 <!-- company + location + popover -->
                 <CompanyPopover {job} {openPopover} onopen={openPop} onclose={closePop} />
 
-                <ul class="mb-4 space-y-1.5">
+                <ul class="mt-3 mb-5 space-y-2.5">
                   {#each job.bullets as bullet}
                     <li class="flex items-start gap-2 text-xs leading-relaxed text-white/65">
                       <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/65"></span>
@@ -115,7 +115,7 @@
                   <div class="mb-2 flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/65">TECH:</span>
                     {#each job.tech as tag}
-                      <span class="rounded border border-white/10 px-2 py-0.5 font-mono text-xs text-white/65">{tag}</span>
+                      <span class="rounded border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-xs text-white/65">{tag}</span>
                     {/each}
                   </div>
                 {/if}
@@ -124,7 +124,7 @@
                   <div class="flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/65">SKILLS:</span>
                     {#each job.skills as skill}
-                      <span class="rounded border border-white/[0.07] px-2 py-0.5 font-mono text-xs text-white/65">{skill}</span>
+                      <span class="rounded border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-xs text-white/65">{skill}</span>
                     {/each}
                   </div>
                 {/if}

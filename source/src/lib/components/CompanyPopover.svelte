@@ -47,5 +47,5 @@
   {:else}
     <span>{job.company}</span>
   {/if}
-  {#if job.location}<span class="shrink-0 font-mono text-xs text-white/50">{job.location}</span>{/if}
+  {#if job.location}<span class="shrink-0 font-mono text-xs text-white/60">{job.location}</span>{/if}
 </div>

@@ -78,18 +78,19 @@
     <!-- cards grid -->
     <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {#each projects as project}
-        <article class="group flex min-h-64 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/4 backdrop-blur-md transition-colors hover:border-white/15">
+        <svelte:element
+          this={project.github ? 'a' : 'article'}
+          href={project.github || undefined}
+          target={project.github ? '_blank' : undefined}
+          rel={project.github ? 'noopener noreferrer' : undefined}
+          class="group flex min-h-64 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/4 backdrop-blur-md transition-colors hover:border-white/15"
+        >
 
           <!-- window chrome -->
-          <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
+          <div class="flex items-center border-b border-white/6 bg-black/30 px-4 py-3">
             <p class="font-mono text-xs text-white/50">
               {project.github ? '[ open source ]' : '[ closed source ]'}
             </p>
-            {#if project.github}
-              <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="View on GitHub" class="text-white/50 transition-colors hover:text-white">
-                <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.107-.776.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.604-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              </a>
-            {/if}
           </div>
 
           <!-- card body -->
@@ -97,9 +98,13 @@
             <div class="mb-3 flex items-start justify-between gap-2">
               <h3 class="font-bold text-white/90">{project.title}</h3>
               {#if project.live}
-                <a href={project.live} target="_blank" rel="noopener noreferrer" aria-label="Visit live site" class="shrink-0 text-white/50 transition-colors hover:text-white">
+                <button
+                  onclick={(e) => { e.stopPropagation(); e.preventDefault(); window.open(project.live, '_blank', 'noopener,noreferrer') }}
+                  aria-label="Visit live site"
+                  class="shrink-0 text-white/50 transition-colors hover:text-white"
+                >
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                </a>
+                </button>
               {/if}
             </div>
 
@@ -117,7 +122,7 @@
             </div>
           </div>
 
-        </article>
+        </svelte:element>
       {/each}
     </div>
 
@@ -132,12 +137,12 @@
             <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/40"></span>
             <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500/70"></span>
           </span>
-          live
+          
         </span>
       </div>
 
       <!-- commit rows -->
-      <ul class="pt-2.5">
+      <ul class="pt-2.5 pb-2.5">
         {#if loading}
           {#each { length: 7 } as _}
             <li class="flex items-center justify-between gap-4 px-4 py-3">
@@ -165,7 +170,7 @@
               {#if commit.additions !== null}
                 <span class="shrink-0 font-mono text-xs">
                   <span class="text-green-400/70">+{commit.additions}</span>
-                  <span class="text-white/15" aria-hidden="true"> / </span>
+                  <span class="text-white/25" aria-hidden="true"> / </span>
                   <span class="text-red-400/70">-{commit.deletions}</span>
                 </span>
               {/if}
