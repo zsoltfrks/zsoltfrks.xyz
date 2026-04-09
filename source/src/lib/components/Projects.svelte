@@ -83,7 +83,7 @@
           href={project.github || undefined}
           target={project.github ? '_blank' : undefined}
           rel={project.github ? 'noopener noreferrer' : undefined}
-          class="group flex min-h-64 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/4 backdrop-blur-md transition-colors hover:border-white/15"
+          class="group flex min-h-64 flex-col overflow-hidden rounded-lg border border-white/8 bg-[#0d0d0d] backdrop-blur-md transition-colors hover:border-white/15"
         >
 
           <!-- window chrome -->
@@ -114,7 +114,7 @@
               <svg class="shrink-0 text-white/80" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.5 8L10.46 10L9.75 12.76L7 12L4.25 12.76L3.54 10L1.5 8L3.54 6L4.25 3.24L7 4L9.75 3.24L10.46 6ZM7 6A2 2 0 1 0 7 10A2 2 0 1 0 7 6ZM20.5 15L18.77 16.6L18.25 18.9L16 18.2L13.75 18.9L13.23 16.6L11.5 15L13.23 13.4L13.75 11.1L16 11.8L18.25 11.1L18.77 13.4ZM16 13.2A1.8 1.8 0 1 0 16 16.8A1.8 1.8 0 1 0 16 13.2Z"/></svg>
               <div class="flex flex-wrap gap-1.5">
                 {#each project.tags as tag}
-                  <span class="rounded border border-white/10 bg-black/10 px-2 py-0.5 font-mono text-[10px] text-white/75">
+                  <span class="rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-[10px] text-white/75">
                     {tag}
                   </span>
                 {/each}
@@ -127,7 +127,7 @@
     </div>
 
     <!-- recent commits panel -->
-    <div class="overflow-hidden rounded-lg border border-white/8 bg-white/4 backdrop-blur-md">
+    <div class="overflow-hidden rounded-lg border border-white/8 bg-[#0d0d0d] backdrop-blur-md">
 
       <!-- panel header -->
       <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
@@ -161,7 +161,7 @@
                 href="https://github.com/{GITHUB_USER}/{commit.repo}/commit/{commit.sha}"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="min-w-0 truncate font-mono text-xs text-white/55 transition-colors hover:text-white/70"
+                class="min-w-0 truncate font-mono text-xs text-white/60 transition-colors hover:text-white/70"
               >
                 <span class="text-white/75">{commit.repo}</span>
                 <span class="text-white/20" aria-hidden="true">: </span>

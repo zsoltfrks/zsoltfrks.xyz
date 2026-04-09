@@ -1,6 +1,4 @@
 <script>
-  import Footer from './Footer.svelte'
-
   let { standalone = false } = $props()
 
   let imageError = $state(false)
@@ -242,8 +240,6 @@
     </div>
   </div>
 {/if}
-
-<Footer />
 
 <style>
   @keyframes shimmer {

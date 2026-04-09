@@ -63,7 +63,7 @@
                   <div class="mb-2 flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/65">TECH:</span>
                     {#each job.tech as tag}
-                      <span class="rounded border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-xs text-white/65">{tag}</span>
+                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/65">{tag}</span>
                     {/each}
                   </div>
                 {/if}
@@ -73,7 +73,7 @@
                   <div class="flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/65">SKILLS:</span>
                     {#each job.skills as skill}
-                      <span class="rounded border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-xs text-white/65">{skill}</span>
+                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/65">{skill}</span>
                     {/each}
                   </div>
                 {/if}
@@ -115,7 +115,7 @@
                   <div class="mb-2 flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/65">TECH:</span>
                     {#each job.tech as tag}
-                      <span class="rounded border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-xs text-white/65">{tag}</span>
+                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/65">{tag}</span>
                     {/each}
                   </div>
                 {/if}
@@ -124,7 +124,7 @@
                   <div class="flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/65">SKILLS:</span>
                     {#each job.skills as skill}
-                      <span class="rounded border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-xs text-white/65">{skill}</span>
+                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/65">{skill}</span>
                     {/each}
                   </div>
                 {/if}

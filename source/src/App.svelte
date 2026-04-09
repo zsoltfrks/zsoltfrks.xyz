@@ -3,6 +3,12 @@
   import Navbar from './lib/components/Navbar.svelte'
   import Hero from './lib/components/Hero.svelte'
 
+  const matrixP     = import('./lib/components/MatrixBackground.svelte')
+  const projectsP   = import('./lib/components/Projects.svelte')
+  const experienceP = import('./lib/components/Experience.svelte')
+  const contactP    = import('./lib/components/Contact.svelte')
+  const footerP     = import('./lib/components/Footer.svelte')
+
   let animating = $state(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   let currentPath = $state('/')
   const isAboutPage = $derived(currentPath === '/about')
@@ -19,7 +25,7 @@
   })
 </script>
 
-{#await import('./lib/components/MatrixBackground.svelte') then { default: MatrixBackground }}
+{#await matrixP then { default: MatrixBackground }}
   <MatrixBackground {animating} />
 {/await}
 
@@ -32,14 +38,17 @@
     {/await}
   {:else}
     <Hero bind:animating />
-    {#await import('./lib/components/Projects.svelte') then { default: Projects }}
+    {#await projectsP then { default: Projects }}
       <Projects />
     {/await}
-    {#await import('./lib/components/Experience.svelte') then { default: Experience }}
+    {#await experienceP then { default: Experience }}
       <Experience />
     {/await}
-    {#await import('./lib/components/Contact.svelte') then { default: Contact }}
+    {#await contactP then { default: Contact }}
       <Contact />
     {/await}
   {/if}
 </main>
+{#await footerP then { default: Footer }}
+  <Footer />
+{/await}

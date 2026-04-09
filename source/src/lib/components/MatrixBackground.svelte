@@ -8,6 +8,8 @@
   let rafId
   let lastTime = 0
   let ro
+  let canvasW = 0
+  let canvasH = 0
 
   const CHARS = '0123456789!@#$%^&*()[]{}|<>?/\\~`ABCDEFabcdef'
   const FONT_SIZE = 13
@@ -31,6 +33,8 @@
   function resize(w, h) {
     canvas.width = w
     canvas.height = h
+    canvasW = w
+    canvasH = h
     ctx.font = `${FONT_SIZE}px 'JetBrains Mono', monospace`
     ctx.fillStyle = '#ffffff'
     initParticles(w, h)
@@ -46,7 +50,7 @@
     const delta = lastTime ? Math.min((timestamp - lastTime) / 16.667, 3) : 1
     lastTime = timestamp
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvasW, canvasH)
 
     for (const p of particles) {
       ctx.globalAlpha = p.opacity
@@ -58,9 +62,9 @@
         p.char = CHARS[Math.floor(Math.random() * CHARS.length)]
         p.timer = 0
       }
-      if (p.y > canvas.height + FONT_SIZE) {
+      if (p.y > canvasH + FONT_SIZE) {
         p.y = -FONT_SIZE
-        p.x = Math.random() * canvas.width
+        p.x = Math.random() * canvasW
       }
     }
 
@@ -71,8 +75,12 @@
   // Restart the loop when animating flips back on after being stopped
   $effect(() => {
     if (animating && !rafId && ctx) {
-      lastTime = 0
-      rafId = requestAnimationFrame(loop)
+      document.fonts.ready.then(() => {
+        if (animating && !rafId) {
+          lastTime = 0
+          rafId = requestAnimationFrame(loop)
+        }
+      })
     }
   })
 
@@ -100,9 +108,11 @@
     }
     mq.addEventListener('change', onMotionChange)
 
-    if (!mq.matches && animating) {
-      rafId = requestAnimationFrame(loop)
-    }
+    document.fonts.ready.then(() => {
+      if (!mq.matches && animating) {
+        rafId = requestAnimationFrame(loop)
+      }
+    })
 
     return () => {
       ro.disconnect()

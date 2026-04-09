@@ -29,7 +29,8 @@
   })
 </script>
 
-<footer class="mx-auto mb-6 w-full max-w-5xl rounded-lg border border-white/10 bg-[#0a0a0a] px-6 py-4 font-mono text-xs text-white/65">
+<div class="mx-auto mb-6 max-w-5xl px-6">
+<footer class="rounded-lg border border-white/10 bg-[#0d0d0d] px-6 py-4 font-mono text-xs text-white/65">
   <div class="flex items-center justify-between gap-4">
 
     <!-- left: copyright + status (status hidden on mobile) -->
@@ -41,7 +42,7 @@
           <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/40"></span>
           <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500/70"></span>
         </span>
-        <span>all systems operational</span>
+        <span>all services operational</span>
       </div>
     </div>
 
@@ -69,10 +70,11 @@
 
       <!-- views (always shown) -->
       <span>
-        <span class="text-white/60">{views ?? '—'}</span>
+        <span class="text-white/70">{views ?? '—'}</span>
         <span class="text-white/50"> views</span>
       </span>
     </div>
 
   </div>
 </footer>
+</div>
