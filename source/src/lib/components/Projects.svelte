@@ -88,7 +88,7 @@
 
           <!-- window chrome -->
           <div class="flex items-center border-b border-white/6 bg-black/30 px-4 py-3">
-            <p class="font-mono text-xs text-white/50">
+            <p class="font-mono text-xs text-white/60">
               {project.github ? '[ open source ]' : '[ closed source ]'}
             </p>
           </div>
@@ -131,7 +131,7 @@
 
       <!-- panel header -->
       <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
-        <span class="font-mono text-xs text-white/50">Recent Commits</span>
+        <span class="font-mono text-xs text-white/60">Recent Commits</span>
         <span class="flex items-center gap-1.5 font-mono text-xs text-emerald-500">
           <span class="relative inline-flex h-1.5 w-1.5" aria-hidden="true">
             <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/40"></span>
@@ -164,13 +164,13 @@
                 class="min-w-0 truncate font-mono text-xs text-white/60 transition-colors hover:text-white/70"
               >
                 <span class="text-white/75">{commit.repo}</span>
-                <span class="text-white/20" aria-hidden="true">: </span>
+                <span class="text-white/30" aria-hidden="true">: </span>
                 {commit.message}
               </a>
               {#if commit.additions !== null}
                 <span class="shrink-0 font-mono text-xs">
                   <span class="text-green-400/70">+{commit.additions}</span>
-                  <span class="text-white/25" aria-hidden="true"> / </span>
+                  <span class="text-white/30" aria-hidden="true"> / </span>
                   <span class="text-red-400/70">-{commit.deletions}</span>
                 </span>
               {/if}
