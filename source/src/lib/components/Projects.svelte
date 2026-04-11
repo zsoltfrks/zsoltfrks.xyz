@@ -169,7 +169,7 @@
               </a>
               {#if commit.additions !== null}
                 <span class="shrink-0 font-mono text-xs">
-                  <span class="text-green-400/80">+{commit.additions}</span>
+                  <span class="text-emerald-500/80">+{commit.additions}</span>
                   <span class="text-white/30" aria-hidden="true"> / </span>
                   <span class="text-red-400/80">-{commit.deletions}</span>
                 </span>
