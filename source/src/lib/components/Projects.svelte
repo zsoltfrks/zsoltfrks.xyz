@@ -161,11 +161,11 @@
                 href="https://github.com/{GITHUB_USER}/{commit.repo}/commit/{commit.sha}"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="min-w-0 truncate font-mono text-xs text-white/60 transition-colors hover:text-white/70"
+                class="min-w-0 truncate font-mono text-xs text-white/60 transition-colors hover:text-white/80"
               >
-                <span class="text-white/75">{commit.repo}</span>
+                <span class="text-white/90">{commit.repo}</span>
                 <span class="text-white/30" aria-hidden="true">: </span>
-                {commit.message}
+                <span class="text-white/65">{commit.message}</span>
               </a>
               {#if commit.additions !== null}
                 <span class="shrink-0 font-mono text-xs">
