@@ -64,10 +64,11 @@
       </div>
 
       <div class="space-y-5 text-sm leading-relaxed text-white/65 md:pr-6">
-        <p>
-          Hey! I&apos;m Zsolt Farkas, a 24 year old <span class="text-white/90">Computer Science BSc</span> student from Szeged, Hungary. I enjoy
-          working on cool and useful software while solving practical problems with clean, maintainable code.
+          <p>Hey! I&apos;m Zsolt Farkas, a 24-year-old <span class="text-white/90">Computer Science BSc</span> student from Szeged, Hungary. 
+          I build clean, maintainable software to solve practical problems, with the ultimate goal of becoming a 
+          <span class="text-white/90">Full Stack Software Engineer</span>.
         </p>
+        
         <p>
           Main strengths: <span class="text-white/90">Lua</span>, <span class="text-white/90">Python</span> and <span class="text-white/90">Java</span>.
           <button
@@ -75,16 +76,20 @@
             onclick={() => techStackOpen = true}
           ><span aria-hidden="true">→</span> see full tech stack</button>
         </p>
+
         <p>
-          My work focuses on <span class="text-white/90">backend development</span> with an undeniable love for <span class="text-white/90">frontend</span>.
-          I enjoy taking ideas from rough concepts to polished products and everything in between.
+          My work bridges the gap between robust <span class="text-white/90">backend logic</span> and my undeniable love for 
+          <span class="text-white/90">frontend design</span>. I enjoy taking ideas from rough concepts to polished, 
+          end-to-end products.
         </p>
+
         <p>
-          Outside of software, I spend time studying,
-          and going on walks with my dog, Luna.
+          Outside of software, I spend time studying and going on walks with my dog, Luna.
         </p>
+        
         <p>
-          Also, I am a <span class="text-white/90 transition-colors hover:text-white">gamer</span> by heart from a young age and I have a soft spot for World of Warcraft.
+          Also, I am a <span class="text-white/90 transition-colors hover:text-white">gamer</span> by heart from a young age 
+          and I have a soft spot for World of Warcraft.
         </p>
         
 
