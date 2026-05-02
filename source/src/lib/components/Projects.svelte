@@ -65,14 +65,6 @@
     <!-- section header -->
     <div class="mb-8 flex items-baseline justify-between">
       <h2 class="text-xl font-bold text-white/80">Featured Projects</h2>
-      <a
-        href="https://github.com/{GITHUB_USER}"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="font-mono text-xs text-white/50 transition-colors hover:text-white"
-      >
-        view all ↗
-      </a>
     </div>
 
     <!-- cards grid -->
