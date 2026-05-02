@@ -31,7 +31,7 @@
       <!-- full-time -->
       {#if fullTime.length}
         <div>
-          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/65">Full-Time</p>
+          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/80">Full-Time</p>
 
           <ol class="timeline relative ml-1 space-y-10">
             {#each fullTime as job}
@@ -86,7 +86,7 @@
       <!-- freelance -->
       {#if freelance.length}
         <div>
-          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/65">Projects</p>
+          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/80">SELF-EMPLOYED</p>
 
           <ol class="timeline relative ml-1 space-y-10">
             {#each freelance as job}

@@ -24,20 +24,20 @@
         <div class="flex items-center gap-3 border-b border-white/6 bg-black/30 px-4 py-3">
           <div class="min-w-0">
             <p class="truncate text-sm font-bold text-white/85">{job.company}</p>
-            <p class="truncate font-mono text-xs text-white/50">{job.role}</p>
+            <p class="truncate font-mono text-xs text-white/60">{job.role}</p>
           </div>
         </div>
 
         <!-- body -->
         <div class="p-4">
-          <p class="mb-3 text-xs leading-relaxed text-white/50">{job.about}</p>
+          <p class="mb-3 text-xs leading-relaxed text-white/60">{job.about}</p>
           {#if job.website}
             <a
               href={job.website}
               target="_blank"
               rel="noopener noreferrer"
-              class="font-mono text-xs text-white/50 transition-colors hover:text-white/80"
-            >Visit Website ↗</a>
+              class="font-mono text-xs text-white/70 transition-colors hover:text-white/80"
+            >[ visit website  ]</a>
           {:else}
             <span class="font-mono text-xs text-red-400/70">[ closed source ]</span>
           {/if}
