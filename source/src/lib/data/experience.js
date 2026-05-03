@@ -21,7 +21,7 @@ export const experience = [
   {
     company: "Gambit - Multi Theft Auto",
     role: "Founder / Software Engineer",
-    period: "2022 — 2025",
+    period: "2022 - 2025",
     location: "Remote",
     website: "",
     about:
