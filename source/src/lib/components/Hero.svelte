@@ -85,7 +85,7 @@
   <div class="max-w-xl w-full px-6 text-left">
 
       <!-- greeting + name -->
-      <h1 class="mb-3 text-2xl leading-snug text-white/55 sm:text-4xl">
+      <h1 class="mb-1 text-2xl leading-snug text-white/75 sm:text-4xl">
         Hey! I'm&nbsp;<span class="name-flicker inline-flex font-bold text-white">
           Zs<span
             class="o-letter"
@@ -100,22 +100,20 @@
       </h1>
 
       <!-- role with typing animation -->
-      <p class="mb-6 text-base text-white/65">
+      <p class="mb-8 text-xl text-white/75">
         {typed}<span class={typingDone ? 'cursor-done' : 'cursor-blink'}>_</span>
       </p>
 
       <!-- bio -->
-      <p class="mb-6 text-sm leading-relaxed text-white/65">
-        Computer Science BSc student. Currently focused on
-        backend technologies, systems design and addon development. I care deeply
-        about clean & safe code.
+      <p class="mb-8 text-sm leading-relaxed text-white/75">
+        Computer Science BSc student. I am currently focused on backend technologies and system architecture.
       </p>
 
       <!-- tagline -->
-      <p class="mb-6 text-sm text-white/65 italic">Always learning, always tinkering.</p>
+      <p class="mb-8 text-sm text-white/75 italic">Always learning, always tinkering.</p>
 
       <!-- location glitch -->
-      <p class="mb-6 font-mono text-sm text-white/65">{locationDisplay}</p>
+      <p class="mb-6 font-mono text-sm text-white/75">{locationDisplay}</p>
 
       <!-- TODO: Rework this so its not just a huge wall of text smh -->
       <!-- links row 

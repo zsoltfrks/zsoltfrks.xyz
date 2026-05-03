@@ -80,7 +80,7 @@
 
           <!-- window chrome -->
           <div class="flex items-center border-b border-white/6 bg-black/30 px-4 py-3">
-            <p class="font-mono text-xs text-white/60">
+            <p class="font-mono text-xs text-white/75">
               {project.github ? '[ open source ]' : '[ closed source ]'}
             </p>
           </div>
@@ -93,14 +93,14 @@
                 <button
                   onclick={(e) => { e.stopPropagation(); e.preventDefault(); window.open(project.live, '_blank', 'noopener,noreferrer') }}
                   aria-label="Visit live site"
-                  class="shrink-0 text-white/50 transition-colors hover:text-white"
+                  class="shrink-0 text-white/70 transition-colors hover:text-white"
                 >
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </button>
               {/if}
             </div>
 
-            <p class="mb-4 flex-1 text-xs leading-relaxed text-white/65">{project.description}</p>
+            <p class="mb-4 flex-1 text-xs leading-relaxed text-white/75">{project.description}</p>
 
             <div class="flex items-center gap-2">
               <svg class="shrink-0 text-white/80" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.5 8L10.46 10L9.75 12.76L7 12L4.25 12.76L3.54 10L1.5 8L3.54 6L4.25 3.24L7 4L9.75 3.24L10.46 6ZM7 6A2 2 0 1 0 7 10A2 2 0 1 0 7 6ZM20.5 15L18.77 16.6L18.25 18.9L16 18.2L13.75 18.9L13.23 16.6L11.5 15L13.23 13.4L13.75 11.1L16 11.8L18.25 11.1L18.77 13.4ZM16 13.2A1.8 1.8 0 1 0 16 16.8A1.8 1.8 0 1 0 16 13.2Z"/></svg>
@@ -123,7 +123,7 @@
 
       <!-- panel header -->
       <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
-        <span class="font-mono text-xs text-white/60">Recent Commits</span>
+        <span class="font-mono text-xs text-white/75">Recent Commits</span>
         <span class="flex items-center gap-1.5 font-mono text-xs text-emerald-500">
           <span class="relative inline-flex h-1.5 w-1.5" aria-hidden="true">
             <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/40"></span>

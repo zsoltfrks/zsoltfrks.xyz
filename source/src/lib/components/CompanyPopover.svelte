@@ -24,13 +24,13 @@
         <div class="flex items-center gap-3 border-b border-white/6 bg-black/30 px-4 py-3">
           <div class="min-w-0">
             <p class="truncate text-sm font-bold text-white/85">{job.company}</p>
-            <p class="truncate font-mono text-xs text-white/60">{job.role}</p>
+            <p class="truncate font-mono text-xs text-white/70">{job.role}</p>
           </div>
         </div>
 
         <!-- body -->
         <div class="p-4">
-          <p class="mb-3 text-xs leading-relaxed text-white/60">{job.about}</p>
+          <p class="mb-3 text-xs leading-relaxed text-white/70">{job.about}</p>
           {#if job.website}
             <a
               href={job.website}
@@ -47,5 +47,5 @@
   {:else}
     <span class="text-white/65">{job.company}</span>
   {/if}
-  {#if job.location}<span class="shrink-0 font-mono text-xs text-white/60">{job.location}</span>{/if}
+  {#if job.location}<span class="shrink-0 font-mono text-xs text-white/75">{job.location}</span>{/if}
 </div>

@@ -81,7 +81,7 @@
       <div>
         <h2 class="mb-8 text-4xl font-bold tracking-tight text-white/85">Contact</h2>
 
-        <p class="mb-10 text-sm leading-relaxed text-white/65">
+        <p class="mb-10 text-sm leading-relaxed text-white/75">
           Open to freelance or full-time work, collaborations, and ideas.
           Drop me a line and I will reply to you asap. <span class="text-white/95">:)</span>
         </p>
@@ -99,7 +99,7 @@
                   {@html link.icon}
                 </svg>
                 <span class="text-sm">
-                  <span class="text-white/55 transition-colors group-hover:text-white/90">{link.display}</span>
+                  <span class="text-white/75 transition-colors group-hover:text-white">{link.display}</span>
                 </span>
               </a>
             </li>
@@ -113,8 +113,8 @@
 
           <!-- chrome header -->
           <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
-            <span class="font-mono text-xs text-white/65">Szeged, Hungary</span>
-            <span class="font-mono text-xs text-white/65">{localTime}</span>
+            <span class="font-mono text-xs text-white/75">Szeged, Hungary</span>
+            <span class="font-mono text-xs text-white/75">{localTime}</span>
           </div>
 
           <!-- map -->

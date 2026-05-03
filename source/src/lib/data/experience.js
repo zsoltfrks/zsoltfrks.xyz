@@ -11,8 +11,8 @@ export const experience = [
     type: "full-time",
     bullets: [
       "Developed Python-based automation tools to streamline internal operational workflows.",
-      "Built document processing utilities for automated sorting and type conversion, reducing manual workload.",
-      "Improved processing reliability and efficiency by replacing repetitive manual tasks with automated pipelines.",
+      "Built document processing utilities for automated sorting and type conversion.",
+      "Improved processing reliability and efficiency by replacing repetitive tasks with scripts.",
       "Worked closely with IT team members to design and deploy internal automation tools.",
     ],
     tech: ["Python", "N8N", "NumPy", "Microsoft Azure", "Active Directory"],

@@ -30,7 +30,7 @@
 </script>
 
 <div class="mx-auto mb-6 max-w-5xl px-6">
-<footer class="rounded-lg border border-white/10 bg-[#0d0d0d] px-6 py-4 font-mono text-xs text-white/65">
+<footer class="rounded-lg border border-white/10 bg-[#0d0d0d] px-6 py-4 font-mono text-xs text-white/75">
   <div class="flex items-center justify-between gap-4">
 
     <!-- left: copyright + status (status hidden on mobile) -->
