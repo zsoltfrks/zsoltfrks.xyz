@@ -2,7 +2,7 @@
 export const experience = [
   {
     company: "KÉSZ Consulting Kft.",
-    role: "Software Engineer Intern",
+    role: "Software Engineer (Internship)",
     period: "Oct 2025 – Dec 2025",
     location: "Kecskemét, Hungary",
     website: "https://kesz.hu",

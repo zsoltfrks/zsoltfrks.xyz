@@ -6,7 +6,7 @@
   {#if job.about}
     <div class="relative">
       <button
-        class="cursor-pointer underline decoration-white/15 decoration-dotted underline-offset-2 transition-colors hover:text-white/70"
+        class="cursor-pointer text-white/65 transition-colors hover:text-white/80"
         onmouseenter={() => onopen(job.company)}
         onmouseleave={onclose}
       >
@@ -45,7 +45,7 @@
       </div>
     </div>
   {:else}
-    <span>{job.company}</span>
+    <span class="text-white/65">{job.company}</span>
   {/if}
   {#if job.location}<span class="shrink-0 font-mono text-xs text-white/60">{job.location}</span>{/if}
 </div>
