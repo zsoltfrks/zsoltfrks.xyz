@@ -45,7 +45,7 @@
           </a>
         </li>
       {/each}
-      <li aria-hidden="true" class="h-3 w-px bg-white/15"></li>
+      <li aria-hidden="true" class="h-3 w-px bg-white/35"></li>
       {#each sectionLinks as link}
         <li>
           <a
@@ -56,7 +56,7 @@
           </a>
         </li>
       {/each}
-      <li aria-hidden="true" class="h-3 w-px bg-white/15"></li>
+      <li aria-hidden="true" class="h-3 w-px bg-white/35"></li>
       <li class="relative" data-cv>
         <button
           onclick={() => cvOpen = !cvOpen}
@@ -119,7 +119,7 @@
 
   <!-- mobile menu -->
   {#if menuOpen}
-    <div class="md:hidden border-t border-white/6 bg-[#0a0a0a]">
+    <div class="md:hidden border-t border-white/45 bg-[#0a0a0a]">
       <ul class="flex flex-col px-6 py-5 gap-5">
         {#each pageLinks as link}
           <li>
@@ -132,7 +132,7 @@
             </a>
           </li>
         {/each}
-        <li aria-hidden="true" class="border-t border-white/8"></li>
+        <li aria-hidden="true" class="border-t border-white/45"></li>
         {#each sectionLinks as link}
           <li>
             <a
@@ -144,7 +144,7 @@
             </a>
           </li>
         {/each}
-        <li aria-hidden="true" class="border-t border-white/8"></li>
+        <li aria-hidden="true" class="border-t border-white/45"></li>
         <li class="flex flex-col gap-3">
           <span class="text-sm text-white/75">cv</span>
           {#each cvLinks as cv}
