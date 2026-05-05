@@ -33,14 +33,7 @@ export const experience = [
       "Designed and implemented key platform components including networking and rendering integrations",
       "Managed project roadmap, coordinated contributions, and ensured code quality across the codebase.",
     ],
-    tech: [
-      "Lua",
-      "HLSL",
-      "Chromium Embedded Framework",
-      "Docker",
-      "AWS",
-      "Jira",
-    ],
+    tech: ["Lua", "HLSL", "Chromium Embedded Framework", "Docker", "Jira"],
     skills: [
       "Algorithmic Thinking",
       "Product Development",

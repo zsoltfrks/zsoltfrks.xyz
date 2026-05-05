@@ -15,7 +15,7 @@
     { category: 'Frontend',       items: ['Svelte', 'React', 'Next.js', 'Tailwind CSS', 'HTML', 'CSS'] },
     { category: 'Backend',        items: ['Node.js', 'Spring Boot'] },
     { category: 'Databases',      items: ['PostgreSQL', 'MySQL', 'MongoDB', 'MariaDB'] },
-    { category: 'Cloud & DevOps', items: ['Microsoft Azure', 'Docker', 'AWS'] },
+    { category: 'Cloud & DevOps', items: ['Microsoft Azure', 'Docker'] },
     { category: 'Tools & Misc',   items: ['Git', 'Jira', 'Figma', 'Adobe Photoshop'] }
   ]
 
