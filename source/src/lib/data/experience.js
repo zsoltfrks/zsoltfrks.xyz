@@ -7,7 +7,7 @@ export const experience = [
     location: "Kecskemét, Hungary",
     website: "https://kesz.hu",
     about:
-      "Part of KESZ Group, one of the largest construction and engineering companies in Hungary. The internship focused on developing internal automation tools to optimize operational workflows during my BSc studies.",
+      "Part of KESZ Group, one of the largest construction and engineering companies in Hungary. The internship focused on developing internal automation tools to optimize operational workflows during my BSc studies while gaining hands-on experience from other IT departments.",
     type: "full-time",
     bullets: [
       "Developed Python-based automation tools to streamline internal operational workflows.",
@@ -25,13 +25,12 @@ export const experience = [
     location: "Remote",
     website: "",
     about:
-      "A custom multiplayer game server built on the Multi Theft Auto platform. The project sadly did not exit the development phase due to real-life circumstances. The project is on-hold as of 2025.",
+      "A custom multiplayer server built on the Multi Theft Auto platform during the pandemic. The project did not exit the development phase due to real-life circumstances. The project is on-hold as of 2025.",
     type: "projects",
     bullets: [
-      "Founded and led development of a multiplayer game server with a small, dedicated team.",
+      "Founded and led development of a multiplayer server with a small, dedicated team.",
       "Architected core gameplay systems and backend infrastructure for a custom environment.",
       "Designed and implemented key platform components including networking and rendering integrations",
-      "Managed project roadmap, coordinated contributions, and ensured code quality across the codebase.",
     ],
     tech: ["Lua", "HLSL", "Chromium Embedded Framework", "Docker", "Jira"],
     skills: [
