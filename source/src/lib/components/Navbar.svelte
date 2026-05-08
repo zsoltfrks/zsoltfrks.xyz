@@ -119,7 +119,7 @@
 
   <!-- mobile menu -->
   {#if menuOpen}
-    <div class="md:hidden border-t border-white/45 bg-[#0a0a0a]">
+    <div class="md:hidden border-t border-white/6 bg-[#0a0a0a]">
       <ul class="flex flex-col px-6 py-5 gap-5">
         {#each pageLinks as link}
           <li>
@@ -132,7 +132,7 @@
             </a>
           </li>
         {/each}
-        <li aria-hidden="true" class="border-t border-white/45"></li>
+        <li aria-hidden="true" class="border-t border-white/25"></li>
         {#each sectionLinks as link}
           <li>
             <a
@@ -144,13 +144,13 @@
             </a>
           </li>
         {/each}
-        <li aria-hidden="true" class="border-t border-white/45"></li>
+        <li aria-hidden="true" class="border-t border-white/25"></li>
         <li class="flex flex-col gap-3">
           <span class="text-sm text-white/75">cv</span>
           {#each cvLinks as cv}
             <span class="flex items-center justify-between font-mono text-xs text-white/25 cursor-default">
               {cv.label}
-              <span class="text-white/20">under construction</span>
+              <span class="text-white/20">soon</span>
             </span>
           {/each}
         </li>
