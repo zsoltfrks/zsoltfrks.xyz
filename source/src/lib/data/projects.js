@@ -6,7 +6,7 @@ export const projects = [
     tagline: "A one-liner about what this does.",
     description:
       "A full-stack user management dashboard with authentication, role-based access control, and admin features.",
-    tags: ["Java", "React", "TypeScript", "PostgreSQL"],
+    tags: ["Java", "React", "PostgreSQL"],
     github: "https://github.com/zsoltfrks/user-control-panel",
     live: "",
   },
@@ -16,7 +16,7 @@ export const projects = [
     tagline: "Short context about this one.",
     description:
       "A customizable addon for World of Warcraft to display healer mana, name and icon to the player. ",
-    tags: ["Lua", "WoWAPI", "GitHub Actions", "Addon Development"],
+    tags: ["Lua", "WoWAPI", "Quality of Life"],
     github: "https://github.com/zsoltfrks/healer-mana",
     live: "",
   },
@@ -26,7 +26,7 @@ export const projects = [
     tagline: "What makes this project interesting.",
     description:
       "An automation script that batch-converts DOCX files to PDF, adds continuous page numbering and TOC.",
-    tags: ["Python", "PyPDF2", "ReportLab", "Automation"],
+    tags: ["Python", "ReportLab", "Automation"],
     github: "https://github.com/zsoltfrks/batch-docx-to-pdf-merger",
     live: "",
   },
