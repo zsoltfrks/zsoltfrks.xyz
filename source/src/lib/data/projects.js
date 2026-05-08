@@ -5,8 +5,8 @@ export const projects = [
     repo: "user-control-panel",
     tagline: "A one-liner about what this does.",
     description:
-      "A full-stack user management dashboard with authentication, role-based access control, and admin features.",
-    tags: ["Java", "React", "PostgreSQL"],
+      "A full-stack user management dashboard with authentication, role-based access control, and admin features. Study project for Spring Boot.",
+    tags: ["Spring Boot", "React", "PostgreSQL"],
     github: "https://github.com/zsoltfrks/user-control-panel",
     live: "",
   },

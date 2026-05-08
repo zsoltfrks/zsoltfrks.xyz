@@ -75,7 +75,7 @@
           href={project.github || undefined}
           target={project.github ? '_blank' : undefined}
           rel={project.github ? 'noopener noreferrer' : undefined}
-          class="group flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d] transition-colors hover:border-white/15"
+          class="group flex min-h-64 flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d] transition-colors hover:border-white/15"
         >
 
           <!-- window chrome -->
@@ -86,7 +86,7 @@
           </div>
 
           <!-- card body -->
-          <div class="flex flex-col bg-[#111111] p-4 gap-4">
+          <div class="flex flex-1 flex-col bg-[#111111] p-4 gap-4">
             <div class="mb-3 flex items-start justify-between gap-2">
               <h3 class="font-bold text-white/90">{project.title}</h3>
               {#if project.live}
@@ -100,12 +100,12 @@
               {/if}
             </div>
 
-            <p class="text-xs leading-relaxed text-white/75">{project.description}</p>
+            <p class="flex-1 text-xs leading-relaxed text-white/75">{project.description}</p>
 
             <div class="flex flex-col gap-2 mt-3">
               <div class="flex flex-wrap gap-1.5">
                 {#each project.tags as tag}
-                  <span class="rounded border border-white/8 bg-[#111111] px-2 py-0.5 font-mono text-xs text-white/75">
+                  <span class="rounded border border-white/8 bg-[#111111] px-2 py-0.5 font-mono text-xs text-white/80">
                     {tag}
                   </span>
                 {/each}
