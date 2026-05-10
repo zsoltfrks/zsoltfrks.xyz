@@ -175,31 +175,28 @@
 
 <main>
   {#if routeVisible}
-    {#if isAboutPage}
-      <div in:fade={{ duration: routeFadeMs }} out:fade={{ duration: routeFadeMs }}>
+    <div out:fade|global={{ duration: routeFadeMs }}>
+      {#if isAboutPage}
         {#await preloadAbout() then { default: About }}
           <About standalone />
         {/await}
-      </div>
-    {:else}
-      <div
-        in:fly={{ y: prefersReducedMotion ? 0 : 8, duration: routeFadeMs, opacity: 0 }}
-        out:fade={{ duration: routeFadeMs }}
-      >
-        {#await heroP then { default: Hero }}
-          <Hero bind:animating typingStartDelayMs={heroTypingDelayMs} />
-        {/await}
-        {#await projectsP then { default: Projects }}
-          <Projects />
-        {/await}
-        {#await experienceP then { default: Experience }}
-          <Experience />
-        {/await}
-        {#await contactP then { default: Contact }}
-          <Contact />
-        {/await}
-      </div>
-    {/if}
+      {:else}
+        <div in:fly|global={{ y: prefersReducedMotion ? 0 : 8, duration: routeFadeMs, opacity: 0 }}>
+          {#await heroP then { default: Hero }}
+            <Hero bind:animating typingStartDelayMs={heroTypingDelayMs} />
+          {/await}
+          {#await projectsP then { default: Projects }}
+            <Projects />
+          {/await}
+          {#await experienceP then { default: Experience }}
+            <Experience />
+          {/await}
+          {#await contactP then { default: Contact }}
+            <Contact />
+          {/await}
+        </div>
+      {/if}
+    </div>
   {/if}
 </main>
 {#await footerP then { default: Footer }}
