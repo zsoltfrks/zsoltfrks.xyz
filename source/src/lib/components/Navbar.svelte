@@ -10,6 +10,7 @@
   const sectionLinks = [
     { label: 'projects', href: '/#projects' },
     { label: 'experience', href: '/#experience' },
+    { label: 'studies', href: '/#studies' },
     { label: 'contact', href: '/#contact' },
   ]
 
@@ -26,15 +27,17 @@
 <svelte:window onclick={(e) => { if (cvOpen && !e.target.closest('[data-cv]')) cvOpen = false }} />
 
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/6 bg-[#0a0a0a]/80 backdrop-blur-sm">
-  <nav class="relative mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+  <nav class="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center px-6 py-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
 
     <!-- logo -->
-    <a href="/" class="text-sm text-white/75 transition-colors hover:text-white">
-      ~/zsoltfrks.xyz
-    </a>
+    <div class="min-w-0 md:pointer-events-none md:absolute md:top-1/2 md:right-full md:translate-x-19 md:-translate-y-1/2">
+      <a href="/" class="text-sm text-white/75 transition-colors hover:text-white md:pointer-events-auto whitespace-nowrap">
+        ~/zsoltfrks.xyz
+      </a>
+    </div>
 
     <!-- desktop links (centered in middle column) -->
-    <ul class="absolute left-1/2 hidden -translate-x-1/2 md:flex items-center gap-8">
+    <ul class="hidden items-center gap-7 justify-self-center md:col-start-2 md:flex lg:gap-8">
       {#each pageLinks as link}
         <li>
           <a
@@ -82,7 +85,7 @@
     </ul>
 
     <!-- right column: social icons (desktop) + burger -->
-    <div class="flex items-center justify-end gap-5">
+    <div class="col-start-2 flex items-center justify-end gap-5 md:col-start-3 md:pl-8">
       <a
         href="https://github.com/zsoltfrks"
         target="_blank"

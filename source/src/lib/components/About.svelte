@@ -43,10 +43,10 @@
   ]
 
   const techStack = [
-    { category: 'Languages',      items: ['Lua', 'HLSL', 'Python', 'Java', 'C++', 'TypeScript', 'JavaScript'] },
+    { category: 'Languages',      items: ['Lua', 'HLSL', 'Python', 'Java', 'TypeScript', 'JavaScript'] },
     { category: 'Frontend',       items: ['Svelte', 'React', 'Next.js', 'Tailwind CSS', 'HTML', 'CSS'] },
     { category: 'Backend',        items: ['Node.js', 'Spring Boot'] },
-    { category: 'Databases',      items: ['PostgreSQL', 'MySQL', 'MongoDB', 'MariaDB'] },
+    { category: 'Databases',      items: ['PostgreSQL', 'MySQL'] },
     { category: 'Cloud & DevOps', items: ['Microsoft Azure', 'Docker'] },
     { category: 'Tools & Misc',   items: ['Git', 'Jira', 'Figma', 'Adobe Photoshop'] }
   ]

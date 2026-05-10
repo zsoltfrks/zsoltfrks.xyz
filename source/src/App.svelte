@@ -11,6 +11,7 @@
   let heroP = $state(initialPath === '/about' ? null : import('./lib/components/Hero.svelte'))
   let projectsP = $state(initialPath === '/about' ? null : import('./lib/components/Projects.svelte'))
   let experienceP = $state(initialPath === '/about' ? null : import('./lib/components/Experience.svelte'))
+  let studiesP = $state(initialPath === '/about' ? null : import('./lib/components/Studies.svelte'))
   let contactP = $state(initialPath === '/about' ? null : import('./lib/components/Contact.svelte'))
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   let animating = $state(!prefersReducedMotion)
@@ -31,6 +32,7 @@
     heroP ??= import('./lib/components/Hero.svelte')
     projectsP ??= import('./lib/components/Projects.svelte')
     experienceP ??= import('./lib/components/Experience.svelte')
+    studiesP ??= import('./lib/components/Studies.svelte')
     contactP ??= import('./lib/components/Contact.svelte')
   }
 
@@ -190,6 +192,9 @@
           {/await}
           {#await experienceP then { default: Experience }}
             <Experience />
+          {/await}
+          {#await studiesP then { default: Studies }}
+            <Studies />
           {/await}
           {#await contactP then { default: Contact }}
             <Contact />
