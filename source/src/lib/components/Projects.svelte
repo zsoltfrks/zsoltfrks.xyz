@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte'
   import { projects } from '../data/projects.js'
+  import { reveal } from '../actions/reveal.js'
 
   const GITHUB_USER = 'zsoltfrks'
 
@@ -69,13 +70,15 @@
 
     <!-- cards grid -->
     <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {#each projects as project}
+      {#each projects as project, index}
         <svelte:element
           this={project.github ? 'a' : 'article'}
           href={project.github || undefined}
           target={project.github ? '_blank' : undefined}
           rel={project.github ? 'noopener noreferrer' : undefined}
-          class="group flex min-h-64 flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d] transition-colors hover:border-white/15"
+          use:reveal
+          style={`--reveal-delay: ${index * 70}ms`}
+          class="project-card reveal-on-scroll group flex min-h-64 flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d]"
         >
 
           <!-- window chrome -->
@@ -86,14 +89,14 @@
           </div>
 
           <!-- card body -->
-          <div class="flex flex-1 flex-col bg-[#111111] p-4 gap-4">
+          <div class="project-card__body flex flex-1 flex-col bg-[#111111] p-4 gap-4">
             <div class="mb-3 flex items-start justify-between gap-2">
-              <h3 class="font-bold text-white/90">{project.title}</h3>
+              <h3 class="project-card__title font-bold text-white/90">{project.title}</h3>
               {#if project.live}
                 <button
                   onclick={(e) => { e.stopPropagation(); e.preventDefault(); window.open(project.live, '_blank', 'noopener,noreferrer') }}
                   aria-label="Visit live site"
-                  class="shrink-0 text-white/70 transition-colors hover:text-white"
+                  class="project-card__icon shrink-0 text-white/70 transition-colors hover:text-white"
                 >
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </button>
@@ -173,3 +176,66 @@
 
   </div>
 </section>
+
+<style>
+  .project-card {
+    position: relative;
+    transition:
+      transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.24s ease,
+      box-shadow 0.32s ease;
+    will-change: transform;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent 45%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    pointer-events: none;
+  }
+
+  .project-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
+  }
+
+  .project-card:hover::after {
+    opacity: 1;
+  }
+
+  .project-card__body {
+    transition: background-color 0.28s ease;
+  }
+
+  .project-card:hover .project-card__body {
+    background: #141414;
+  }
+
+  .project-card__title,
+  .project-card__icon {
+    transition:
+      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.2s ease;
+  }
+
+  .project-card:hover .project-card__title,
+  .project-card:hover .project-card__icon {
+    transform: translateY(-1px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-card,
+    .project-card::after,
+    .project-card__body,
+    .project-card__title,
+    .project-card__icon {
+      transition: none;
+      transform: none;
+      opacity: 1;
+    }
+  }
+</style>

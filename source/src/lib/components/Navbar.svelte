@@ -1,5 +1,5 @@
 <script>
-  let { currentPath = '/' } = $props()
+  let { currentPath = '/', onPreloadAbout = () => {} } = $props()
   let menuOpen = $state(false)
   let cvOpen = $state(false)
 
@@ -39,6 +39,8 @@
         <li>
           <a
             href={link.href}
+            onmouseenter={link.href === '/about' ? onPreloadAbout : undefined}
+            onfocus={link.href === '/about' ? onPreloadAbout : undefined}
             class="text-sm transition-colors hover:text-white {currentPath === link.href ? 'text-white' : 'text-white/75'}"
           >
             {link.label}
@@ -126,6 +128,7 @@
             <a
               href={link.href}
               onclick={closeMenu}
+              onfocus={link.href === '/about' ? onPreloadAbout : undefined}
               class="block text-sm text-white/75 hover:text-white transition-colors"
             >
               {link.label}

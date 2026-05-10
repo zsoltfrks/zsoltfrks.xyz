@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte'
+  import { reveal } from '../actions/reveal.js'
 
   const links = [
     {
@@ -78,7 +79,7 @@
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14">
 
       <!-- Left: contact content -->
-      <div>
+      <div use:reveal class="reveal-on-scroll" style="--reveal-delay: 0ms">
         <h2 class="mb-8 text-4xl font-bold tracking-tight text-white/85">Contact</h2>
 
         <p class="mb-10 text-sm leading-relaxed text-white/75">
@@ -87,13 +88,14 @@
         </p>
 
         <ul class="grid grid-cols-1 gap-2 font-mono sm:grid-cols-2 sm:gap-3">
-          {#each links as link}
+          {#each links as link, index}
             <li class="flex">
               <a
                 href={link.href}
                 target={link.label !== 'email' ? '_blank' : undefined}
                 rel="noopener noreferrer"
-                class="group flex h-full w-full items-center gap-3 py-2.5 transition-colors"
+                class="contact-link group flex h-full w-full items-center gap-3 py-2.5 transition-colors"
+                style={`--reveal-delay: ${80 + index * 60}ms`}
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" class="shrink-0 text-white/55 transition-colors group-hover:text-white/90" aria-hidden="true">
                   {@html link.icon}
@@ -108,8 +110,8 @@
       </div>
 
       <!-- Right: location card -->
-      <div class="flex flex-col">
-        <div class="flex flex-1 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/4 backdrop-blur-md">
+      <div use:reveal class="reveal-on-scroll flex flex-col" style="--reveal-delay: 120ms">
+        <div class="location-card flex flex-1 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/4 backdrop-blur-md">
 
           <!-- chrome header -->
           <div class="flex items-center justify-between border-b border-white/6 bg-black/30 px-4 py-3">
@@ -126,3 +128,21 @@
 
   </div>
 </section>
+
+<style>
+  .contact-link {
+    transition: color 0.22s ease;
+  }
+
+  .location-card {
+    transition: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-link,
+    .location-card {
+      transition: none;
+      opacity: 1;
+    }
+  }
+</style>

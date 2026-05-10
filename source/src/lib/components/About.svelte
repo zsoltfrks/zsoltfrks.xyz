@@ -1,5 +1,8 @@
 <script>
+  import { fade } from 'svelte/transition'
+
   let { standalone = false } = $props()
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   let imageError = $state(false)
   let imageLoaded = $state(false)
@@ -8,7 +11,36 @@
   let lightboxIdx = $state(null)
   let techStackOpen = $state(false)
 
-  const lunaPhotos = ['/images/luna-1.webp', '/images/luna-2.webp', '/images/luna-3.webp']
+  const profileImage = {
+    src: '/images/profile-800.webp',
+    srcset: '/images/profile-480.webp 480w, /images/profile-800.webp 800w',
+    width: 960,
+    height: 1280,
+  }
+
+  const lunaPhotos = [
+    {
+      preview: '/images/luna-800-1.webp',
+      previewSrcset: '/images/luna-480-1.webp 480w, /images/luna-800-1.webp 800w',
+      full: '/images/luna-1.webp',
+      width: 960,
+      height: 1280
+    },
+    {
+      preview: '/images/luna-800-2.webp',
+      previewSrcset: '/images/luna-480-2.webp 480w, /images/luna-800-2.webp 800w',
+      full: '/images/luna-2.webp',
+      width: 960,
+      height: 1280
+    },
+    {
+      preview: '/images/luna-800-3.webp',
+      previewSrcset: '/images/luna-480-3.webp 480w, /images/luna-800-3.webp 800w',
+      full: '/images/luna-3.webp',
+      width: 960,
+      height: 1280
+    }
+  ]
 
   const techStack = [
     { category: 'Languages',      items: ['Lua', 'HLSL', 'Python', 'Java', 'C++', 'TypeScript', 'JavaScript'] },
@@ -20,6 +52,7 @@
   ]
 
   const sectionClass = $derived(standalone ? 'pb-20 pt-28' : 'py-24')
+  const aboutFadeMs = $derived(prefersReducedMotion ? 0 : standalone ? 420 : 220)
 </script>
 
 <svelte:window onkeydown={(e) => {
@@ -29,7 +62,7 @@
   }
 }} />
 
-<section id="about" class={sectionClass}>
+<section id="about" class={sectionClass} in:fade={{ duration: aboutFadeMs }}>
   <div class="mx-auto max-w-5xl px-6">
 
     <nav aria-label="breadcrumb" class="mb-10 font-mono text-sm">
@@ -48,8 +81,14 @@
           {#if !imageError}
             <div class="skeleton absolute inset-0 transition-opacity duration-500 {imageLoaded ? 'opacity-0' : 'opacity-100'}"></div>
             <img
-              src="/images/profile.webp"
+              src={profileImage.src}
+              srcset={profileImage.srcset}
               alt="Zsolt Farkas"
+              width={profileImage.width}
+              height={profileImage.height}
+              sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, calc(100vw - 3rem)"
+              decoding="async"
+              fetchpriority="high"
               class="aspect-4/5 h-full w-full object-cover transition-opacity duration-500 {imageLoaded ? 'opacity-100' : 'opacity-0'}"
               onload={() => imageLoaded = true}
               onerror={() => imageError = true}
@@ -134,9 +173,15 @@
             {#if !dogImageError[idx]}
               <div class="skeleton absolute inset-0 transition-opacity duration-500 {dogImageLoaded[idx] ? 'opacity-0' : 'opacity-100'}"></div>
               <img
-                src={photo}
+                src={photo.preview}
+                srcset={photo.previewSrcset}
                 alt={`Luna photo ${idx + 1}`}
+                width={photo.width}
+                height={photo.height}
                 loading="lazy"
+                decoding="async"
+                fetchpriority="low"
+                sizes="(min-width: 768px) 31vw, calc(100vw - 3rem)"
                 class="aspect-4/3 w-full object-cover transition-all duration-500 group-hover:scale-[1.03] {dogImageLoaded[idx] ? 'opacity-100' : 'opacity-0'}"
                 onload={() => dogImageLoaded[idx] = true}
                 onerror={() => dogImageError[idx] = true}
@@ -187,7 +232,7 @@
 
       <!-- image -->
       <img
-        src={lunaPhotos[lightboxIdx]}
+        src={lunaPhotos[lightboxIdx].full}
         alt={`Luna photo ${lightboxIdx + 1}`}
         class="block max-h-[80vh] max-w-[92vw] object-contain"
       />

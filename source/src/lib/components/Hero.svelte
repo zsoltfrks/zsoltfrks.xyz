@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte'
 
-  let { animating = $bindable() } = $props()
+  let { animating = $bindable(), typingStartDelayMs = 400 } = $props()
 
   // --- typing animation ---
   const ROLE = 'Software Engineer'
@@ -65,7 +65,7 @@
         setTimeout(() => {
           typed += char
           if (i === ROLE.length - 1) typingDone = true
-        }, 400 + i * 65)
+        }, typingStartDelayMs + i * 65)
       })
 
       scheduleNextGlitch(3500)

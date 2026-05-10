@@ -1,6 +1,7 @@
 <script>
   import { experience } from '../data/experience.js'
   import CompanyPopover from './CompanyPopover.svelte'
+  import { reveal } from '../actions/reveal.js'
 
   const fullTime  = experience.filter(j => j.type === 'full-time')
   const freelance = experience.filter(j => j.type === 'projects')
@@ -33,11 +34,15 @@
         <div>
           <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/80">Full-Time</p>
 
-          <ol class="timeline relative ml-1 space-y-10">
-            {#each fullTime as job}
-              <li class="ml-8">
+          <ol class="timeline timeline-reveal relative ml-1 space-y-10">
+            {#each fullTime as job, index}
+              <li
+                use:reveal
+                style={`--reveal-delay: ${index * 85}ms`}
+                class="timeline-item reveal-on-scroll relative ml-8"
+              >
                 <!-- timeline dot -->
-                <span class="absolute left-0 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/30 bg-[#0a0a0a]" aria-hidden="true"></span>
+                <span class="absolute -left-8 z-10 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/30 bg-[#0a0a0a]" aria-hidden="true"></span>
 
                 <!-- role + period -->
                 <div class="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
@@ -88,10 +93,14 @@
         <div>
           <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/80">PROJECT</p>
 
-          <ol class="timeline relative ml-1 space-y-10">
-            {#each freelance as job}
-              <li class="ml-8">
-                <span class="absolute left-0 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/30 bg-[#0a0a0a]" aria-hidden="true"></span>
+          <ol class="timeline timeline-reveal relative ml-1 space-y-10">
+            {#each freelance as job, index}
+              <li
+                use:reveal
+                style={`--reveal-delay: ${index * 85}ms`}
+                class="timeline-item reveal-on-scroll relative ml-8"
+              >
+                <span class="absolute -left-8 z-10 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/30 bg-[#0a0a0a]" aria-hidden="true"></span>
 
                 <!-- role + period -->
                 <div class="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
@@ -147,5 +156,28 @@
     bottom: 0;
     width: 1px;
     background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .timeline-reveal::before {
+    opacity: 0.35;
+    transform: scaleY(0.4);
+    transform-origin: top;
+    transition:
+      opacity 0.55s ease,
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .timeline-reveal:has(.timeline-item:global(.is-revealed))::before {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-reveal::before,
+    .timeline-item {
+      transition: none;
+      transform: none;
+      opacity: 1;
+    }
   }
 </style>
