@@ -36,14 +36,6 @@
     <!-- left: copyright + status (status hidden on mobile) -->
     <div class="flex items-center gap-3">
       <span>© {year} Zsolt Farkas</span>
-      <span class="hidden text-white/40 sm:block" aria-hidden="true">·</span>
-      <div class="hidden items-center gap-2 sm:flex">
-        <span class="relative inline-flex h-1.5 w-1.5" aria-hidden="true">
-          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/40"></span>
-          <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500/70"></span>
-        </span>
-        <span>all services operational</span>
-      </div>
     </div>
 
     <!-- right -->
