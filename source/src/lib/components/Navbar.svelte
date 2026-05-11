@@ -1,5 +1,5 @@
-<script>
-  let { currentPath = '/', onPreloadAbout = () => {} } = $props()
+<script lang="ts">
+  let { currentPath = '/', onPreloadAbout = () => {} }: { currentPath?: string; onPreloadAbout?: () => unknown } = $props()
   let menuOpen = $state(false)
   let cvOpen = $state(false)
 
@@ -22,9 +22,29 @@
   function closeMenu() {
     menuOpen = false
   }
+
+  function toggleMenu() {
+    menuOpen = !menuOpen
+  }
+
+  function toggleCvMenu() {
+    cvOpen = !cvOpen
+  }
+
+  function getAboutPreloadHandler(href: string): (() => unknown) | undefined {
+    return href === '/about' ? onPreloadAbout : undefined
+  }
+
+  function handleWindowClick(event: MouseEvent) {
+    const target = event.target
+
+    if (cvOpen && !(target instanceof Element && target.closest('[data-cv]'))) {
+      cvOpen = false
+    }
+  }
 </script>
 
-<svelte:window onclick={(e) => { if (cvOpen && !e.target.closest('[data-cv]')) cvOpen = false }} />
+<svelte:window onclick={handleWindowClick} />
 
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/6 bg-[#0a0a0a]/80 backdrop-blur-sm">
   <nav class="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center px-6 py-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
@@ -42,8 +62,8 @@
         <li>
           <a
             href={link.href}
-            onmouseenter={link.href === '/about' ? onPreloadAbout : undefined}
-            onfocus={link.href === '/about' ? onPreloadAbout : undefined}
+            onmouseenter={getAboutPreloadHandler(link.href)}
+            onfocus={getAboutPreloadHandler(link.href)}
             class="text-sm transition-colors hover:text-white {currentPath === link.href ? 'text-white' : 'text-white/75'}"
           >
             {link.label}
@@ -64,7 +84,7 @@
       <li aria-hidden="true" class="h-3 w-px bg-white/35"></li>
       <li class="relative" data-cv>
         <button
-          onclick={() => cvOpen = !cvOpen}
+          onclick={toggleCvMenu}
           class="text-sm transition-colors hover:text-white {cvOpen ? 'text-white' : 'text-white/75'}"
         >
           resume
@@ -112,7 +132,7 @@
       <!-- mobile burger -->
       <button
         class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
-        onclick={() => menuOpen = !menuOpen}
+        onclick={toggleMenu}
         aria-label="Toggle menu"
       >
         <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? 'rotate-45 translate-y-1.75' : ''}"></span>
@@ -131,7 +151,7 @@
             <a
               href={link.href}
               onclick={closeMenu}
-              onfocus={link.href === '/about' ? onPreloadAbout : undefined}
+              onfocus={getAboutPreloadHandler(link.href)}
               class="block text-sm text-white/75 hover:text-white transition-colors"
             >
               {link.label}

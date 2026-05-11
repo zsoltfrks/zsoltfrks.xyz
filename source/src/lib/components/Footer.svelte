@@ -1,31 +1,60 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
 
   const year = new Date().getFullYear()
-  let commit = $state(null)
-  let views = $state(null)
+  let commit = $state<string | null>(null)
+  let views = $state<number | null>(null)
 
-  onMount(async () => {
+  function scheduleLowPriorityTask(task: () => void, timeout = 1200): () => void {
+    const requestIdle = window.requestIdleCallback?.bind(window)
+    const cancelIdle = window.cancelIdleCallback?.bind(window)
+
+    if (requestIdle && cancelIdle) {
+      const handle = requestIdle(() => task(), { timeout })
+      return () => cancelIdle(handle)
+    }
+
+    const handle = window.setTimeout(task, timeout)
+    return () => window.clearTimeout(handle)
+  }
+
+  onMount(() => {
     const cached = localStorage.getItem('last-commit')
     if (cached) commit = cached
 
-    try {
-      const res = await fetch('/api/github?path=' + encodeURIComponent('/repos/zsoltfrks/zsoltfrks.xyz/commits?per_page=1'))
-      if (!res.ok) throw new Error()
-      const [latest] = await res.json()
-      const hash = latest?.sha?.slice(0, 7) ?? null
-      if (hash) {
-        commit = hash
-        localStorage.setItem('last-commit', hash)
-      }
-    } catch { if (!commit) commit = null }
-  })
+    const cancelCommitFetch = scheduleLowPriorityTask(() => {
+      void (async () => {
+        try {
+          const res = await fetch('/api/github?path=' + encodeURIComponent('/repos/zsoltfrks/zsoltfrks.xyz/commits?per_page=1'))
+          if (!res.ok) throw new Error()
+          const [latest] = await res.json() as Array<{ sha?: string }>
+          const hash = latest?.sha?.slice(0, 7) ?? null
+          if (hash) {
+            commit = hash
+            localStorage.setItem('last-commit', hash)
+          }
+        } catch {
+          if (!commit) commit = null
+        }
+      })()
+    })
 
-  onMount(async () => {
-    try {
-      const res = await fetch('https://abacus.jasoncameron.dev/hit/zsoltfrks.xyz/views')
-      if (res.ok) views = (await res.json()).value
-    } catch {}
+    const cancelViewsFetch = scheduleLowPriorityTask(() => {
+      void (async () => {
+        try {
+          const res = await fetch('https://abacus.jasoncameron.dev/hit/zsoltfrks.xyz/views')
+          if (res.ok) {
+            const data = await res.json() as { value?: number }
+            views = data.value ?? null
+          }
+        } catch {}
+      })()
+    }, 2200)
+
+    return () => {
+      cancelCommitFetch()
+      cancelViewsFetch()
+    }
   })
 </script>
 
@@ -35,7 +64,7 @@
 
     <!-- left: copyright + status (status hidden on mobile) -->
     <div class="flex items-center gap-3">
-      <span>© {year} Zsolt Farkas</span>
+      <span>Zsolt Farkas © {year}</span>
     </div>
 
     <!-- right -->

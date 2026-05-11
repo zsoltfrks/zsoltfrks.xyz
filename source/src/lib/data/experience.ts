@@ -1,5 +1,17 @@
-/** @type {{ company: string, role: string, period: string, location?: string, website?: string, about?: string, type: 'full-time'|'freelance', bullets: string[], tech: string[], skills: string[] }[]} */
-export const experience = [
+export type ExperienceItem = {
+  company: string;
+  role: string;
+  period: string;
+  location?: string;
+  website?: string;
+  about?: string;
+  type: "full-time" | "projects";
+  bullets: string[];
+  tech: string[];
+  skills: string[];
+};
+
+export const experience: ExperienceItem[] = [
   {
     company: "KÉSZ Consulting Kft.",
     role: "Software Engineer (Internship)",

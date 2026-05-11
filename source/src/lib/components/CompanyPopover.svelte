@@ -1,5 +1,21 @@
-<script>
-  let { job, openPopover, onopen, onclose } = $props()
+<script lang="ts">
+  import type { ExperienceItem } from '../data/experience'
+
+  let {
+    job,
+    openPopover,
+    onopen,
+    onclose,
+  }: {
+    job: ExperienceItem
+    openPopover: string | null
+    onopen: (key: string) => void
+    onclose: () => void
+  } = $props()
+
+  function openCompanyPopover(): void {
+    onopen(job.company)
+  }
 </script>
 
 <div class="mb-4 flex flex-col gap-0.5 text-sm text-white/50 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
@@ -7,7 +23,7 @@
     <div class="relative">
       <button
         class="cursor-pointer text-white/65 transition-colors hover:text-white/80"
-        onmouseenter={() => onopen(job.company)}
+        onmouseenter={openCompanyPopover}
         onmouseleave={onclose}
       >
         {job.company}
@@ -17,7 +33,7 @@
       <div
         role="tooltip"
         class="absolute bottom-full left-0 z-30 mb-2 w-72 overflow-hidden rounded-lg border border-white/8 bg-[#141414] shadow-2xl transition-all duration-200 {openPopover === job.company ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-1 opacity-0'}"
-        onmouseenter={() => onopen(job.company)}
+        onmouseenter={openCompanyPopover}
         onmouseleave={onclose}
       >
         <!-- chrome header -->

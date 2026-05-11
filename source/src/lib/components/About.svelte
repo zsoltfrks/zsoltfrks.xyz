@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
   import { fade } from 'svelte/transition'
 
-  let { standalone = false } = $props()
+  let { standalone = false }: { standalone?: boolean } = $props()
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   let imageError = $state(false)
   let imageLoaded = $state(false)
-  let dogImageError = $state([false, false, false])
-  let dogImageLoaded = $state([false, false, false])
-  let lightboxIdx = $state(null)
+  let lunaImageError = $state<boolean[]>([false, false, false])
+  let lunaImageLoaded = $state<boolean[]>([false, false, false])
+  let lightboxIdx = $state<number | null>(null)
   let techStackOpen = $state(false)
 
   const profileImage = {
@@ -53,14 +53,113 @@
 
   const sectionClass = $derived(standalone ? 'pb-20 pt-28' : 'py-24')
   const aboutFadeMs = $derived(prefersReducedMotion ? 0 : standalone ? 420 : 220)
+
+  function markProfileImageLoaded(): void {
+    imageLoaded = true
+  }
+
+  function markProfileImageFailed(): void {
+    imageError = true
+  }
+
+  function markLunaImageLoaded(index: number): void {
+    lunaImageLoaded[index] = true
+  }
+
+  function markLunaImageFailed(index: number): void {
+    lunaImageError[index] = true
+  }
+
+  function getPhotoIndex(target: EventTarget | null): number | null {
+    if (!(target instanceof HTMLElement)) return null
+
+    const rawIndex = target.dataset.photoIndex
+    if (rawIndex === undefined) return null
+
+    const index = Number(rawIndex)
+    return Number.isInteger(index) ? index : null
+  }
+
+  function handleLunaImageLoad(event: Event): void {
+    const index = getPhotoIndex(event.currentTarget)
+    if (index === null) return
+
+    markLunaImageLoaded(index)
+  }
+
+  function handleLunaImageError(event: Event): void {
+    const index = getPhotoIndex(event.currentTarget)
+    if (index === null) return
+
+    markLunaImageFailed(index)
+  }
+
+  function openLightbox(index: number): void {
+    lightboxIdx = index
+  }
+
+  function handleLightboxThumbnailClick(event: MouseEvent): void {
+    const index = getPhotoIndex(event.currentTarget)
+    if (index === null) return
+
+    openLightbox(index)
+  }
+
+  function closeLightbox(): void {
+    lightboxIdx = null
+  }
+
+  function openTechStack(): void {
+    techStackOpen = true
+  }
+
+  function closeTechStack(): void {
+    techStackOpen = false
+  }
+
+  function stopEventPropagation(event: Event): void {
+    event.stopPropagation()
+  }
+
+  function moveLightbox(event: MouseEvent, step: number): void {
+    event.stopPropagation()
+
+    if (lightboxIdx === null) return
+
+    lightboxIdx = (lightboxIdx + step + lunaPhotos.length) % lunaPhotos.length
+  }
+
+  function handleDismissOnEscape(event: KeyboardEvent, dismiss: () => void): void {
+    if (event.key === 'Escape') {
+      dismiss()
+    }
+  }
+
+  function handleLightboxEscape(event: KeyboardEvent): void {
+    handleDismissOnEscape(event, closeLightbox)
+  }
+
+  function handleTechStackEscape(event: KeyboardEvent): void {
+    handleDismissOnEscape(event, closeTechStack)
+  }
+
+  function handleWindowKeydown(event: KeyboardEvent): void {
+    if (event.key !== 'Escape') return
+
+    closeLightbox()
+    closeTechStack()
+  }
+
+  function showPreviousLightboxImage(event: MouseEvent): void {
+    moveLightbox(event, -1)
+  }
+
+  function showNextLightboxImage(event: MouseEvent): void {
+    moveLightbox(event, 1)
+  }
 </script>
 
-<svelte:window onkeydown={(e) => {
-  if (e.key === 'Escape') {
-    if (lightboxIdx !== null) lightboxIdx = null
-    if (techStackOpen) techStackOpen = false
-  }
-}} />
+<svelte:window onkeydown={handleWindowKeydown} />
 
 <section id="about" class={sectionClass} in:fade={{ duration: aboutFadeMs }}>
   <div class="mx-auto max-w-5xl px-6">
@@ -90,8 +189,8 @@
               decoding="async"
               fetchpriority="high"
               class="aspect-4/5 h-full w-full object-cover transition-opacity duration-500 {imageLoaded ? 'opacity-100' : 'opacity-0'}"
-              onload={() => imageLoaded = true}
-              onerror={() => imageError = true}
+              onload={markProfileImageLoaded}
+              onerror={markProfileImageFailed}
             />
             <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%)"></div>
           {:else}
@@ -110,7 +209,7 @@
 
         <p>
           I connect <span class="text-white">strong backend logic</span> with my passion for <span class="text-white">frontend design</span>. 
-          My main strength are <span class="text-white">Lua</span>, <span class="text-white">Python</span> and <span class="text-white">Java</span>. <button class="text-white underline cursor-pointer" onclick={() => techStackOpen = true}>See full tech stack</button>.
+          My main strength are <span class="text-white">Lua</span>, <span class="text-white">Python</span> and <span class="text-white">Java</span>. <button class="text-white underline cursor-pointer" onclick={openTechStack}>See full tech stack</button>.
         </p>
 
         <p>
@@ -167,12 +266,14 @@
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         {#each lunaPhotos as photo, idx}
           <button
+            data-photo-index={idx}
             class="group relative overflow-hidden rounded-lg border border-white/10 bg-white/4 text-left"
-            onclick={() => lightboxIdx = idx}
+            onclick={handleLightboxThumbnailClick}
           >
-            {#if !dogImageError[idx]}
-              <div class="skeleton absolute inset-0 transition-opacity duration-500 {dogImageLoaded[idx] ? 'opacity-0' : 'opacity-100'}"></div>
+            {#if !lunaImageError[idx]}
+              <div class="skeleton absolute inset-0 transition-opacity duration-500 {lunaImageLoaded[idx] ? 'opacity-0' : 'opacity-100'}"></div>
               <img
+                data-photo-index={idx}
                 src={photo.preview}
                 srcset={photo.previewSrcset}
                 alt={`Luna photo ${idx + 1}`}
@@ -182,9 +283,9 @@
                 decoding="async"
                 fetchpriority="low"
                 sizes="(min-width: 768px) 31vw, calc(100vw - 3rem)"
-                class="aspect-4/3 w-full object-cover transition-all duration-500 group-hover:scale-[1.03] {dogImageLoaded[idx] ? 'opacity-100' : 'opacity-0'}"
-                onload={() => dogImageLoaded[idx] = true}
-                onerror={() => dogImageError[idx] = true}
+                class="aspect-4/3 w-full object-cover transition-all duration-500 group-hover:scale-[1.03] {lunaImageLoaded[idx] ? 'opacity-100' : 'opacity-0'}"
+                onload={handleLunaImageLoad}
+                onerror={handleLunaImageError}
               />
               <!-- vignette effektus -->
               <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.60) 100%)"></div>
@@ -213,20 +314,20 @@
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md"
     role="button"
     tabindex="-1"
-    onclick={() => lightboxIdx = null}
-    onkeydown={(e) => e.key === 'Escape' && (lightboxIdx = null)}
+    onclick={closeLightbox}
+    onkeydown={handleLightboxEscape}
   >
     <div
       class="relative flex max-h-[92vh] max-w-[92vw] flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0a0a0a] shadow-2xl"
       role="presentation"
-      onclick={(e) => e.stopPropagation()}
+      onclick={stopEventPropagation}
     >
       <!-- chrome header -->
       <div class="flex items-center justify-between border-b border-white/6 bg-black/40 px-4 py-2.5">
         <span class="font-mono text-xs text-white/75">Luna · {lightboxIdx + 1} / {lunaPhotos.length}</span>
         <button
           class="font-mono text-xs text-white/75 transition-colors hover:text-white"
-          onclick={() => lightboxIdx = null}
+          onclick={closeLightbox}
         >[ x ]</button>
       </div>
 
@@ -240,11 +341,11 @@
       <!-- prev / next -->
       <button
         class="absolute left-3 top-1/2 -translate-y-1/2 rounded border border-white/10 bg-black/60 px-2.5 py-1.5 font-mono text-xs text-white/50 backdrop-blur-sm transition-colors hover:text-white"
-        onclick={(e) => { e.stopPropagation(); lightboxIdx = (lightboxIdx - 1 + lunaPhotos.length) % lunaPhotos.length }}
+        onclick={showPreviousLightboxImage}
       >←</button>
       <button
         class="absolute right-3 top-1/2 -translate-y-1/2 rounded border border-white/10 bg-black/60 px-2.5 py-1.5 font-mono text-xs text-white/50 backdrop-blur-sm transition-colors hover:text-white"
-        onclick={(e) => { e.stopPropagation(); lightboxIdx = (lightboxIdx + 1) % lunaPhotos.length }}
+        onclick={showNextLightboxImage}
       >→</button>
     </div>
   </div>
@@ -256,20 +357,20 @@
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md"
     role="button"
     tabindex="-1"
-    onclick={() => techStackOpen = false}
-    onkeydown={(e) => e.key === 'Escape' && (techStackOpen = false)}
+    onclick={closeTechStack}
+    onkeydown={handleTechStackEscape}
   >
     <div
       class="relative flex max-h-[92vh] w-full max-w-md flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0a0a0a] shadow-2xl mx-4"
       role="presentation"
-      onclick={(e) => e.stopPropagation()}
+      onclick={stopEventPropagation}
     >
       <!-- chrome header -->
       <div class="flex items-center justify-between border-b border-white/6 bg-black/40 px-4 py-2.5">
         <span class="font-mono text-xs text-white/75">TECH STACK</span>
         <button
           class="font-mono text-xs text-white/75 transition-colors hover:text-white"
-          onclick={() => techStackOpen = false}
+          onclick={closeTechStack}
         >[ x ]</button>
       </div>
 

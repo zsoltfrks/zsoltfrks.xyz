@@ -1,11 +1,5 @@
-<script>
-  import { reveal } from '../actions/reveal.js'
-
-  const studyHighlights = [
-    {
-      text: 'Specializing in backend engineering and system design, I focus on creating scalable and maintainable distributed systems.'
-    }
-  ]
+<script lang="ts">
+  import { reveal } from '../actions/reveal'
 
   const focusAreas = [
     'Software Engineering',
@@ -13,12 +7,11 @@
     'Computer Science',
     'Project Management'
   ]
-
 </script>
 
 <section id="studies" class="py-24">
   <div class="mx-auto max-w-5xl px-6">
-    <div class="mb-12 flex items-baseline justify-between">
+    <div class="mb-10 flex items-baseline justify-between">
       <h2 class="text-xl font-bold text-white/80">Studies</h2>
     </div>
 
@@ -37,17 +30,6 @@
           </span>
         </div>
       </div>
-
-      <ul class="space-y-2.5">
-        {#each studyHighlights as highlight}
-          <li class="flex items-start gap-2 text-sm leading-relaxed text-white/75">
-            <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/75"></span>
-            <span>
-              {highlight.text}
-            </span>
-          </li>
-        {/each}
-      </ul>
 
       <div class="flex flex-wrap items-center gap-1.5">
         <span class="font-mono text-xs text-white/75">FOCUS:</span>

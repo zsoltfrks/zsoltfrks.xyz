@@ -1,8 +1,15 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
-  import { reveal } from '../actions/reveal.js'
+  import { reveal } from '../actions/reveal'
 
-  const links = [
+  type ContactLink = {
+    label: string
+    href: string
+    display: string
+    icon: string
+  }
+
+  const links: ContactLink[] = [
     {
       label: 'email',
       href: 'mailto:hello@zsoltfrks.xyz',
@@ -30,7 +37,9 @@
   ]
 
   let localTime = $state('')
-  let mapEl = $state(null)
+  let mapEl = $state<HTMLDivElement | null>(null)
+  let mapContainerEl = $state<HTMLDivElement | null>(null)
+  let mapReady = $state(false)
 
   onMount(() => {
     const tick = () => {
@@ -42,34 +51,61 @@
         timeZoneName: 'short',
       })
     }
+
     tick()
     const id = setInterval(tick, 1000)
     return () => clearInterval(id)
   })
 
-  onMount(async () => {
-    const [{ default: L }] = await Promise.all([
-      import('leaflet'),
-      import('leaflet/dist/leaflet.css'),
-    ])
+  onMount(() => {
+    let cleanup = () => {}
+    const target = mapContainerEl
+    if (!target) return
 
-    // Fix Leaflet default icon paths broken by Vite bundling
-    delete L.Icon.Default.prototype._getIconUrl
-    L.Icon.Default.mergeOptions({
-      iconUrl: new URL('leaflet/dist/images/marker-icon.png', import.meta.url).href,
-      iconRetinaUrl: new URL('leaflet/dist/images/marker-icon-2x.png', import.meta.url).href,
-      shadowUrl: new URL('leaflet/dist/images/marker-shadow.png', import.meta.url).href,
-    })
+    let cancelled = false
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) return
 
-    const map = L.map(mapEl, { zoomControl: false, attributionControl: false })
-      .setView([46.253, 20.1414], 13)
+      observer.disconnect()
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      subdomains: 'abcd',
-      maxZoom: 12,
-    }).addTo(map)
+      void (async () => {
+        const mapTarget = mapEl
+        if (!mapTarget || cancelled) return
 
-    return () => map.remove()
+        const [{ default: L }] = await Promise.all([
+          import('leaflet'),
+          import('leaflet/dist/leaflet.css'),
+        ])
+
+        if (cancelled) return
+
+        delete (L.Icon.Default.prototype as { _getIconUrl?: string })._getIconUrl
+        L.Icon.Default.mergeOptions({
+          iconUrl: new URL('leaflet/dist/images/marker-icon.png', import.meta.url).href,
+          iconRetinaUrl: new URL('leaflet/dist/images/marker-icon-2x.png', import.meta.url).href,
+          shadowUrl: new URL('leaflet/dist/images/marker-shadow.png', import.meta.url).href,
+        })
+
+        const map = L.map(mapTarget, { zoomControl: false, attributionControl: false })
+          .setView([46.253, 20.1414], 13)
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+          subdomains: 'abcd',
+          maxZoom: 12,
+        }).addTo(map)
+
+        mapReady = true
+        cleanup = () => map.remove()
+      })()
+    }, { rootMargin: '240px 0px' })
+
+    observer.observe(target)
+
+    return () => {
+      cancelled = true
+      observer.disconnect()
+      cleanup()
+    }
   })
 </script>
 
@@ -110,7 +146,7 @@
       </div>
 
       <!-- Right: location card -->
-      <div use:reveal class="reveal-on-scroll flex flex-col" style="--reveal-delay: 120ms">
+      <div use:reveal bind:this={mapContainerEl} class="reveal-on-scroll flex flex-col" style="--reveal-delay: 120ms">
         <div class="location-card flex flex-1 flex-col overflow-hidden rounded-lg border border-white/8 bg-white/4 backdrop-blur-md">
 
           <!-- chrome header -->
@@ -120,7 +156,14 @@
           </div>
 
           <!-- map -->
-          <div bind:this={mapEl} class="min-h-44 flex-1 w-full"></div>
+          <div class="relative min-h-44 flex-1 w-full">
+            <div bind:this={mapEl} class="absolute inset-0"></div>
+            {#if !mapReady}
+              <div class="absolute inset-0 flex items-center justify-center bg-[#0d0d0d]/35 font-mono text-xs text-white/45">
+                Map loads on approach
+              </div>
+            {/if}
+          </div>
 
         </div>
       </div>

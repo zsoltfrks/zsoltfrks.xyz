@@ -1,5 +1,14 @@
-/** @type {{ title: string, repo: string, tagline: string, description: string, tags: string[], github?: string, live?: string }[]} */
-export const projects = [
+export type ProjectItem = {
+  title: string;
+  repo: string;
+  tagline: string;
+  description: string;
+  tags: string[];
+  github?: string;
+  live?: string;
+};
+
+export const projects: ProjectItem[] = [
   {
     title: "User Control Panel",
     repo: "user-control-panel",

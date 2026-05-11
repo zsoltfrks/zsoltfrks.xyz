@@ -1,13 +1,23 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
 
-  let { animating } = $props()
+  type Particle = {
+    x: number
+    y: number
+    char: string
+    opacity: number
+    speed: number
+    timer: number
+    interval: number
+  }
 
-  let canvas
-  let ctx
-  let rafId
+  let { animating }: { animating: boolean } = $props()
+
+  let canvas: HTMLCanvasElement
+  let ctx: CanvasRenderingContext2D | null = null
+  let rafId: number | null = null
   let lastTime = 0
-  let ro
+  let ro: ResizeObserver | null = null
   let canvasW = 0
   let canvasH = 0
 
@@ -15,10 +25,9 @@
   const FONT_SIZE = 13
   const CHAR_COUNT = 120
 
-  /** @type {{ x: number, y: number, char: string, opacity: number, speed: number, timer: number, interval: number }[]} */
-  let particles = []
+  let particles: Particle[] = []
 
-  function initParticles(w, h) {
+  function initParticles(w: number, h: number) {
     particles = Array.from({ length: CHAR_COUNT }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -30,19 +39,20 @@
     }))
   }
 
-  function resize(w, h) {
+  function resize(w: number, h: number) {
     canvas.width = w
     canvas.height = h
     canvasW = w
     canvasH = h
+    if (!ctx) return
     ctx.font = `${FONT_SIZE}px 'JetBrains Mono', monospace`
     ctx.fillStyle = '#ffffff'
     initParticles(w, h)
   }
 
-  function loop(timestamp) {
-    // Stop the loop when animation is disabled — $effect will restart it
-    if (!animating) {
+  function loop(timestamp: number) {
+    // stop the loop when animation is disabled — $effect will restart it
+    if (!animating || !ctx) {
       rafId = null
       return
     }
@@ -72,7 +82,7 @@
     rafId = requestAnimationFrame(loop)
   }
 
-  // Restart the loop when animating flips back on after being stopped
+  // restart the loop when animating flips back on after being stopped
   $effect(() => {
     if (animating && !rafId && ctx) {
       document.fonts.ready.then(() => {
@@ -86,6 +96,9 @@
 
   onMount(() => {
     ctx = canvas.getContext('2d')
+    if (!ctx) {
+      return
+    }
     ctx.font = `${FONT_SIZE}px 'JetBrains Mono', monospace`
     ctx.fillStyle = '#ffffff'
 
@@ -97,9 +110,9 @@
 
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
 
-    function onMotionChange(e) {
+    function onMotionChange(e: MediaQueryListEvent) {
       if (e.matches) {
-        cancelAnimationFrame(rafId)
+        if (rafId) cancelAnimationFrame(rafId)
         rafId = null
       } else if (animating && !rafId) {
         lastTime = 0
@@ -115,9 +128,9 @@
     })
 
     return () => {
-      ro.disconnect()
+      ro?.disconnect()
       mq.removeEventListener('change', onMotionChange)
-      cancelAnimationFrame(rafId)
+      if (rafId) cancelAnimationFrame(rafId)
     }
   })
 </script>

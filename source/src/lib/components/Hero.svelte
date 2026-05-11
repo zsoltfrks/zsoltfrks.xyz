@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
 
-  let { animating = $bindable(), typingStartDelayMs = 400 } = $props()
+  let { animating = $bindable(false), typingStartDelayMs = 400 }: { animating?: boolean; typingStartDelayMs?: number } = $props()
 
   // --- typing animation ---
   const ROLE = 'Software Engineer'
@@ -13,11 +13,13 @@
   const GLITCH_CHARS = '!@#$%^&*[]{}|<>0123456789ABCDEFabcdef~`'
   let locationIdx = 0
   let locationDisplay = $state(LOCATIONS[0])
-  let locationTimerId
-  let glitchIntervalId
+  let locationTimerId: ReturnType<typeof setTimeout> | null = null
+  let glitchIntervalId: ReturnType<typeof setInterval> | null = null
 
-  function glitchTo(target) {
-    clearInterval(glitchIntervalId)
+  function glitchTo(target: string) {
+    if (glitchIntervalId) {
+      clearInterval(glitchIntervalId)
+    }
     const FRAMES = 10
     const MS = 40
     let frame = 0
@@ -36,14 +38,16 @@
           )
           .join('')
       } else {
-        clearInterval(glitchIntervalId)
+        if (glitchIntervalId) {
+          clearInterval(glitchIntervalId)
+        }
         glitchIntervalId = null
         locationDisplay = target
       }
     }, MS)
   }
 
-  function scheduleNextGlitch(delay) {
+  function scheduleNextGlitch(delay: number) {
     locationTimerId = setTimeout(() => {
       locationIdx = (locationIdx + 1) % LOCATIONS.length
       glitchTo(LOCATIONS[locationIdx])
@@ -53,6 +57,18 @@
 
   // --- grim reveal ---
   let grimVisible = $state(false)
+
+  function showGrim(): void {
+    grimVisible = true
+  }
+
+  function hideGrim(): void {
+    grimVisible = false
+  }
+
+  function toggleAnimation(): void {
+    animating = !animating
+  }
 
   onMount(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -72,8 +88,8 @@
     }
 
     return () => {
-      clearTimeout(locationTimerId)
-      clearInterval(glitchIntervalId)
+      if (locationTimerId) clearTimeout(locationTimerId)
+      if (glitchIntervalId) clearInterval(glitchIntervalId)
     }
   })
 </script>
@@ -91,10 +107,10 @@
             class="o-letter"
             role="button"
             tabindex="0"
-            onmouseenter={() => grimVisible = true}
-            onmouseleave={() => grimVisible = false}
-            onfocus={() => grimVisible = true}
-            onblur={() => grimVisible = false}
+            onmouseenter={showGrim}
+            onmouseleave={hideGrim}
+            onfocus={showGrim}
+            onblur={hideGrim}
           >o</span>lt&nbsp;<span class="grim-wrapper"><span class="grim-text" class:grim-open={grimVisible}>'grim'&nbsp;</span></span><span class="farkas" class:grim-open={grimVisible}>Farkas</span>
         </span>
       </h1>
@@ -143,7 +159,7 @@
         <span class="mx-3 hidden text-white/15 sm:block" aria-hidden="true">|</span>
 
         <button
-          onclick={() => animating = !animating}
+          onclick={toggleAnimation}
           class="transition-colors hover:text-white"
         >
           Animation: {animating ? 'on' : 'off'}

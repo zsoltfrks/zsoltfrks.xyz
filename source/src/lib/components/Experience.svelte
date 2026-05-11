@@ -1,16 +1,16 @@
-<script>
-  import { experience } from '../data/experience.js'
+<script lang="ts">
+  import { experience } from '../data/experience'
   import CompanyPopover from './CompanyPopover.svelte'
-  import { reveal } from '../actions/reveal.js'
+  import { reveal } from '../actions/reveal'
 
   const fullTime  = experience.filter(j => j.type === 'full-time')
   const freelance = experience.filter(j => j.type === 'projects')
 
-  let openPopover = $state(null)
-  let closeTimer = null
+  let openPopover = $state<string | null>(null)
+  let closeTimer: ReturnType<typeof setTimeout> | null = null
 
-  function openPop(key) {
-    clearTimeout(closeTimer)
+  function openPop(key: string) {
+    if (closeTimer) clearTimeout(closeTimer)
     openPopover = key
   }
 
@@ -23,7 +23,7 @@
   <div class="mx-auto max-w-5xl px-6">
 
     <!-- section header -->
-    <div class="mb-12 flex items-baseline justify-between">
+    <div class="mb-10 flex items-baseline justify-between">
       <h2 class="text-xl font-bold text-white/80">Experience</h2>
     </div>
 

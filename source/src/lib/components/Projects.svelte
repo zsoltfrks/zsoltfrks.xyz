@@ -1,42 +1,106 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
-  import { projects } from '../data/projects.js'
-  import { reveal } from '../actions/reveal.js'
+  import { projects } from '../data/projects'
+  import { reveal } from '../actions/reveal'
+
+  type RecentCommit = {
+    sha: string
+    repo: string
+    message: string
+    additions: number | null
+    deletions: number | null
+  }
+
+  type SearchCommitItem = {
+    sha: string
+    commit: { message: string }
+    repository: { name: string }
+  }
+
+  type SearchCommitResponse = {
+    items: SearchCommitItem[]
+  }
+
+  type CommitStatsResponse = {
+    stats?: {
+      additions?: number
+      deletions?: number
+    }
+  }
+
+  type CachedCommits = {
+    ts: number
+    data: RecentCommit[]
+  }
 
   const GITHUB_USER = 'zsoltfrks'
 
-  let recentCommits = $state([])
+  let recentCommits = $state<RecentCommit[]>([])
   let loading = $state(true)
   let error = $state(false)
+  let commitsPanelEl = $state<HTMLDivElement | null>(null)
+  let commitsRequested = false
 
   const CACHE_KEY = 'gh-recent-commits'
   const CACHE_TTL = 5 * 60 * 1000 // 5 minutes
 
-  const gh = (path) => fetch(`/api/github?path=${encodeURIComponent(path)}`)
+  const gh = (path: string) => fetch(`/api/github?path=${encodeURIComponent(path)}`)
 
-  onMount(async () => {
-    // Show cached data instantly on repeat visits
+  function openLiveProject(event: MouseEvent, url: string | undefined): void {
+    if (!url) return
+
+    event.stopPropagation()
+    event.preventDefault()
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+
+  function handleLiveProjectClick(event: MouseEvent): void {
+    const button = event.currentTarget
+
+    if (!(button instanceof HTMLButtonElement)) return
+
+    openLiveProject(event, button.dataset.liveUrl)
+  }
+
+  function scheduleLowPriorityTask(task: () => void, timeout = 800): () => void {
+    const requestIdle = window.requestIdleCallback?.bind(window)
+    const cancelIdle = window.cancelIdleCallback?.bind(window)
+
+    if (requestIdle && cancelIdle) {
+      const handle = requestIdle(() => task(), { timeout })
+      return () => cancelIdle(handle)
+    }
+
+    const handle = window.setTimeout(task, timeout)
+    return () => window.clearTimeout(handle)
+  }
+
+  async function loadRecentCommits(): Promise<void> {
+    if (commitsRequested) return
+    commitsRequested = true
+
+    // Show cached data instantly on repeat visits once the panel is relevant
     try {
       const raw = localStorage.getItem(CACHE_KEY)
       if (raw) {
-        const { ts, data } = JSON.parse(raw)
+        const { ts, data } = JSON.parse(raw) as CachedCommits
         recentCommits = data
         loading = false
-        if (Date.now() - ts < CACHE_TTL) return // still fresh — skip network
+        if (Date.now() - ts < CACHE_TTL) return
       }
-    } catch { /* ignore corrupt cache */ }
+    } catch {}
 
     try {
       const searchRes = await gh(`/search/commits?q=author:${GITHUB_USER}+is:public&sort=author-date&order=desc&per_page=7`)
       if (!searchRes.ok) throw new Error()
-      const { items } = await searchRes.json()
+      const { items } = await searchRes.json() as SearchCommitResponse
 
       const fresh = await Promise.all(
-        items.map(async (item) => {
+        items.map(async (item): Promise<RecentCommit> => {
           const repo = item.repository.name
           try {
             const statsRes = await gh(`/repos/${GITHUB_USER}/${repo}/commits/${item.sha}`)
-            const statsData = statsRes.ok ? await statsRes.json() : {}
+            const statsData = statsRes.ok ? await statsRes.json() as CommitStatsResponse : {}
             return {
               sha: item.sha,
               repo,
@@ -45,7 +109,13 @@
               deletions: statsData.stats?.deletions ?? null,
             }
           } catch {
-            return { sha: item.sha, repo, message: item.commit.message.split('\n')[0], additions: null, deletions: null }
+            return {
+              sha: item.sha,
+              repo,
+              message: item.commit.message.split('\n')[0],
+              additions: null,
+              deletions: null,
+            }
           }
         })
       )
@@ -57,6 +127,28 @@
     } finally {
       loading = false
     }
+  }
+
+  onMount(() => {
+    const panel = commitsPanelEl
+    if (!panel) return
+
+    let cancelScheduledLoad = () => {}
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) return
+
+      observer.disconnect()
+      cancelScheduledLoad = scheduleLowPriorityTask(() => {
+        void loadRecentCommits()
+      })
+    }, { rootMargin: '240px 0px' })
+
+    observer.observe(panel)
+
+    return () => {
+      observer.disconnect()
+      cancelScheduledLoad()
+    }
   })
 </script>
 
@@ -64,8 +156,8 @@
   <div class="mx-auto max-w-5xl px-6">
 
     <!-- section header -->
-    <div class="mb-8 flex items-baseline justify-between">
-      <h2 class="text-xl font-bold text-white/80">Featured Projects</h2>
+    <div class="mb-10 flex items-baseline justify-between">
+      <h2 class="text-xl font-bold text-white/80">Projects</h2>
     </div>
 
     <!-- cards grid -->
@@ -94,7 +186,8 @@
               <h3 class="project-card__title font-bold text-white/90">{project.title}</h3>
               {#if project.live}
                 <button
-                  onclick={(e) => { e.stopPropagation(); e.preventDefault(); window.open(project.live, '_blank', 'noopener,noreferrer') }}
+                  data-live-url={project.live}
+                  onclick={handleLiveProjectClick}
                   aria-label="Visit live site"
                   class="project-card__icon shrink-0 text-white/70 transition-colors hover:text-white"
                 >
@@ -121,7 +214,7 @@
     </div>
 
     <!-- recent commits panel -->
-    <div class="overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d]">
+    <div bind:this={commitsPanelEl} class="overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d]">
 
       <!-- panel header -->
       <div class="flex items-center justify-between border-b border-white/10 bg-[#0d0d0d] px-4 py-3">
@@ -179,63 +272,16 @@
 
 <style>
   .project-card {
-    position: relative;
-    transition:
-      transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.24s ease,
-      box-shadow 0.32s ease;
-    will-change: transform;
-  }
-
-  .project-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent 45%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.28s ease;
-    pointer-events: none;
+    transition: border-color 0.26s ease;
   }
 
   .project-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
-  }
-
-  .project-card:hover::after {
-    opacity: 1;
-  }
-
-  .project-card__body {
-    transition: background-color 0.28s ease;
-  }
-
-  .project-card:hover .project-card__body {
-    background: #141414;
-  }
-
-  .project-card__title,
-  .project-card__icon {
-    transition:
-      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-      color 0.2s ease;
-  }
-
-  .project-card:hover .project-card__title,
-  .project-card:hover .project-card__icon {
-    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.16);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .project-card,
-    .project-card::after,
-    .project-card__body,
-    .project-card__title,
-    .project-card__icon {
+    .project-card {
       transition: none;
-      transform: none;
-      opacity: 1;
     }
   }
 </style>
