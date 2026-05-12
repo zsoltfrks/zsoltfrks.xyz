@@ -153,11 +153,11 @@
 </script>
 
 <section id="projects" class="py-24">
-  <div class="mx-auto max-w-5xl px-6">
+  <div use:reveal class="reveal-on-scroll mx-auto max-w-5xl px-6">
 
     <!-- section header -->
     <div class="mb-10 flex items-baseline justify-between">
-      <h2 class="text-xl font-bold text-white/80">Projects</h2>
+      <h2 use:reveal style="--reveal-delay: 85ms" class="reveal-on-scroll text-xl font-bold text-white/80">Projects</h2>
     </div>
 
     <!-- cards grid -->
@@ -169,7 +169,7 @@
           target={project.github ? '_blank' : undefined}
           rel={project.github ? 'noopener noreferrer' : undefined}
           use:reveal
-          style={`--reveal-delay: ${index * 70}ms`}
+          style={`--reveal-delay: ${index * 85}ms`}
           class="project-card reveal-on-scroll group flex min-h-64 flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d]"
         >
 
@@ -181,7 +181,7 @@
           </div>
 
           <!-- card body -->
-          <div class="project-card__body flex flex-1 flex-col bg-[#111111] p-4 gap-4">
+          <div use:reveal style={`--reveal-delay: ${index * 85}ms`} class="reveal-on-scroll project-card__body flex flex-1 flex-col bg-[#111111] p-4 gap-4">
             <div class="mb-3 flex items-start justify-between gap-2">
               <h3 class="project-card__title font-bold text-white/90">{project.title}</h3>
               {#if project.live}
@@ -214,7 +214,7 @@
     </div>
 
     <!-- recent commits panel -->
-    <div bind:this={commitsPanelEl} class="overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d]">
+    <div use:reveal style="--reveal-delay: 85ms" bind:this={commitsPanelEl} class="scroll-reveal overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d]">
 
       <!-- panel header -->
       <div class="flex items-center justify-between border-b border-white/10 bg-[#0d0d0d] px-4 py-3">
