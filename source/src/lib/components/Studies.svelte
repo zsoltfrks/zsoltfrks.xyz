@@ -12,7 +12,7 @@
 <section id="studies" class="py-24">
   <div class="mx-auto max-w-5xl px-6">
     <div class="mb-10 flex items-baseline justify-between">
-      <h2 class="text-xl font-bold text-white/80">Studies</h2>
+      <h2 use:reveal style={`--reveal-delay: 85ms`} class="reveal-on-scroll text-xl font-bold text-white/80">Studies</h2>
     </div>
 
     <div
