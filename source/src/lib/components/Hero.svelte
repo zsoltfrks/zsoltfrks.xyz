@@ -256,5 +256,11 @@
       animation: none;
       cursor: default;
     }
+
+    @media (pointer: coarse) {
+      .o-letter {
+        pointer-events: none;
+      }
+    }
   }
 </style>
