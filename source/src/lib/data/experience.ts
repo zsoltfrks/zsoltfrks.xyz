@@ -14,18 +14,18 @@ export type ExperienceItem = {
 export const experience: ExperienceItem[] = [
   {
     company: "KÉSZ Consulting Kft.",
-    role: "Software Engineer (Internship)",
+    role: "Software Engineer Internship",
     period: "Oct 2025 – Dec 2025",
     location: "Kecskemét, Hungary",
     website: "https://kesz.hu",
     about:
-      "Part of KESZ Group, one of the largest construction and engineering companies in Hungary. The internship focused on developing internal automation tools to optimize operational workflows during my BSc studies while gaining hands-on experience from other IT departments.",
+      "Part of KÉSZ Group, one of Hungary’s largest construction and engineering companies.\n\n During my BSc studies, I completed an internship focused on developing internal automation tools to optimize operational workflows, while also gaining hands-on experience across various IT departments.",
     type: "full-time",
     bullets: [
       "Developed Python-based automation tools to streamline internal operational workflows.",
-      "Built document processing utilities for automated sorting and type conversion.",
-      "Improved processing reliability and efficiency by replacing repetitive tasks with scripts.",
-      "Worked closely with IT team members to design and deploy internal automation tools.",
+      "Created document processing utilities for automated sorting and type conversion.",
+      "Increased reliability and efficiency by replacing repetitive tasks with custom scripts.",
+      "Collaborated with IT team members to design and implement automation solutions.",
     ],
     tech: ["Python", "N8N", "NumPy", "Microsoft Azure", "Active Directory"],
     skills: ["Teamwork", "Workflow Optimization", "System Integration"],
@@ -37,12 +37,12 @@ export const experience: ExperienceItem[] = [
     location: "Remote",
     website: "",
     about:
-      "A custom multiplayer server built on the Multi Theft Auto platform during the pandemic. The project did not exit the development phase due to real-life circumstances. The project is on-hold as of 2025.",
+      "A custom multiplayer server built on the Multi Theft Auto open-source platform during the pandemic. \n\n This roleplay-based modpack aimed to simulate real-life experiences within the game world, featuring advanced shader usage and environmental effects to make the map feel vibrant and immersive. \n\nDevelopment was paused in 2025 due to real-life circumstances, and the project remains on hold.",
     type: "projects",
     bullets: [
-      "Founded and led development of a multiplayer server with a small, dedicated team.",
+      "Founded and led the development of a multiplayer server with a dedicated team.",
       "Architected core gameplay systems and backend infrastructure for a custom environment.",
-      "Designed and implemented key platform components including networking and rendering integrations",
+      "Designed and implemented key platform components, including networking and rendering integrations.",
     ],
     tech: ["Lua", "HLSL", "Chromium Embedded Framework", "Docker", "Jira"],
     skills: [

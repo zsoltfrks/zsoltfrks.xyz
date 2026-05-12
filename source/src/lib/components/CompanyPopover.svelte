@@ -46,7 +46,7 @@
 
         <!-- body -->
         <div class="p-4">
-          <p class="mb-3 text-xs leading-relaxed text-white/70">{job.about}</p>
+          <p class="mb-3 whitespace-pre-line text-xs leading-relaxed text-white/70">{job.about}</p>
           {#if job.website}
             <a
               href={job.website}
