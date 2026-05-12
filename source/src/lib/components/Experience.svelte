@@ -24,7 +24,7 @@
 
     <!-- section header -->
     <div class="mb-10 flex items-baseline justify-between">
-      <h2 class="text-xl font-bold text-white/80">Experience</h2>
+      <h2 use:reveal class="reveal-on-scroll text-xl font-bold text-white/80">Experience</h2>
     </div>
 
     <div class="space-y-12">
@@ -32,7 +32,7 @@
       <!-- full-time -->
       {#if fullTime.length}
         <div>
-          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/80">Full-Time</p>
+          <p use:reveal class="reveal-on-scroll mb-6 font-mono text-xs uppercase tracking-widest text-white/80">Full-Time</p>
 
           <ol class="timeline timeline-reveal relative ml-1 space-y-10">
             {#each fullTime as job, index}
@@ -42,7 +42,7 @@
                 class="timeline-item reveal-on-scroll relative ml-8"
               >
                 <!-- timeline dot -->
-                <span class="absolute -left-8 z-10 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/30 bg-[#0a0a0a]" aria-hidden="true"></span>
+                <span use:reveal style={`--reveal-delay: ${index * 85}ms`} class="reveal-on-scroll absolute -left-8 z-10 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/30 bg-[#0a0a0a]" aria-hidden="true"></span>
 
                 <!-- role + period -->
                 <div class="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
@@ -91,7 +91,7 @@
       <!-- freelance -->
       {#if freelance.length}
         <div>
-          <p class="mb-6 font-mono text-xs uppercase tracking-widest text-white/80">PROJECT</p>
+          <p use:reveal class="reveal-on-scroll mb-6 font-mono text-xs uppercase tracking-widest text-white/80">PROJECT</p>
 
           <ol class="timeline timeline-reveal relative ml-1 space-y-10">
             {#each freelance as job, index}
@@ -100,7 +100,7 @@
                 style={`--reveal-delay: ${index * 85}ms`}
                 class="timeline-item reveal-on-scroll relative ml-8"
               >
-                <span class="absolute -left-8 z-10 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/30 bg-[#0a0a0a]" aria-hidden="true"></span>
+                <span use:reveal style={`--reveal-delay: ${index * 85}ms`} class="reveal-on-scroll absolute -left-8 z-10 mt-1.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-white/30 bg-[#0a0a0a]" aria-hidden="true"></span>
 
                 <!-- role + period -->
                 <div class="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
