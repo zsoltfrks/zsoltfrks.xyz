@@ -205,7 +205,7 @@
         <div id="about-content" class="space-y-5">
         <p>
           Hi! I&apos;m <span class="text-white">Zsolt Farkas</span>, a 24-year-old <span class="text-white">Computer Science BSc student</span> from <span class="text-white">Szeged, Hungary</span>. 
-          I’m passionate about technology and enjoy learning new skills to keep advancing.
+          I’m passionate about technology and enjoy learning new skills to keep improving.
         </p>
 
         <p> 
