@@ -153,7 +153,7 @@
 </script>
 
 <section id="projects" class="py-24">
-  <div use:reveal class="reveal-on-scroll mx-auto max-w-5xl px-6">
+  <div class="mx-auto max-w-5xl px-6">
 
     <!-- section header -->
     <div class="mb-10 flex items-baseline justify-between">
@@ -214,7 +214,7 @@
     </div>
 
     <!-- recent commits panel -->
-    <div use:reveal style="--reveal-delay: 85ms" bind:this={commitsPanelEl} class="scroll-reveal overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d]">
+    <div use:reveal style="--reveal-delay: 85ms" bind:this={commitsPanelEl} class="reveal-on-scroll overflow-hidden rounded-lg border border-white/10 bg-[#0d0d0d]">
 
       <!-- panel header -->
       <div class="flex items-center justify-between border-b border-white/10 bg-[#0d0d0d] px-4 py-3">

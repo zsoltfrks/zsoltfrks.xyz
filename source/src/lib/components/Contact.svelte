@@ -115,23 +115,22 @@
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14">
 
       <!-- Left: contact content -->
-      <div use:reveal class="reveal-on-scroll" style="--reveal-delay: 0ms">
-        <h2 class="mb-8 text-4xl font-bold tracking-tight text-white/85">Contact</h2>
+      <div>
+        <h2 use:reveal class="reveal-on-scroll mb-8 text-4xl font-bold tracking-tight text-white/85">Contact</h2>
 
-        <p class="mb-10 text-sm leading-relaxed text-white/75">
+        <p use:reveal class="reveal-on-scroll mb-10 text-sm leading-relaxed text-white/75" style="--reveal-delay: 70ms">
           Open to freelance or full-time work, collaborations, and ideas.
           Drop me a line and I will reply to you asap. <span class="text-white/95">:)</span>
         </p>
 
         <ul class="grid grid-cols-1 gap-2 font-mono sm:grid-cols-2 sm:gap-3">
           {#each links as link, index}
-            <li class="flex">
+            <li use:reveal class="reveal-on-scroll flex" style={`--reveal-delay: ${140 + index * 60}ms`}>
               <a
                 href={link.href}
                 target={link.label !== 'email' ? '_blank' : undefined}
                 rel="noopener noreferrer"
                 class="contact-link group flex h-full w-full items-center gap-3 py-2.5 transition-colors"
-                style={`--reveal-delay: ${80 + index * 60}ms`}
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" class="shrink-0 text-white/55 transition-colors group-hover:text-white/90" aria-hidden="true">
                   {@html link.icon}
