@@ -10,6 +10,7 @@
 
   // --- location glitch ---
   const LOCATIONS = ['46.2530°N, 20.1414°E', 'Szeged, Hungary']
+  const LOCATION_DWELL_MS = [3500, 5000]
   const GLITCH_CHARS = '!@#$%^&*[]{}|<>0123456789ABCDEFabcdef~`'
   let locationIdx = 0
   let locationDisplay = $state(LOCATIONS[0])
@@ -51,7 +52,7 @@
     locationTimerId = setTimeout(() => {
       locationIdx = (locationIdx + 1) % LOCATIONS.length
       glitchTo(LOCATIONS[locationIdx])
-      scheduleNextGlitch(5000)
+      scheduleNextGlitch(LOCATION_DWELL_MS[locationIdx])
     }, delay)
   }
 
@@ -84,7 +85,7 @@
         }, typingStartDelayMs + i * 65)
       })
 
-      scheduleNextGlitch(3500)
+      scheduleNextGlitch(LOCATION_DWELL_MS[locationIdx])
     }
 
     return () => {
@@ -101,7 +102,7 @@
   <div class="max-w-xl w-full px-6 text-left">
 
       <!-- greeting + name -->
-      <h1 class="mb-1 text-2xl leading-snug text-white/75 sm:text-4xl">
+      <h1 class="mb-1 text-2xl leading-snug text-white/80 sm:text-4xl">
         Hey! I'm&nbsp;<span class="name-flicker inline-flex font-bold text-white">
           Zs<span
             class="o-letter"
@@ -116,13 +117,13 @@
       </h1>
 
       <!-- role with typing animation -->
-      <p class="mb-8 text-xl text-white/75">
+      <p class="mb-8 text-xl text-white/80">
         {typed}<span class={typingDone ? 'cursor-done' : 'cursor-blink'}>_</span>
       </p>
 
-      <!-- bio -->
+      <!-- bio TODO: test different font sizes for better readability -->
       <p class="mb-8 text-sm leading-relaxed text-white/75">
-        Computer Science BSc student. I am currently focused on backend technologies and system architecture.
+        Computer Science BSc student passionate about <span class="text-white/97">full-stack development</span>, with a strong interest in <span class="text-white/97">backend technologies</span> and <span class="text-white/97">scalable system architecture</span>.
       </p>
 
       <!-- tagline -->
