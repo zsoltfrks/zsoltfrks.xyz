@@ -10,15 +10,12 @@
 </script>
 
 <section id="studies" class="py-24">
-  <div class="mx-auto max-w-5xl px-6">
+  <div use:reveal style={`--reveal-delay: 85ms`} class="reveal-on-scroll mx-auto max-w-5xl px-6">
     <div class="mb-10 flex items-baseline justify-between">
-      <h2 use:reveal style={`--reveal-delay: 85ms`} class="reveal-on-scroll text-xl font-bold text-white/80">Studies</h2>
+      <h2 class="text-xl font-bold text-white/80">Studies</h2>
     </div>
 
-    <div
-      use:reveal
-      class="reveal-on-scroll space-y-6"
-    >
+    <div class="space-y-6">
       <div class="space-y-3">
         <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
           <h3 class="font-bold text-white/95">
