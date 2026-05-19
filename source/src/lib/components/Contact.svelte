@@ -115,17 +115,17 @@
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14">
 
       <!-- Left: contact content -->
-      <div>
+      <div use:reveal class="reveal-on-scroll flex flex-col" style="--reveal-delay: 60ms">
         <h2 use:reveal class="reveal-on-scroll mb-8 text-4xl font-bold tracking-tight text-white/85">Contact</h2>
 
-        <p use:reveal class="reveal-on-scroll mb-10 text-sm leading-relaxed text-white/75" style="--reveal-delay: 70ms">
+        <p class="mb-10 text-sm leading-relaxed text-white/75">
           Open to freelance or full-time work, collaborations, and ideas.
           Drop me a line and I will reply to you asap. <span class="text-white/95">:)</span>
         </p>
 
         <ul class="grid grid-cols-1 gap-2 font-mono sm:grid-cols-2 sm:gap-3">
           {#each links as link, index}
-            <li use:reveal class="reveal-on-scroll flex" style={`--reveal-delay: ${140 + index * 60}ms`}>
+            <li class="flex">
               <a
                 href={link.href}
                 target={link.label !== 'email' ? '_blank' : undefined}
