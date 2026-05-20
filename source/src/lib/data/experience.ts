@@ -27,7 +27,7 @@ export const experience: ExperienceItem[] = [
       "Increased reliability and efficiency by replacing repetitive tasks with custom scripts.",
       "Collaborated with IT team members to design and implement automation solutions.",
     ],
-    tech: ["Python", "N8N", "NumPy", "Microsoft Azure", "Active Directory"],
+    tech: ["Python", "N8N", "Microsoft Azure", "Active Directory"],
     skills: ["Teamwork", "Workflow Optimization", "System Integration"],
   },
   {
@@ -47,7 +47,7 @@ export const experience: ExperienceItem[] = [
     tech: ["Lua", "HLSL", "Chromium Embedded Framework", "Docker", "Jira"],
     skills: [
       "Algorithmic Thinking",
-      "Product Development",
+      "System Architecture",
       "Project Management",
     ],
   },
