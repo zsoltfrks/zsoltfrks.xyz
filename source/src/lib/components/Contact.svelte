@@ -116,7 +116,7 @@
 
       <!-- Left: contact content -->
       <div use:reveal class="reveal-on-scroll flex flex-col" style="--reveal-delay: 60ms">
-        <h2 class="mb-8 text-4xl font-bold tracking-tight text-white/85">Contact</h2>
+        <h2 class="mb-8 text-4xl font-bold tracking-tight text-white/80">Contact</h2>
 
         <p class="mb-10 text-sm leading-relaxed text-white/75">
           Open to freelance or full-time work, collaborations, and ideas.
