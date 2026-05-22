@@ -1,7 +1,7 @@
 <script lang="ts">
   import { reveal } from '../actions/reveal'
 
-  const focusAreas = [
+  const courses = [
     'Software Engineering',
     'System Architecture',
     'Computer Science',
@@ -23,19 +23,22 @@
           </h3>
 
           <span class="shrink-0 font-mono text-xs text-white/75">
-            Graduation: June, 2027
+            Expected graduation: June, 2027
           </span>
         </div>
       </div>
 
+      <!-- TODO: add coursera certs here.
+       
       <div class="flex flex-wrap items-center gap-1.5">
-        <span class="font-mono text-xs text-white/75">FOCUS:</span>
-        {#each focusAreas as area}
+        <span class="font-mono text-xs text-white/75">COURSES:</span>
+        {#each courses as course}
           <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/75">
-            {area}
+            {course}
           </span>
         {/each}
       </div>
+       -->
     </div>
   </div>
 </section>
