@@ -23,6 +23,7 @@
       preview: '/images/luna-800-1.webp',
       previewSrcset: '/images/luna-480-1.webp 480w, /images/luna-800-1.webp 800w',
       full: '/images/luna-1.webp',
+      fullSrcset: '/images/luna-480-1.webp 480w, /images/luna-800-1.webp 800w, /images/luna-1.webp 960w',
       width: 960,
       height: 1280
     },
@@ -30,6 +31,7 @@
       preview: '/images/luna-800-2.webp',
       previewSrcset: '/images/luna-480-2.webp 480w, /images/luna-800-2.webp 800w',
       full: '/images/luna-2.webp',
+      fullSrcset: '/images/luna-480-2.webp 480w, /images/luna-800-2.webp 800w, /images/luna-2.webp 960w',
       width: 960,
       height: 1280
     },
@@ -37,6 +39,7 @@
       preview: '/images/luna-800-3.webp',
       previewSrcset: '/images/luna-480-3.webp 480w, /images/luna-800-3.webp 800w',
       full: '/images/luna-3.webp',
+      fullSrcset: '/images/luna-480-3.webp 480w, /images/luna-800-3.webp 800w, /images/luna-3.webp 960w',
       width: 960,
       height: 1280
     }
@@ -53,6 +56,8 @@
 
   const sectionClass = $derived(standalone ? 'pb-20 pt-28' : 'py-24')
   const aboutFadeMs = $derived(prefersReducedMotion ? 0 : standalone ? 420 : 220)
+  const modalFadeMs = prefersReducedMotion ? 0 : 180
+  const imageSwapMs = prefersReducedMotion ? 0 : 120
 
   function markProfileImageLoaded(): void {
     imageLoaded = true
@@ -315,6 +320,7 @@
 <!-- lightbox -->
 {#if lightboxIdx !== null}
   <div
+    transition:fade={{ duration: modalFadeMs }}
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md"
     role="button"
     tabindex="-1"
@@ -336,11 +342,17 @@
       </div>
 
       <!-- image -->
-      <img
-        src={lunaPhotos[lightboxIdx].full}
-        alt={`Luna photo ${lightboxIdx + 1}`}
-        class="block max-h-[80vh] max-w-[92vw] object-contain"
-      />
+      {#key lightboxIdx}
+        <img
+          in:fade={{ duration: imageSwapMs }}
+          src={lunaPhotos[lightboxIdx].full}
+          srcset={lunaPhotos[lightboxIdx].fullSrcset}
+          sizes="(max-width: 640px) 92vw, 800px"
+          alt={`Luna photo ${lightboxIdx + 1}`}
+          decoding="async"
+          class="block max-h-[80vh] max-w-[92vw] object-contain"
+        />
+      {/key}
 
       <!-- prev / next -->
       <button
@@ -358,6 +370,7 @@
 <!-- tech stack modal -->
 {#if techStackOpen}
   <div
+    transition:fade={{ duration: modalFadeMs }}
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md"
     role="button"
     tabindex="-1"
