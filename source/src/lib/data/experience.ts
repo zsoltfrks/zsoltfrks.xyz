@@ -9,6 +9,8 @@ export type ExperienceItem = {
   bullets: string[];
   tech: string[];
   skills: string[];
+  /** Image paths under public/ with the link text shown in the SCREENSHOTS row. */
+  screenshots?: { src: string; label: string }[];
 };
 
 export const experience: ExperienceItem[] = [
@@ -50,6 +52,9 @@ export const experience: ExperienceItem[] = [
       "Game Development",
       "Scalable System Architecture",
       "Project Management",
+    ],
+    screenshots: [
+      { src: "/images/gambit-1.webp", label: "character: clothing selection" },
     ],
   },
 ];

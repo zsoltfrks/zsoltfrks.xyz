@@ -1,5 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition'
+  import Lightbox from './Lightbox.svelte'
 
   let { standalone = false }: { standalone?: boolean } = $props()
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -57,7 +58,6 @@
   const sectionClass = $derived(standalone ? 'pb-20 pt-28' : 'py-24')
   const aboutFadeMs = $derived(prefersReducedMotion ? 0 : standalone ? 420 : 220)
   const modalFadeMs = prefersReducedMotion ? 0 : 180
-  const imageSwapMs = prefersReducedMotion ? 0 : 120
 
   function markProfileImageLoaded(): void {
     imageLoaded = true
@@ -110,10 +110,6 @@
     openLightbox(index)
   }
 
-  function closeLightbox(): void {
-    lightboxIdx = null
-  }
-
   function openTechStack(): void {
     techStackOpen = true
   }
@@ -126,41 +122,16 @@
     event.stopPropagation()
   }
 
-  function moveLightbox(event: MouseEvent, step: number): void {
-    event.stopPropagation()
-
-    if (lightboxIdx === null) return
-
-    lightboxIdx = (lightboxIdx + step + lunaPhotos.length) % lunaPhotos.length
-  }
-
-  function handleDismissOnEscape(event: KeyboardEvent, dismiss: () => void): void {
-    if (event.key === 'Escape') {
-      dismiss()
-    }
-  }
-
-  function handleLightboxEscape(event: KeyboardEvent): void {
-    handleDismissOnEscape(event, closeLightbox)
-  }
-
   function handleTechStackEscape(event: KeyboardEvent): void {
-    handleDismissOnEscape(event, closeTechStack)
+    if (event.key === 'Escape') {
+      closeTechStack()
+    }
   }
 
   function handleWindowKeydown(event: KeyboardEvent): void {
     if (event.key !== 'Escape') return
 
-    closeLightbox()
     closeTechStack()
-  }
-
-  function showPreviousLightboxImage(event: MouseEvent): void {
-    moveLightbox(event, -1)
-  }
-
-  function showNextLightboxImage(event: MouseEvent): void {
-    moveLightbox(event, 1)
   }
 </script>
 
@@ -318,54 +289,7 @@
 </section>
 
 <!-- lightbox -->
-{#if lightboxIdx !== null}
-  <div
-    transition:fade={{ duration: modalFadeMs }}
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md"
-    role="button"
-    tabindex="-1"
-    onclick={closeLightbox}
-    onkeydown={handleLightboxEscape}
-  >
-    <div
-      class="relative flex max-h-[92vh] max-w-[92vw] flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0a0a0a] shadow-2xl"
-      role="presentation"
-      onclick={stopEventPropagation}
-    >
-      <!-- chrome header -->
-      <div class="flex items-center justify-between border-b border-white/6 bg-black/40 px-4 py-2.5">
-        <span class="font-mono text-xs text-white/75">Luna · {lightboxIdx + 1} / {lunaPhotos.length}</span>
-        <button
-          class="font-mono text-xs text-white/75 transition-colors hover:text-white"
-          onclick={closeLightbox}
-        >[ x ]</button>
-      </div>
-
-      <!-- image -->
-      {#key lightboxIdx}
-        <img
-          in:fade={{ duration: imageSwapMs }}
-          src={lunaPhotos[lightboxIdx].full}
-          srcset={lunaPhotos[lightboxIdx].fullSrcset}
-          sizes="(max-width: 640px) 92vw, 800px"
-          alt={`Luna photo ${lightboxIdx + 1}`}
-          decoding="async"
-          class="block max-h-[80vh] max-w-[92vw] object-contain"
-        />
-      {/key}
-
-      <!-- prev / next -->
-      <button
-        class="absolute left-3 top-1/2 -translate-y-1/2 rounded border border-white/10 bg-black/60 px-2.5 py-1.5 font-mono text-xs text-white/50 backdrop-blur-sm transition-colors hover:text-white"
-        onclick={showPreviousLightboxImage}
-      >←</button>
-      <button
-        class="absolute right-3 top-1/2 -translate-y-1/2 rounded border border-white/10 bg-black/60 px-2.5 py-1.5 font-mono text-xs text-white/50 backdrop-blur-sm transition-colors hover:text-white"
-        onclick={showNextLightboxImage}
-      >→</button>
-    </div>
-  </div>
-{/if}
+<Lightbox photos={lunaPhotos} label="Luna" bind:index={lightboxIdx} />
 
 <!-- tech stack modal -->
 {#if techStackOpen}

@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { experience } from '../data/experience'
+  import { experience, type ExperienceItem } from '../data/experience'
   import CompanyPopover from './CompanyPopover.svelte'
+  import Lightbox, { type LightboxPhoto } from './Lightbox.svelte'
   import { reveal } from '../actions/reveal'
 
   const fullTime  = experience.filter(j => j.type === 'full-time')
@@ -9,6 +10,13 @@
   let openPopover = $state<string | null>(null)
   let closeTimer: ReturnType<typeof setTimeout> | null = null
 
+  let screenshotJob = $state<ExperienceItem | null>(null)
+  let screenshotIdx = $state<number | null>(null)
+
+  const screenshotPhotos = $derived<LightboxPhoto[]>(
+    screenshotJob?.screenshots?.map(shot => ({ full: shot.src, label: shot.label })) ?? []
+  )
+
   function openPop(key: string) {
     if (closeTimer) clearTimeout(closeTimer)
     openPopover = key
@@ -16,6 +24,11 @@
 
   function closePop() {
     closeTimer = setTimeout(() => openPopover = null, 150)
+  }
+
+  function openScreenshot(job: ExperienceItem, index: number) {
+    screenshotJob = job
+    screenshotIdx = index
   }
 </script>
 
@@ -82,6 +95,20 @@
                     {/each}
                   </div>
                 {/if}
+
+                <!-- screenshots -->
+                {#if job.screenshots?.length}
+                  <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                    <span class="font-mono text-xs text-white/75">SCREENSHOTS:</span>
+                    {#each job.screenshots as shot, shotIndex}
+                      <button
+                        class="cursor-pointer font-mono text-xs text-white/60 transition-colors hover:text-white"
+                        aria-label={`Open screenshot: ${shot.label}`}
+                        onclick={() => openScreenshot(job, shotIndex)}
+                      >{shot.label}</button>
+                    {/each}
+                  </div>
+                {/if}
               </li>
             {/each}
           </ol>
@@ -137,6 +164,20 @@
                     {/each}
                   </div>
                 {/if}
+
+                <!-- screenshots -->
+                {#if job.screenshots?.length}
+                  <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                    <span class="font-mono text-xs text-white/75">SCREENSHOTS:</span>
+                    {#each job.screenshots as shot, shotIndex}
+                      <button
+                        class="cursor-pointer font-mono text-xs text-white/60 transition-colors hover:text-white"
+                        aria-label={`Open screenshot: ${shot.label}`}
+                        onclick={() => openScreenshot(job, shotIndex)}
+                      >{shot.label}</button>
+                    {/each}
+                  </div>
+                {/if}
               </li>
             {/each}
           </ol>
@@ -146,6 +187,13 @@
     </div>
   </div>
 </section>
+
+<!-- screenshot lightbox -->
+<Lightbox
+  photos={screenshotPhotos}
+  label={screenshotJob?.company ?? ''}
+  bind:index={screenshotIdx}
+/>
 
 <style>
   .timeline::before {
