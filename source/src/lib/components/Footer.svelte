@@ -76,17 +76,26 @@
       </span>
 
       <!-- desktop: commit hash -->
-      <a
-        href="https://github.com/zsoltfrks/zsoltfrks.xyz/commit/{commit}"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hidden items-center gap-1.5 text-white/60 transition-colors hover:text-white sm:flex"
-      >
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0m3-9v6m0 6v6"/>
-        </svg>
-        {commit ?? '—'}
-      </a>
+      {#if commit}
+        <a
+          href="https://github.com/zsoltfrks/zsoltfrks.xyz/commit/{commit}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden items-center gap-1.5 text-white/60 transition-colors hover:text-white sm:flex"
+        >
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0m3-9v6m0 6v6"/>
+          </svg>
+          {commit}
+        </a>
+      {:else}
+        <span class="hidden items-center gap-1.5 text-white/60 sm:flex">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0m3-9v6m0 6v6"/>
+          </svg>
+          —
+        </span>
+      {/if}
       <span class="hidden text-white/40 sm:block" aria-hidden="true">·</span>
 
       <!-- views (always shown) -->

@@ -73,22 +73,24 @@
 
   onMount(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const typingTimerIds: number[] = []
 
     if (prefersReduced) {
       typed = ROLE
       typingDone = true
     } else {
       ROLE.split('').forEach((char, i) => {
-        setTimeout(() => {
+        typingTimerIds.push(window.setTimeout(() => {
           typed += char
           if (i === ROLE.length - 1) typingDone = true
-        }, typingStartDelayMs + i * 65)
+        }, typingStartDelayMs + i * 65))
       })
 
       scheduleNextGlitch(LOCATION_DWELL_MS[locationIdx])
     }
 
     return () => {
+      typingTimerIds.forEach((id) => clearTimeout(id))
       if (locationTimerId) clearTimeout(locationTimerId)
       if (glitchIntervalId) clearInterval(glitchIntervalId)
     }

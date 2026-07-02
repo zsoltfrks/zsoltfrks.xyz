@@ -25,6 +25,8 @@
         class="cursor-pointer text-white/65 transition-colors hover:text-white/80"
         onmouseenter={openCompanyPopover}
         onmouseleave={onclose}
+        onfocus={openCompanyPopover}
+        onblur={onclose}
       >
         {job.company}
       </button>

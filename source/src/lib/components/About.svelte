@@ -425,11 +425,4 @@
     background-size: 200% 100%;
     animation: shimmer 1.8s ease-in-out infinite;
   }
-  
-  /* decrease font size on mobile view */
-  @media (max-width: 640px) {
-    .about-content {
-      font-size: 0.175rem; /* 14px */
-    }
-  }
 </style>

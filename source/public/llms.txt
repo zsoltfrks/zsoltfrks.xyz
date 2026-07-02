@@ -1,0 +1,20 @@
+# Zsolt Farkas — zsoltfrks.xyz
+
+> Personal website and portfolio of Zsolt Farkas, a software engineer and Computer Science BSc student based in Szeged, Hungary. Focused on backend technologies, systems design, and addon development.
+
+## Pages
+
+- [Home](https://zsoltfrks.xyz/): Introduction, projects, work experience, studies, and contact details
+- [About](https://zsoltfrks.xyz/about): Longer bio, full tech stack, and photos of Luna the dog
+
+## Projects
+
+- [User Control Panel](https://github.com/zsoltfrks/user-control-panel): Full-stack user management dashboard with authentication and role-based access control (Spring Boot, React, PostgreSQL)
+- [Healer Mana](https://github.com/zsoltfrks/healer-mana): Customizable World of Warcraft addon that displays healer mana (Lua)
+- [DOCX to PDF Merger](https://github.com/zsoltfrks/batch-docx-to-pdf-merger): Automation script that batch-converts DOCX to PDF with page numbering and TOC (Python)
+
+## Contact
+
+- [Email](mailto:hello@zsoltfrks.xyz): hello@zsoltfrks.xyz
+- [GitHub](https://github.com/zsoltfrks): github.com/zsoltfrks
+- [LinkedIn](https://linkedin.com/in/zsoltfrks): linkedin.com/in/zsoltfrks

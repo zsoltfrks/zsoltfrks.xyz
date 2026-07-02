@@ -134,6 +134,7 @@
         class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
         onclick={toggleMenu}
         aria-label="Toggle menu"
+        aria-expanded={menuOpen}
       >
         <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? 'rotate-45 translate-y-1.75' : ''}"></span>
         <span class="block h-px w-5 bg-white/50 transition-all {menuOpen ? 'opacity-0' : ''}"></span>
