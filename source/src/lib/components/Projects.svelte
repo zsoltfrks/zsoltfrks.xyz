@@ -33,6 +33,15 @@
     data: RecentCommit[]
   }
 
+  type RepoResponse = {
+    stargazers_count?: number
+  }
+
+  type CachedStars = {
+    ts: number
+    data: Record<string, number>
+  }
+
   const GITHUB_USER = 'zsoltfrks'
 
   let recentCommits = $state<RecentCommit[]>([])
@@ -41,8 +50,15 @@
   let commitsPanelEl = $state<HTMLDivElement | null>(null)
   let commitsRequested = false
 
+  let repoStars = $state<Record<string, number>>({})
+  let cardsGridEl = $state<HTMLDivElement | null>(null)
+  let starsRequested = false
+
   const CACHE_KEY = 'gh-recent-commits'
   const CACHE_TTL = 5 * 60 * 1000 // 5 minutes
+
+  const STARS_CACHE_KEY = 'gh-repo-stars'
+  const STARS_CACHE_TTL = 60 * 60 * 1000 // 1 hour
 
   const gh = (path: string) => fetch(`/api/github?path=${encodeURIComponent(path)}`)
 
@@ -73,6 +89,64 @@
 
     const handle = window.setTimeout(task, timeout)
     return () => window.clearTimeout(handle)
+  }
+
+  function getRepoName(githubUrl: string | undefined): string | null {
+    if (!githubUrl) return null
+
+    return githubUrl.split('/').filter(Boolean).pop() ?? null
+  }
+
+  function getStarCount(githubUrl: string | undefined): number | null {
+    const repo = getRepoName(githubUrl)
+    if (!repo) return null
+
+    const count = repoStars[repo]
+    return typeof count === 'number' && count > 0 ? count : null
+  }
+
+  async function loadRepoStars(): Promise<void> {
+    if (starsRequested) return
+    starsRequested = true
+
+    // Show cached counts instantly on repeat visits
+    try {
+      const raw = localStorage.getItem(STARS_CACHE_KEY)
+      if (raw) {
+        const { ts, data } = JSON.parse(raw) as CachedStars
+        repoStars = data
+        if (Date.now() - ts < STARS_CACHE_TTL) return
+      }
+    } catch {}
+
+    const repos = projects
+      .map(project => getRepoName(project.github))
+      .filter((repo): repo is string => repo !== null)
+
+    const entries = await Promise.all(
+      repos.map(async (repo): Promise<[string, number] | null> => {
+        try {
+          const res = await gh(`/repos/${GITHUB_USER}/${repo}`)
+          if (!res.ok) return null
+          const data = await res.json() as RepoResponse
+          return typeof data.stargazers_count === 'number' ? [repo, data.stargazers_count] : null
+        } catch {
+          return null
+        }
+      })
+    )
+
+    const fresh: Record<string, number> = {}
+    for (const entry of entries) {
+      if (entry) fresh[entry[0]] = entry[1]
+    }
+
+    if (Object.keys(fresh).length > 0) {
+      repoStars = fresh
+      try {
+        localStorage.setItem(STARS_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: fresh }))
+      } catch {}
+    }
   }
 
   async function loadRecentCommits(): Promise<void> {
@@ -130,6 +204,28 @@
   }
 
   onMount(() => {
+    const grid = cardsGridEl
+    if (!grid) return
+
+    let cancelScheduledLoad = () => {}
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) return
+
+      observer.disconnect()
+      cancelScheduledLoad = scheduleLowPriorityTask(() => {
+        void loadRepoStars()
+      })
+    }, { rootMargin: '240px 0px' })
+
+    observer.observe(grid)
+
+    return () => {
+      observer.disconnect()
+      cancelScheduledLoad()
+    }
+  })
+
+  onMount(() => {
     const panel = commitsPanelEl
     if (!panel) return
 
@@ -161,8 +257,9 @@
     </div>
 
     <!-- cards grid -->
-    <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div bind:this={cardsGridEl} class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {#each projects as project, index}
+        {@const starCount = getStarCount(project.github)}
         <svelte:element
           this={project.github ? 'a' : 'article'}
           href={project.github || undefined}
@@ -174,10 +271,21 @@
         >
 
           <!-- window chrome -->
-          <div class="flex items-center border-b border-white/10 bg-[#0d0d0d] px-4 py-3">
+          <div class="flex items-center justify-between border-b border-white/10 bg-[#0d0d0d] px-4 py-3">
             <p class="font-mono text-xs text-white/75">
               {project.github ? '[ open source ]' : '[ closed source ]'}
             </p>
+            {#if starCount !== null}
+              <span
+                class="flex items-center gap-1.5 font-mono text-xs text-white/60"
+                aria-label="{starCount} GitHub star{starCount === 1 ? '' : 's'}"
+              >
+                {starCount}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              </span>
+            {/if}
           </div>
 
           <!-- card body -->

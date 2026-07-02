@@ -125,9 +125,9 @@
 
       <!-- bio TODO: test different font sizes for better readability -->
       <p class="mb-8 text-sm leading-relaxed text-white/75">
-        Computer Science BSc student passionate about <span class="text-white/97">full-stack development</span>, with a strong interest in <span class="text-white/97">backend technologies</span> and <span class="text-white/97">scalable system architecture</span>.
+        Computer Science BSc student passionate about <span class="text-white/97">full-stack development</span>, with an interest in <span class="text-white/97">scalable system architecture</span>.
       </p>
-
+      
       <!-- tagline -->
       <p class="mb-8 text-sm text-white/75 italic">Always learning, always tinkering.</p>
 

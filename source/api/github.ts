@@ -15,14 +15,15 @@ const ALLOWED_USER = "zsoltfrks";
 
 // Only the endpoints the site actually uses may pass through the proxy,
 // otherwise the token could be abused for arbitrary GitHub API calls.
-const REPO_COMMITS_PATTERN = new RegExp(
-  `^/repos/${ALLOWED_USER}/[A-Za-z0-9._-]+/commits(/[0-9a-f]{7,40})?$`,
+// Allows repo metadata (star counts) and commit listings/details.
+const REPO_PATTERN = new RegExp(
+  `^/repos/${ALLOWED_USER}/[A-Za-z0-9._-]+(/commits(/[0-9a-f]{7,40})?)?$`,
 );
 
 function isAllowedRequest(url: URL): boolean {
   if (url.origin !== GITHUB_API_ORIGIN) return false;
 
-  if (REPO_COMMITS_PATTERN.test(url.pathname)) return true;
+  if (REPO_PATTERN.test(url.pathname)) return true;
 
   if (url.pathname === "/search/commits") {
     const query = url.searchParams.get("q") ?? "";
@@ -57,14 +58,16 @@ export default async function handler(
     return;
   }
 
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+  if (process.env.GITHUB_TOKEN) {
+    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  }
+
   try {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    });
+    const response = await fetch(url, { headers });
 
     const data: unknown = await response.json();
 

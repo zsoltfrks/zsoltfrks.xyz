@@ -1,7 +1,5 @@
 export type ProjectItem = {
   title: string;
-  repo: string;
-  tagline: string;
   description: string;
   tags: string[];
   github?: string;
@@ -10,29 +8,22 @@ export type ProjectItem = {
 
 export const projects: ProjectItem[] = [
   {
-    title: "User Control Panel",
-    repo: "user-control-panel",
-    tagline: "A one-liner about what this does.",
+    title: "zsoltfrks.xyz",
     description:
-      "A full-stack user management dashboard with authentication, role-based access control, and admin features. Study project for Spring Boot.",
-    tags: ["Spring Boot", "React", "PostgreSQL"],
-    github: "https://github.com/zsoltfrks/user-control-panel",
+      "This website you are currently on, built with an emphasis on performance for the love of the game.",
+    tags: ["Svelte", "TypeScript", "Tailwind CSS"],
+    github: "https://github.com/zsoltfrks/zsoltfrks.xyz",
     live: "",
   },
   {
-    title: "Healer Mana",
-    repo: "healer-mana",
-    tagline: "Short context about this one.",
+    title: "Gambit",
     description:
-      "A customizable addon for World of Warcraft to display healer mana, name and icon to the player. ",
-    tags: ["Lua", "WoWAPI", "Quality of Life"],
-    github: "https://github.com/zsoltfrks/healer-mana",
+      "A custom roleplay server built on FiveM, featuring a custom framework and optimized onesync mechanics.",
+    tags: ["Lua", "CEF", "MySQL", "Docker", "Jira"],
     live: "",
   },
   {
     title: "DOCX to PDF Merger",
-    repo: "batch-docx-to-pdf-merger",
-    tagline: "What makes this project interesting.",
     description:
       "An automation script that batch-converts DOCX files to PDF, adds continuous page numbering and TOC.",
     tags: ["Python", "ReportLab", "Automation"],
