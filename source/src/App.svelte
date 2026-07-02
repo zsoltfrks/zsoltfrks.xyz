@@ -2,6 +2,7 @@
   import { onMount, tick } from 'svelte'
   import { fade, fly } from 'svelte/transition'
   import Navbar from './lib/components/Navbar.svelte'
+  import Hero from './lib/components/Hero.svelte'
 
   const ABOUT_PATH = '/about'
   const HOME_PATH = '/'
@@ -23,7 +24,6 @@
   const loadMatrixBackground = () => import('./lib/components/MatrixBackground.svelte')
   const loadFooter = () => import('./lib/components/Footer.svelte')
   const loadAbout = () => import('./lib/components/About.svelte')
-  const loadHero = () => import('./lib/components/Hero.svelte')
   const loadProjects = () => import('./lib/components/Projects.svelte')
   const loadExperience = () => import('./lib/components/Experience.svelte')
   const loadStudies = () => import('./lib/components/Studies.svelte')
@@ -36,7 +36,6 @@
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   let aboutP: ReturnType<typeof loadAbout> | undefined
-  let heroP = $state(startsOnAboutPage ? null : loadHero())
   let projectsP = $state(startsOnAboutPage ? null : loadProjects())
   let experienceP = $state(startsOnAboutPage ? null : loadExperience())
   let studiesP = $state(startsOnAboutPage ? null : loadStudies())
@@ -107,7 +106,6 @@
   }
 
   function preloadHome() {
-    heroP ??= loadHero()
     projectsP ??= loadProjects()
     experienceP ??= loadExperience()
     studiesP ??= loadStudies()
@@ -261,7 +259,7 @@
 
 <Navbar {currentPath} onPreloadAbout={preloadAbout} />
 
-<main>
+<main class="min-h-screen">
   {#if routeVisible}
     <div out:fade|global={{ duration: routeFadeMs }}>
       {#if isAboutPage}
@@ -270,11 +268,7 @@
         {/await}
       {:else}
         <div in:fly|global={{ y: prefersReducedMotion ? 0 : 8, duration: routeFadeMs, opacity: 0 }}>
-          {#if heroP}
-            {#await heroP then { default: Hero }}
-              <Hero bind:animating typingStartDelayMs={heroTypingDelayMs} />
-            {/await}
-          {/if}
+          <Hero bind:animating typingStartDelayMs={heroTypingDelayMs} />
           {#if projectsP}
             {#await projectsP then { default: Projects }}
               <Projects />
