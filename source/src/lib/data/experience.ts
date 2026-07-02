@@ -54,7 +54,8 @@ export const experience: ExperienceItem[] = [
       "Project Management",
     ],
     screenshots: [
-      { src: "/images/gambit-1.webp", label: "character: clothing selection" },
+      { src: "/images/gambit-1.webp", label: "character customization, " },
+      { src: "/images/gambit-2.webp", label: "clothing selection" },
     ],
   },
 ];
