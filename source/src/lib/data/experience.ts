@@ -33,7 +33,7 @@ export const experience: ExperienceItem[] = [
     skills: ["Teamwork", "Workflow Optimization", "System Integration"],
   },
   {
-    company: "Gambit (www.gambit-roleplay.com)",
+    company: "Gambit",
     role: "Founder / Software Engineer",
     period: "2026 - Present",
     location: "Remote",
