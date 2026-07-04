@@ -35,7 +35,7 @@ export const experience: ExperienceItem[] = [
   {
     company: "Gambit",
     role: "Founder / Software Engineer",
-    period: "2026 - Present",
+    period: "2025 - Present",
     location: "Remote",
     website: "https://www.gambit-roleplay.com",
     about:
@@ -54,7 +54,7 @@ export const experience: ExperienceItem[] = [
       "Project Management",
     ],
     screenshots: [
-      { src: "/images/gambit-1.webp", label: "character customization, " },
+      { src: "/images/gambit-1.webp", label: "character customization" },
       { src: "/images/gambit-2.webp", label: "clothing selection" },
     ],
   },

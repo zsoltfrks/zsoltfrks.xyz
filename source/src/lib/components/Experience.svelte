@@ -81,7 +81,7 @@
                   <div class="mb-2 flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/75">TECH:</span>
                     {#each job.tech as tag}
-                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/75">{tag}</span>
+                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/80">{tag}</span>
                     {/each}
                   </div>
                 {/if}
@@ -91,7 +91,7 @@
                   <div class="flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/75">SKILLS:</span>
                     {#each job.skills as skill}
-                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/75">{skill}</span>
+                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/80">{skill}</span>
                     {/each}
                   </div>
                 {/if}
@@ -151,7 +151,7 @@
                   <div class="mb-2 flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/75">TECH:</span>
                     {#each job.tech as tag}
-                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/75">{tag}</span>
+                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/80">{tag}</span>
                     {/each}
                   </div>
                 {/if}
@@ -160,7 +160,7 @@
                   <div class="flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/75">SKILLS:</span>
                     {#each job.skills as skill}
-                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/75">{skill}</span>
+                      <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/80">{skill}</span>
                     {/each}
                   </div>
                 {/if}
@@ -171,7 +171,7 @@
                     <span class="font-mono text-xs text-white/75">SCREENSHOTS:</span>
                     {#each job.screenshots as shot, shotIndex}
                       <button
-                        class="cursor-pointer font-mono text-xs text-white/60 transition-colors hover:text-white"
+                        class="cursor-pointer font-mono text-xs text-white/80 transition-colors hover:text-white"
                         aria-label={`Open screenshot: ${shot.label}`}
                         onclick={() => openScreenshot(job, shotIndex)}
                       >{shot.label}</button>
