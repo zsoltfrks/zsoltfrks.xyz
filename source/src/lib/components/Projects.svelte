@@ -102,7 +102,7 @@
     if (!repo) return null
 
     const count = repoStars[repo]
-    return typeof count === 'number' && count > 0 ? count : null
+    return typeof count === 'number' && count >= 5 ? count : null
   }
 
   async function loadRepoStars(): Promise<void> {
