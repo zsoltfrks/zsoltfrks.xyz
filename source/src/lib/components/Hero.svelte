@@ -4,7 +4,7 @@
   let { animating = $bindable(false), typingStartDelayMs = 400 }: { animating?: boolean; typingStartDelayMs?: number } = $props()
 
   // --- typing animation ---
-  const ROLE = 'Software Engineer'
+  const ROLE = 'Full-Stack Software Engineer'
   let typed = $state('')
   let typingDone = $state(false)
 
@@ -125,7 +125,8 @@
 
       <!-- bio TODO: test different font sizes for better readability -->
       <p class="mb-8 text-sm leading-relaxed text-white/75">
-        Computer Science BSc student passionate about <span class="text-white/97">full-stack development</span>, with an interest in <span class="text-white/97">scalable system architecture</span>.
+        Computer Science BSc student passionate about <span class="text-white/97">full-stack development</span>, with an interest in 
+        <span class="text-white/97">video game development</span>.
       </p>
       
       <!-- tagline -->
