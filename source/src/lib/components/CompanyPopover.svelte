@@ -22,7 +22,7 @@
   {#if job.about}
     <div class="relative">
       <button
-        class="cursor-pointer text-white/65 transition-colors hover:text-white/80"
+        class="company-btn cursor-pointer text-white/65 transition-colors hover:text-white/80"
         onmouseenter={openCompanyPopover}
         onmouseleave={onclose}
         onfocus={openCompanyPopover}
@@ -40,6 +40,14 @@
       >
         <!-- chrome header -->
         <div class="flex items-center gap-3 border-b border-white/6 bg-black/30 px-4 py-3">
+          <!-- logo or initials -->
+          {#if job.logo}
+            <img src={job.logo} alt="{job.company} logo" class="h-9 w-9 shrink-0 rounded object-contain" />
+          {:else}
+            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-white/10 bg-white/5 font-mono text-xs font-bold text-white/50" aria-hidden="true">
+              {job.company.slice(0, 2).toUpperCase()}
+            </div>
+          {/if}
           <div class="min-w-0">
             <p class="truncate text-sm font-bold text-white/85">{job.company}</p>
             <p class="truncate font-mono text-xs text-white/70">{job.role}</p>
@@ -67,3 +75,17 @@
   {/if}
   {#if job.location}<span class="shrink-0 font-mono text-xs text-white/75">{job.location}</span>{/if}
 </div>
+
+<style>
+  .company-btn {
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.22);
+    padding-bottom: 1px;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .company-btn:hover {
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+</style>

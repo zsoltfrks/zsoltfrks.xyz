@@ -165,7 +165,7 @@
                   </div>
                 {/if}
 
-                <!-- screenshots -->
+                <!-- screenshots 
                 {#if job.screenshots?.length}
                   <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5">
                     <span class="font-mono text-xs text-white/75">SCREENSHOTS:</span>
@@ -177,7 +177,7 @@
                       >{shot.label}</button>
                     {/each}
                   </div>
-                {/if}
+                {/if}-->
               </li>
             {/each}
           </ol>

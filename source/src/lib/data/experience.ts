@@ -5,11 +5,11 @@ export type ExperienceItem = {
   location?: string;
   website?: string;
   about?: string;
+  logo?: string;
   type: "full-time" | "projects";
   bullets: string[];
   tech: string[];
   skills: string[];
-  /** Image paths under public/ with the link text shown in the SCREENSHOTS row. */
   screenshots?: { src: string; label: string }[];
 };
 
@@ -17,11 +17,12 @@ export const experience: ExperienceItem[] = [
   {
     company: "KÉSZ Consulting Kft.",
     role: "Software Engineer Internship",
+    logo: "/images/kesz-logo.webp",
     period: "Oct 2025 – Dec 2025",
-    location: "Kecskemét, Hungary",
+    location: "On-site",
     website: "https://kesz.hu",
     about:
-      "Part of KÉSZ Group, one of Hungary’s largest construction and engineering companies.\n\n During my BSc studies, I completed an internship focused on developing internal automation tools to optimize operational workflows, while also gaining hands-on experience across various IT departments.",
+      "As part of KÉSZ Group, one of Hungary’s largest construction and engineering companies, I completed an internship during my BSc studies focused on developing internal automation tools to optimize operational workflows. I also gained hands-on experience across various IT departments. \n\n Many thanks to everyone I had the opportunity to work with during this internship!",
     type: "full-time",
     bullets: [
       "Developed Python-based automation tools to streamline internal operational workflows.",
@@ -34,12 +35,13 @@ export const experience: ExperienceItem[] = [
   },
   {
     company: "Gambit",
-    role: "Founder / Software Engineer",
-    period: "2025 - Present",
+    role: "Software Engineer / Project Lead",
+    logo: "/images/gambit-logo.webp",
+    period: "2023 - 2026",
     location: "Remote",
-    website: "https://www.gambit-roleplay.com",
+    website: "",
     about:
-      "A custom Grand Theft Auto V multiplayer roleplay server built on the FiveM platform. \n\n This project focuses on delivering a highly immersive, realistic simulation experience. It features deeply integrated custom frameworks, optimized sync mechanics, and custom UI/UX elements designed to handle a scaling community dynamic. \n\nOriginally conceptualized on the MTA platform during the pandemic.",
+      "A custom Grand Theft Auto: San Andreas multiplayer roleplay server built on the Multi Theft Auto platform, this project emphasized a highly immersive simulation experience. \n\nIt featured a custom scripting framework, optimized synchronization mechanics, and unique UI/UX elements enhanced with HLSL-powered shaders. \n\nThe project was discontinued due to a declining player base on the MTA:SA platform and other strategic factors.",
     type: "projects",
     bullets: [
       "Founded and led the development of a multiplayer server with a dedicated team.",
@@ -47,15 +49,18 @@ export const experience: ExperienceItem[] = [
       "Designed and implemented key platform components, including networking and rendering integrations.",
       "Managed roadmaps, feature development, and tracking of project milestones.",
     ],
-    tech: ["Lua", "MySQL", "Chromium Embedded Framework", "Docker", "Jira"],
+    tech: [
+      "Lua",
+      "MySQL",
+      "High-Level Shading Language",
+      "Chromium Embedded Framework",
+      "Docker",
+      "Jira",
+    ],
     skills: [
       "Game Development",
       "Scalable System Architecture",
       "Project Management",
-    ],
-    screenshots: [
-      { src: "/images/gambit-1.webp", label: "character customization" },
-      { src: "/images/gambit-2.webp", label: "clothing selection" },
     ],
   },
 ];

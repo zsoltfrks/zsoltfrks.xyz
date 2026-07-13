@@ -18,8 +18,8 @@ export const projects: ProjectItem[] = [
   {
     title: "Gambit",
     description:
-      "A custom roleplay server built on FiveM, featuring a custom framework and optimized onesync mechanics.",
-    tags: ["Lua", "CEF", "MySQL", "Docker", "Jira"],
+      "A custom roleplay server built on Multi Theft Auto, featuring a custom scripting framework and optimized synchronization mechanics.",
+    tags: ["Lua", "CEF", "HLSL", "MySQL", "Docker"],
     live: "",
   },
   {
