@@ -16,10 +16,11 @@ export const projects: ProjectItem[] = [
     live: "",
   },
   {
-    title: "Gambit",
+    title: "Link Checker N8N",
     description:
-      "A custom roleplay server built on Multi Theft Auto, featuring a custom scripting framework and optimized synchronization mechanics.",
-    tags: ["Lua", "CEF", "HLSL", "MySQL", "Docker"],
+      "An N8N workflow that checks the validity of links and reports broken ones.",
+    tags: ["N8N", "Python", "Docker", "Automation"],
+    github: "https://github.com/zsoltfrks/link-checker-n8n",
     live: "",
   },
   {

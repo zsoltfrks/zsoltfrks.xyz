@@ -33,6 +33,7 @@ export const experience: ExperienceItem[] = [
     tech: ["Python", "N8N", "Microsoft Azure", "Active Directory"],
     skills: ["Teamwork", "Workflow Optimization", "System Integration"],
   },
+  /** 
   {
     company: "Gambit",
     role: "Software Engineer / Project Lead",
@@ -63,4 +64,5 @@ export const experience: ExperienceItem[] = [
       "Project Management",
     ],
   },
+  */
 ];
