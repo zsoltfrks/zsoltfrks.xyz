@@ -4,7 +4,7 @@
   let { animating = $bindable(false), typingStartDelayMs = 400 }: { animating?: boolean; typingStartDelayMs?: number } = $props()
 
   // --- typing animation ---
-  const ROLE = 'Full-Stack Software Engineer'
+  const ROLE = 'Software Engineer'
   let typed = $state('')
   let typingDone = $state(false)
 
