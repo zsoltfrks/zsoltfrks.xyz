@@ -16,9 +16,9 @@ export const projects: ProjectItem[] = [
     live: "",
   },
   {
-    title: "Link Checker N8N",
+    title: "Link Health Checker",
     description:
-      "An N8N workflow that checks the validity of links and reports broken ones.",
+      "An N8N workflow that checks the validity of links and reports broken ones. A Python script is also included.",
     tags: ["N8N", "Python", "Docker", "Automation"],
     github: "https://github.com/zsoltfrks/link-checker-n8n",
     live: "",
