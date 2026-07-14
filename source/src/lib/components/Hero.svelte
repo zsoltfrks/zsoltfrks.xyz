@@ -118,22 +118,22 @@
         </span>
       </h1>
 
-      <!-- role with typing animation -->
+      <!-- role with typing animation 
       <p class="mb-8 text-xl text-white/80">
         {typed}<span class={typingDone ? 'cursor-done' : 'cursor-blink'}>_</span>
-      </p>
+      </p>-->
 
       <!-- bio TODO: test different font sizes for better readability -->
-      <p class="mb-8 text-sm leading-relaxed text-white/75">
+      <p class="mb-8 mt-8 text-m leading-relaxed text-white/75">
         Computer Science BSc student passionate about <span class="text-white/97">full-stack development</span>, with an interest in 
-        <span class="text-white/97">video game development</span>.
+        <span class="text-white/97">artificial intelligence</span> and its fields. <span class="text-white/97">:)</span>
       </p>
       
       <!-- tagline -->
-      <p class="mb-8 text-sm text-white/75 italic">Always learning, always tinkering.</p>
+      <p class="mb-8 text-m text-white/75 italic">Always learning, always tinkering.</p>
 
       <!-- location glitch -->
-      <p class="mb-6 font-mono text-sm text-white/75">{locationDisplay}</p>
+      <p class="mb-8 font-mono text-m text-white/75">{locationDisplay}</p>
 
       <!-- TODO: Rework this so its not just a huge wall of text smh -->
       <!-- links row 
