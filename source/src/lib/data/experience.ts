@@ -30,7 +30,7 @@ export const experience: ExperienceItem[] = [
       "Increased reliability and efficiency by replacing repetitive tasks with custom scripts.",
       "Collaborated with IT team members to design and implement automation solutions.",
     ],
-    tech: ["Python", "N8N", "Microsoft Azure", "Active Directory"],
+    tech: ["Python", "n8n", "Microsoft Azure", "Active Directory"],
     skills: ["Teamwork", "Workflow Optimization", "System Integration"],
   },
   /** 

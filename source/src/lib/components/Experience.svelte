@@ -86,7 +86,7 @@
                   </div>
                 {/if}
 
-                <!-- skills tags -->
+                <!-- skills tags
                 {#if job.skills?.length}
                   <div class="flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/75">SKILLS:</span>
@@ -94,7 +94,7 @@
                       <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/80">{skill}</span>
                     {/each}
                   </div>
-                {/if}
+                {/if}-->
 
                 <!-- screenshots -->
                 {#if job.screenshots?.length}
@@ -156,6 +156,7 @@
                   </div>
                 {/if}
 
+                <!--
                 {#if job.skills?.length}
                   <div class="flex flex-wrap items-center gap-1.5">
                     <span class="font-mono text-xs text-white/75">SKILLS:</span>
@@ -163,7 +164,7 @@
                       <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/80">{skill}</span>
                     {/each}
                   </div>
-                {/if}
+                {/if}-->
 
                 <!-- screenshots 
                 {#if job.screenshots?.length}
