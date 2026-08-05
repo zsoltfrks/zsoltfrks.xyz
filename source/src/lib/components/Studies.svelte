@@ -21,8 +21,8 @@
     </div>
 
     <div class="space-y-6">
-      <div class="space-y-3">
-        <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+      <div>
+        <div class="mb-1 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
           <h3 class="font-bold text-white/95">
             University of Szeged, <span class="text-white/95">Computer Science BSc</span>
           </h3>
@@ -33,18 +33,20 @@
         </div>
 
         <!-- thesis -->
-        <p class="text-sm leading-relaxed text-white/75">
-          <span class="font-mono text-xs text-white/75">THESIS:</span>
-          <span class="text-white/90">{thesis.title}</span>
-        </p>
+        <div class="mt-6">
+          <p class="text-sm leading-relaxed text-white/75">
+            <span class="font-mono text-xs text-white/75">THESIS:</span>
+            <span class="text-white/90">{thesis.title}</span>
+          </p>
 
-        <div class="flex flex-wrap items-center gap-1.5">
-          <span class="font-mono text-xs text-white/75">TECH:</span>
-          {#each thesis.tech as tech}
-            <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/75">
-              {tech}
-            </span>
-          {/each}
+          <div class="mt-2 flex flex-wrap items-center gap-1.5">
+            <span class="font-mono text-xs text-white/75">TECH:</span>
+            {#each thesis.tech as tech}
+              <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/75">
+                {tech}
+              </span>
+            {/each}
+          </div>
         </div>
       </div>
 
