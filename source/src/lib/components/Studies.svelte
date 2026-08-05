@@ -7,6 +7,11 @@
     'Computer Science',
     'Project Management'
   ]
+
+  const thesis = {
+    title: 'Automated maintenance of GitLab repositories based on size and activity',
+    tech: ['Python', 'Flask', 'FastAPI', 'REST API', 'Docker'],
+  }
 </script>
 
 <section id="studies" class="py-24">
@@ -23,8 +28,23 @@
           </h3>
 
           <span class="shrink-0 font-mono text-xs text-white/75">
-            Expected graduation: June, 2027
+            2022 - 2027
           </span>
+        </div>
+
+        <!-- thesis -->
+        <p class="text-sm leading-relaxed text-white/75">
+          <span class="font-mono text-xs text-white/75">THESIS:</span>
+          <span class="text-white/90">{thesis.title}</span>
+        </p>
+
+        <div class="flex flex-wrap items-center gap-1.5">
+          <span class="font-mono text-xs text-white/75">TECH:</span>
+          {#each thesis.tech as tech}
+            <span class="backdrop-blur-md rounded border border-white/8 bg-[#0d0d0d] px-2 py-0.5 font-mono text-xs text-white/75">
+              {tech}
+            </span>
+          {/each}
         </div>
       </div>
 
