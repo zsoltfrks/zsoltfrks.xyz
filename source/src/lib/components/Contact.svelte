@@ -87,7 +87,7 @@
         })
 
         const cartoKey = import.meta.env.VITE_CARTO_BASEMAP_KEY as string | undefined
-        const cartoTiles = `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png${cartoKey ? `?key=${cartoKey}` : ''}`
+        const cartoTiles = `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=cb1_3u3h_1_5ed9a1014625f73ae2e85fc9`
 
         const map = L.map(mapTarget, { zoomControl: false, attributionControl: false })
           .setView([46.253, 20.1414], 13)
